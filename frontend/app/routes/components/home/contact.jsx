@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { blsContent } from "./blsContent";
 
 const infoVariants = {
   hidden: { opacity: 0, x: -50 },
@@ -25,16 +26,36 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ success: null, message: "" });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const contactItems = [
+    {
+      icon: <FiMapPin />,
+      title: "Direccion",
+      text: blsContent.contact.address,
+    },
+    {
+      icon: <FiPhone />,
+      title: "Telefono",
+      text: blsContent.contact.phone,
+      href: `tel:${blsContent.contact.phone.replace(/\s+/g, "")}`,
+    },
+    {
+      icon: <FiMail />,
+      title: "Correo electronico",
+      text: blsContent.contact.email,
+      href: `mailto:${blsContent.contact.email}`,
+    },
+  ];
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus({ success: null, message: "" });
 
@@ -82,63 +103,76 @@ const ContactSection = () => {
     >
       <div className="section-shell">
         <motion.div
-          className="glass-panel mx-auto grid max-w-6xl gap-6 p-5 md:grid-cols-[minmax(280px,0.82fr)_minmax(0,1.18fr)] md:p-6 lg:gap-8"
+          className="glass-panel mx-auto grid w-full max-w-6xl gap-6 p-4 sm:p-5 md:grid-cols-2 md:p-6 lg:gap-8"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="rounded-[2rem] bg-[#132633] p-7 text-white md:p-8">
+          <div className="min-w-0 rounded-[2rem] bg-[#132633] p-6 text-white sm:p-7 md:p-8">
             <div className="mb-8 space-y-4">
               <div className="section-label border-white/15 bg-white/8 text-white">
-                Contactanos
+                Evaluacion estrategica
               </div>
-              <h2 className="text-4xl font-extrabold leading-[1] tracking-[-0.04em]">
-                Hablemos de tu siguiente movimiento logistico
+              <h2 className="text-3xl font-extrabold leading-[1] tracking-[-0.04em] sm:text-4xl">
+                Revisemos tu ruta Mexico-USA
               </h2>
+              <p className="text-base leading-8 text-white/72">
+                {blsContent.nextStep.action} {blsContent.nextStep.conditions}
+              </p>
             </div>
 
-            <div className="space-y-6">
-              {[
-                {
-                  icon: <FiMapPin />,
-                  title: "Direccion",
-                  text: "Bosque de Cafetos 14, Bosques de las Lomas, Miguel Hidalgo, Ciudad de Mexico, Mexico",
-                },
-                { icon: <FiPhone />, title: "Telefono", text: "+52 55 1486 8313" },
-                {
-                  icon: <FiMail />,
-                  title: "Correo electronico",
-                  text: "operations@blsolutions.com.mx",
-                },
-              ].map((item, idx) => (
+            <div className="mb-6 space-y-3">
+              {blsContent.nextStep.benefits.map((benefit, index) => (
                 <motion.div
-                  key={item.title}
-                  className="flex items-start space-x-4 rounded-[1.4rem] border border-white/10 bg-white/6 p-4"
-                  custom={idx}
+                  key={benefit}
+                  className="rounded-[1.2rem] border border-white/10 bg-white/6 px-4 py-3 text-sm font-medium text-white/86"
+                  custom={index}
                   variants={infoVariants}
                 >
-                  <div className="mt-1 text-2xl text-[#9bc5dd]">{item.icon}</div>
-                  <div>
-                    <h3 className="text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-1 text-white/72">{item.text}</p>
-                  </div>
+                  {benefit}
                 </motion.div>
               ))}
             </div>
+
+            <div className="space-y-6">
+              {contactItems.map((item, index) => {
+                const Wrapper = item.href ? motion.a : motion.div;
+
+                return (
+                  <Wrapper
+                    key={item.title}
+                    {...(item.href ? { href: item.href } : {})}
+                    className="flex min-w-0 items-start space-x-4 rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition-colors hover:bg-white/10"
+                    custom={index}
+                    variants={infoVariants}
+                  >
+                    <div className="mt-1 text-2xl text-[#9bc5dd]">{item.icon}</div>
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-semibold">{item.title}</h3>
+                      <p className="mt-1 break-words text-white/72">{item.text}</p>
+                    </div>
+                  </Wrapper>
+                );
+              })}
+            </div>
           </div>
 
-          <motion.div className="rounded-[2rem] bg-white p-6 md:p-8" variants={formVariants}>
+          <motion.div className="min-w-0 rounded-[2rem] bg-white p-5 sm:p-6 md:p-8" variants={formVariants}>
             <div className="mb-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#346079]">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
                 Formulario
               </p>
-              <p className="mt-3 text-2xl font-semibold text-[#1f3644]">
+              <p className="mt-3 text-2xl font-semibold text-[#202F4C]">
                 Cuentanos sobre tu operacion
+              </p>
+              <p className="mt-3 text-sm leading-7 text-[#5E6878]">
+                Comparte origen, destino, tipo de carga o problema actual. Revisamos riesgos,
+                fugas de costo y mejoras operativas.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-gray-900">
+            <form onSubmit={handleSubmit} className="min-w-0 space-y-4 text-gray-900">
               <div>
                 <label htmlFor="name" className="mb-2 block font-medium">
                   Nombre
@@ -147,11 +181,11 @@ const ContactSection = () => {
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="Tu nombre"
+                  placeholder="Nombre y empresa"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 focus:outline-none focus:ring-2 focus:ring-[#346079]"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 focus:outline-none focus:ring-2 focus:ring-[#015095]"
                 />
               </div>
               <div>
@@ -162,11 +196,11 @@ const ContactSection = () => {
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="Tu email"
+                  placeholder="correo@empresa.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 focus:outline-none focus:ring-2 focus:ring-[#346079]"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 focus:outline-none focus:ring-2 focus:ring-[#015095]"
                 />
               </div>
               <div>
@@ -177,11 +211,11 @@ const ContactSection = () => {
                   id="message"
                   name="message"
                   rows="5"
-                  placeholder="Escribe tu mensaje"
+                  placeholder="Ejemplo: ruta, volumen, frecuencia, tipo de carga y principal reto."
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="min-h-36 w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 focus:outline-none focus:ring-2 focus:ring-[#346079]"
+                  className="min-h-36 w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 focus:outline-none focus:ring-2 focus:ring-[#015095]"
                 />
               </div>
               {submitStatus.message && (
@@ -198,7 +232,7 @@ const ContactSection = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-full bg-[#1f3644] px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#346079] disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-full bg-[#202F4C] px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#015095] disabled:cursor-not-allowed disabled:opacity-50"
                 whileHover={isSubmitting ? {} : { scale: 1.03 }}
                 whileTap={isSubmitting ? {} : { scale: 0.97 }}
               >

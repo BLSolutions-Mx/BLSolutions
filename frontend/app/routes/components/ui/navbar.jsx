@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
 
@@ -6,6 +6,7 @@ const navItems = [
   { text: "Inicio", href: "#hero" },
   { text: "Nosotros", href: "#about" },
   { text: "Servicios", href: "#services" },
+  { text: "Metodo", href: "#approach" },
   { text: "Cobertura", href: "#coverage" },
   { text: "Contacto", href: "#contact" },
 ];
@@ -23,13 +24,36 @@ const FlipNavWrapper = () => <FlipNav />;
 const FlipNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 10);
+    let lastScrollY = window.scrollY;
+
+    const handler = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 10);
+
+      if (isOpen) {
+        setIsHidden(false);
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY <= 24) {
+        setIsHidden(false);
+      } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 6) {
+        setIsHidden(true);
+      } else if (currentScrollY < lastScrollY) {
+        setIsHidden(false);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
     window.addEventListener("scroll", handler, { passive: true });
     handler();
     return () => window.removeEventListener("scroll", handler);
-  }, []);
+  }, [isOpen]);
 
   const handleLinkClick = (e, href) => {
     e.preventDefault();
@@ -38,17 +62,21 @@ const FlipNav = () => {
   };
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-6">
+    <nav
+      className={`fixed inset-x-0 top-0 z-50 overflow-x-clip px-3 py-4 transition-transform duration-300 sm:px-4 md:px-6 ${
+        isHidden ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <div
-        className={`mx-auto flex w-full max-w-7xl items-center justify-between rounded-full border px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300 ${
+        className={`section-shell grid min-w-0 w-full grid-cols-[auto_1fr_auto] items-center rounded-full px-4 py-3 sm:px-5 lg:px-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300 ${
           scrolled
-            ? "border-slate-200/80 bg-white backdrop-blur-xl"
-            : "border-slate-200/60 bg-white/95 backdrop-blur-xl"
+            ? "border-[rgba(94,104,120,0.18)] bg-white backdrop-blur-xl"
+            : "border-[rgba(94,104,120,0.14)] bg-white/95 backdrop-blur-xl"
         }`}
       >
         <Logo scrolled={scrolled} />
 
-        <div className="hidden items-center gap-7 lg:flex">
+        <div className="hidden items-center justify-self-center gap-7 lg:flex">
           {navItems.map(({ text, href }) => (
             <NavLink
               key={text}
@@ -62,16 +90,16 @@ const FlipNav = () => {
         <a
           href="#contact"
           onClick={(e) => handleLinkClick(e, "#contact")}
-          className="hidden items-center gap-2 rounded-full bg-[#1f3644] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#346079] lg:inline-flex"
+          className="hidden items-center justify-self-end gap-2 rounded-full bg-[#202F4C] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#015095] hover:shadow-lg lg:inline-flex"
         >
           Hablemos
-          <FiArrowUpRight />
+          <FiArrowUpRight className="text-lg" />
         </a>
 
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="block text-2xl text-slate-900 transition-colors duration-300 ease-in-out lg:hidden"
+          className="col-start-3 block justify-self-end text-2xl text-[#202F4C] transition-colors duration-300 ease-in-out lg:hidden"
           onClick={() => setIsOpen((open) => !open)}
           aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
         >
@@ -79,7 +107,9 @@ const FlipNav = () => {
         </motion.button>
       </div>
 
-      {isOpen && <NavMenu navItems={navItems} onLinkClick={handleLinkClick} />}
+      <AnimatePresence>
+        {isOpen && <NavMenu navItems={navItems} onLinkClick={handleLinkClick} />}
+      </AnimatePresence>
     </nav>
   );
 };
@@ -87,7 +117,7 @@ const FlipNav = () => {
 const Logo = ({ scrolled }) => (
   <a
     href="#hero"
-    className="flex items-center gap-3"
+    className="min-w-0 flex items-center gap-3"
     onClick={(e) => {
       e.preventDefault();
       scrollToSection("#hero");
@@ -96,7 +126,7 @@ const Logo = ({ scrolled }) => (
     <img
       src="/bls_logo.webp"
       alt="BLS - Best Logistics Solutions"
-      className="h-12 w-auto object-contain"
+      className="h-10 w-auto object-contain transition-all duration-300 lg:h-12"
     />
   </a>
 );
@@ -105,7 +135,7 @@ const NavLink = ({ text, href, onClick }) => (
   <a
     href={href}
     onClick={onClick}
-    className="relative text-sm font-semibold uppercase tracking-[0.18em] text-slate-600 transition-colors hover:text-[#1f3644]"
+    className="relative text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:text-[#202F4C]"
   >
     {text}
   </a>
@@ -113,20 +143,33 @@ const NavLink = ({ text, href, onClick }) => (
 
 const NavMenu = ({ navItems, onLinkClick }) => (
   <motion.div
-    initial={{ opacity: 0, y: -12 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -12 }}
-    transition={{ duration: 0.2 }}
-    className="mx-auto mt-3 w-full max-w-7xl rounded-[2rem] border border-white/70 bg-white/92 p-4 shadow-[0_24px_60px_rgba(31,54,68,0.18)] backdrop-blur-xl lg:hidden"
+    initial={{ opacity: 0, scale: 0.98, y: -10 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    exit={{ opacity: 0, scale: 0.98, y: -10 }}
+    transition={{ duration: 0.3, ease: "easeOut" }}
+    className="section-shell mt-4 w-full max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-[2rem] border border-[rgba(94,104,120,0.14)] bg-white/95 p-3 shadow-[0_32px_72px_rgba(32,47,76,0.20)] backdrop-blur-2xl lg:hidden sm:max-w-[calc(100vw-2rem)]"
   >
-    {navItems.map(({ text, href }) => (
-      <MenuLink
-        key={text}
-        text={text}
-        href={href}
-        onClick={(e) => onLinkClick(e, href)}
-      />
-    ))}
+    <div className="flex flex-col space-y-1">
+      {navItems.map(({ text, href }) => (
+        <MenuLink
+          key={text}
+          text={text}
+          href={href}
+          onClick={(e) => onLinkClick(e, href)}
+        />
+      ))}
+      <motion.a
+        href="#contact"
+        onClick={(e) => onLinkClick(e, "#contact")}
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.1 }}
+        className="mt-3 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#202F4C] px-4 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-white shadow-md transition-all active:scale-[0.98]"
+      >
+        Hablemos
+        <FiArrowUpRight className="text-xl" />
+      </motion.a>
+    </div>
   </motion.div>
 );
 
@@ -134,12 +177,15 @@ const MenuLink = ({ text, href, onClick }) => (
   <motion.a
     href={href}
     onClick={onClick}
-    className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-600 transition-colors hover:bg-slate-100 hover:text-[#1f3644]"
-    initial={{ y: -6, opacity: 0 }}
-    animate={{ y: 0, opacity: 1 }}
+    className="group flex w-full items-center justify-between rounded-2xl px-5 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C] active:scale-[0.98]"
+    initial={{ x: -10, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    transition={{ duration: 0.3, ease: "easeOut" }}
   >
     {text}
-    <FiArrowUpRight />
+    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100/50 text-slate-400 transition-colors group-hover:bg-[#015095]/10 group-hover:text-[#202F4C]">
+      <FiArrowUpRight className="text-lg" />
+    </span>
   </motion.a>
 );
 

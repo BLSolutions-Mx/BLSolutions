@@ -4,7 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 const WhatsAppFloatingButton = () => {
   return (
     <a
-      href="https://wa.me/525514868313?text=Hola%2C%20quisiera%20mas%20informacion."
+      href="https://wa.me/525582323839?text=Hola%2C%20quisiera%20mas%20informacion."
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Abrir WhatsApp"

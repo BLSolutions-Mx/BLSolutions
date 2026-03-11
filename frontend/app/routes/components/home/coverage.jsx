@@ -2,34 +2,28 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaGlobe, FaShip } from "react-icons/fa";
 import { GiMexico } from "react-icons/gi";
+import { blsContent } from "./blsContent";
 
 function Coverage() {
   const coverageData = [
     {
-      title: "Presencia Global",
+      title: "Corredor Mexico-USA",
       icon: <FaGlobe className="text-2xl" />,
-      items: ["Mexico", "Estados Unidos", "Canada"],
-      color: "from-[#1F3644] to-[#346079]",
+      items: blsContent.coverage.corridorPoints,
+      color: "from-[#202F4C] to-[#015095]",
     },
     {
       title: "Cobertura Nacional",
-      icon: <GiMexico className="text-[#1F3644] text-3xl" />,
+      icon: <GiMexico className="text-[#202F4C] text-3xl" />,
       items: [],
-      description:
-        "Ofrecemos soluciones logisticas en todo Mexico, conectando puertos, fronteras y centros industriales con entregas eficientes y seguras a lo largo del pais.",
-      color: "from-[#1F3644] to-[#346079]",
+      description: blsContent.coverage.nationalDescription,
+      color: "from-[#202F4C] to-[#015095]",
     },
     {
-      title: "Puentes Fronterizos",
+      title: "Cruces Estrategicos",
       icon: <FaShip className="text-2xl" />,
-      items: [
-        "Tijuana - San Diego (Otay Mesa)",
-        "San Luis Rio Colorado - Yuma, Arizona",
-        "Ciudad Juarez - El Paso",
-        "Nuevo Laredo - Laredo, Texas",
-        "Matamoros - Brownsville, Texas",
-      ],
-      color: "from-[#1F3644] to-[#346079]",
+      items: blsContent.coverage.crossings,
+      color: "from-[#202F4C] to-[#015095]",
     },
   ];
 
@@ -45,10 +39,10 @@ function Coverage() {
             transition={{ duration: 0.6 }}
             className="section-title"
           >
-            Alcance estrategico para mover carga sin friccion
+            Cobertura operativa para rutas Mexico-USA
           </motion.h2>
           <p className="section-copy mx-auto max-w-3xl">
-            Nuestro enfoque regional nos permite ofrecer tiempos eficientes, seguridad en el manejo de mercancia y un servicio personalizado a cada cliente.
+            Operamos con enfoque binacional, red validada y seguimiento puntual para mantener el control de cada movimiento.
           </p>
         </div>
 
