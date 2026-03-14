@@ -1,9 +1,13 @@
-import React from "react";
 import { motion } from "framer-motion";
+import type { IconType } from "react-icons";
 import { FiArrowRight, FiArchive, FiFileText, FiRepeat } from "react-icons/fi";
-import { blsContent } from "./blsContent";
+import { blsContent, type BulletService } from "./blsContent";
 
-const serviceCards = [
+type SupportServiceCard = BulletService & {
+  icon: IconType;
+};
+
+const serviceCards: SupportServiceCard[] = [
   {
     ...blsContent.servicesSpecific[3],
     icon: FiFileText,
@@ -56,9 +60,7 @@ export default function SupportServices() {
                   </div>
 
                   <h3 className="text-2xl font-semibold leading-tight">{service.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-white/80">
-                    {service.description}
-                  </p>
+                  <p className="mt-4 text-sm leading-7 text-white/80">{service.description}</p>
 
                   <ul className="mt-5 space-y-3 text-sm text-white/86">
                     {service.bullets.map((bullet) => (

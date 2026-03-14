@@ -1,4 +1,99 @@
-export const blsContent = {
+export interface TerrestrialSubService {
+  key: string;
+  title: string;
+  image: string;
+  description: string;
+}
+
+export interface TerrestrialService {
+  key: "terrestre";
+  title: string;
+  summary: string;
+  type: "subservices";
+  subServices: [
+    TerrestrialSubService,
+    TerrestrialSubService,
+    TerrestrialSubService,
+    TerrestrialSubService,
+  ];
+}
+
+export interface BulletService {
+  key: "aereo" | "maritimo" | "aduana" | "almacenamiento" | "coordinacion";
+  title: string;
+  image: string;
+  description: string;
+  bullets: [string, string, string];
+}
+
+interface BlsContent {
+  company: {
+    name: string;
+    slogan: string;
+    focus: string;
+  };
+  logisticsRisk: {
+    premise: string;
+    costs: string[];
+    consequence: string;
+  };
+  clientsSeek: string[];
+  about: {
+    description: string;
+    clientProfile: string[];
+  };
+  servicesGeneral: string[];
+  servicesSpecific: [
+    TerrestrialService,
+    BulletService,
+    BulletService,
+    BulletService,
+    BulletService,
+    BulletService,
+  ];
+  proposal: {
+    summary: string;
+    promise: string;
+  };
+  workingMethod: {
+    philosophy: string;
+    process: string[];
+  };
+  differentiator: {
+    concept: string;
+    pillars: string[];
+  };
+  strategicModel: string[];
+  compliance: string[];
+  value: {
+    concept: string;
+    solution: string;
+  };
+  clientExperience: string[];
+  testimonial: {
+    before: string;
+    solution: string;
+    result: string;
+    client: string;
+  };
+  nextStep: {
+    action: string;
+    benefits: string[];
+    conditions: string;
+  };
+  contact: {
+    phone: string;
+    email: string;
+    address: string;
+  };
+  coverage: {
+    nationalDescription: string;
+    corridorPoints: string[];
+    crossings: string[];
+  };
+}
+
+export const blsContent: BlsContent = {
   company: {
     name: "BL Solutions",
     slogan: "Una carga menos en tu dia.",
@@ -135,7 +230,8 @@ export const blsContent = {
     },
   ],
   proposal: {
-    summary: "Tienes un solo punto de contacto para coordinar transporte, aduana, almacenamiento y seguimiento.",
+    summary:
+      "Tienes un solo punto de contacto para coordinar transporte, aduana, almacenamiento y seguimiento.",
     promise: "Una sola conversacion para mover tu operacion con claridad.",
   },
   workingMethod: {
@@ -176,12 +272,7 @@ export const blsContent = {
       "El valor de una solucion logistica no esta solo en la tarifa: tambien esta en evitar retrasos, multas, perdida de cliente y tiempo interno perdido.",
     solution: "Te ayudamos a reducir riesgo y proteger la continuidad de tu operacion.",
   },
-  clientExperience: [
-    "Claridad",
-    "Control",
-    "Tranquilidad",
-    "Comunicacion constante",
-  ],
+  clientExperience: ["Claridad", "Control", "Tranquilidad", "Comunicacion constante"],
   testimonial: {
     before:
       "Un cliente movia 15 cajas de Estado de Mexico a California en trailers y pagaba mas de 80,000 dolares al mes.",

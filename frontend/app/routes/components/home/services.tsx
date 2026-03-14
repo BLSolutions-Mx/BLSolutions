@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import type { IconType } from "react-icons";
 import {
   FiTruck,
   FiWind,
@@ -12,9 +13,28 @@ import {
   FiArrowRight,
   FiChevronRight,
 } from "react-icons/fi";
-import { blsContent } from "./blsContent";
+import {
+  blsContent,
+  type BulletService,
+  type TerrestrialService,
+  type TerrestrialSubService,
+} from "./blsContent";
 
-const services = [
+type SubServiceWithIcon = TerrestrialSubService & {
+  icon: IconType;
+};
+
+type TerrestrialServiceWithIcon = Omit<TerrestrialService, "subServices"> & {
+  icon: IconType;
+  image?: string;
+  subServices: SubServiceWithIcon[];
+};
+
+type ServiceWithIcon =
+  | TerrestrialServiceWithIcon
+  | (BulletService & { icon: IconType });
+
+const services: ServiceWithIcon[] = [
   {
     ...blsContent.servicesSpecific[0],
     icon: FiTruck,
@@ -33,24 +53,29 @@ const services = [
   },
 ];
 
-const contentVariants = {
+const contentVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
   exit: { opacity: 0, y: -10, transition: { duration: 0.2 } },
 };
 
 function Services() {
-  const [activeServiceKey, setActiveServiceKey] = useState(services[0].key);
-  const [activeSubServiceKey, setActiveSubServiceKey] = useState(null);
+  const [activeServiceKey, setActiveServiceKey] = useState<string>(services[0].key);
+  const [activeSubServiceKey, setActiveSubServiceKey] = useState<string | null>(null);
 
-  const activeService = services.find((service) => service.key === activeServiceKey);
-  const activeSubService = activeService?.subServices?.find(
-    (subService) => subService.key === activeSubServiceKey
-  );
+  const activeService =
+    services.find((service) => service.key === activeServiceKey) ?? services[0];
+
+  const activeSubService =
+    "subServices" in activeService
+      ? activeService.subServices.find((subService) => subService.key === activeSubServiceKey) ??
+        activeService.subServices[0]
+      : undefined;
 
   useEffect(() => {
-    const current = services.find((service) => service.key === activeServiceKey);
-    if (current?.subServices?.length > 0) {
+    const current = services.find((service) => service.key === activeServiceKey) ?? services[0];
+
+    if ("subServices" in current && current.subServices.length > 0) {
       setActiveSubServiceKey(current.subServices[0].key);
     } else {
       setActiveSubServiceKey(null);
@@ -58,10 +83,10 @@ function Services() {
   }, [activeServiceKey]);
 
   const displayImage =
-    activeSubService?.image || activeService?.image || "/home-imgs/about.avif";
-  const displayAlt = activeSubService?.title || activeService?.title || "Servicio";
-
-  if (!activeService) return null;
+    activeSubService?.image ||
+    ("image" in activeService ? activeService.image : undefined) ||
+    "/home-imgs/about.avif";
+  const displayAlt = activeSubService?.title || activeService.title || "Servicio";
 
   return (
     <section id="services" className="scroll-mt-28 px-6 py-20 md:py-24">
@@ -70,9 +95,7 @@ function Services() {
           <div className="space-y-4">
             <div className="section-label">Nuestros servicios</div>
             <h2 className="section-title">Soluciones integrales bajo un solo responsable</h2>
-            <p className="section-copy max-w-3xl">
-              {blsContent.proposal.summary}
-            </p>
+            <p className="section-copy max-w-3xl">{blsContent.proposal.summary}</p>
           </div>
         </div>
 
@@ -80,6 +103,7 @@ function Services() {
           {services.map((service) => {
             const Icon = service.icon;
             const isActive = activeServiceKey === service.key;
+
             return (
               <button
                 key={service.key}
@@ -140,11 +164,9 @@ function Services() {
                   {activeService.title}
                 </h3>
 
-                {activeService.subServices ? (
+                {"subServices" in activeService ? (
                   <div>
-                    {activeService.summary && (
-                      <p className="mb-6 section-copy">{activeService.summary}</p>
-                    )}
+                    <p className="mb-6 section-copy">{activeService.summary}</p>
 
                     <div className="mb-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                       {activeService.subServices.map((subService, index) => {
@@ -218,13 +240,9 @@ function Services() {
                   </div>
                 ) : (
                   <div className="space-y-6">
-                    {activeService.description && (
-                      <p className="section-copy whitespace-pre-line">
-                        {activeService.description}
-                      </p>
-                    )}
+                    <p className="section-copy whitespace-pre-line">{activeService.description}</p>
 
-                    {activeService.bullets && activeService.bullets.length > 0 && (
+                    {activeService.bullets.length > 0 && (
                       <ul className="space-y-3">
                         {activeService.bullets.map((bullet, index) => (
                           <motion.li
@@ -241,11 +259,7 @@ function Services() {
                       </ul>
                     )}
 
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.4 }}
-                    >
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
                       <a
                         href="#contact"
                         className="inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"

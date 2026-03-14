@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, type PanInfo } from "framer-motion";
+import { Link } from "react-router";
 import { FiArrowRight, FiPhoneCall } from "react-icons/fi";
 import { blsContent } from "./blsContent";
 
@@ -20,23 +21,29 @@ const slides = [
 
 export default function HeroSlider() {
   const [index, setIndex] = useState(0);
-  const timeoutRef = useRef(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const resetTimeout = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+    }
   };
 
   useEffect(() => {
     resetTimeout();
-    timeoutRef.current = setTimeout(
-      () => setIndex((prev) => (prev + 1) % slides.length),
-      5000
-    );
+    timeoutRef.current = setTimeout(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
     return () => resetTimeout();
   }, [index]);
 
-  const handleDragEnd = (e, info) => {
+  const handleDragEnd = (
+    _event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     const offset = info.offset.x;
+
     if (offset < -100) {
       setIndex((prev) => (prev + 1) % slides.length);
     } else if (offset > 100) {
@@ -63,52 +70,52 @@ export default function HeroSlider() {
               onDragEnd={handleDragEnd}
             >
               <div className="relative min-h-[17.5rem] sm:min-h-[15.5rem] md:min-h-[18rem] lg:min-h-[19rem]">
-              <AnimatePresence mode="sync" initial={false}>
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
-                  transition={{ duration: 1, ease: [0.3, 1, 0.36, 1] }}
-                  className="absolute inset-0 space-y-4 sm:space-y-5"
-                >
-                  <h1 className="max-w-4xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl lg:text-7xl">
-                    {slides[index].title}
-                  </h1>
-                  <p className="max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-2xl md:leading-9">
-                    {slides[index].text}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
+                <AnimatePresence mode="sync" initial={false}>
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
+                    transition={{ duration: 1, ease: [0.3, 1, 0.36, 1] }}
+                    className="absolute inset-0 space-y-4 sm:space-y-5"
+                  >
+                    <h1 className="max-w-4xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl lg:text-7xl">
+                      {slides[index].title}
+                    </h1>
+                    <p className="max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-2xl md:leading-9">
+                      {slides[index].text}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </motion.div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <a
-                href="#services"
+              <Link
+                to="/servicios"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#202F4C] transition-transform hover:-translate-y-0.5 sm:px-6"
               >
                 Ver servicios
                 <FiArrowRight />
-              </a>
-              <a
-                href="#contact"
+              </Link>
+              <Link
+                to="/contacto"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/8 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white/14 sm:px-6"
               >
                 Contactar
                 <FiPhoneCall />
-              </a>
+              </Link>
             </div>
 
             <div className="flex gap-3">
-              {slides.map((slide, i) => (
+              {slides.map((slide, slideIndex) => (
                 <button
                   key={slide.title}
                   className={`h-2 rounded-full transition-all ${
-                    i === index ? "w-12 bg-white" : "w-6 bg-white/35"
+                    slideIndex === index ? "w-12 bg-white" : "w-6 bg-white/35"
                   }`}
-                  onClick={() => setIndex(i)}
-                  aria-label={`Ir al slide ${i + 1}`}
+                  onClick={() => setIndex(slideIndex)}
+                  aria-label={`Ir al slide ${slideIndex + 1}`}
                 />
               ))}
             </div>
@@ -128,7 +135,6 @@ export default function HeroSlider() {
                 </p>
               </div>
 
-              
               <div className="overflow-hidden rounded-[1.75rem] border border-[rgba(94,104,120,0.14)]">
                 <img
                   src="/home-imgs/about.avif"

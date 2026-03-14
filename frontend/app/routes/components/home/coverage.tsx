@@ -1,11 +1,19 @@
-import React from "react";
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { FaGlobe, FaShip } from "react-icons/fa";
 import { GiMexico } from "react-icons/gi";
 import { blsContent } from "./blsContent";
 
+type CoverageSection = {
+  title: string;
+  icon: ReactNode;
+  items: string[];
+  color: string;
+  description?: string;
+};
+
 function Coverage() {
-  const coverageData = [
+  const coverageData: CoverageSection[] = [
     {
       title: "Corredor Mexico-USA",
       icon: <FaGlobe className="text-2xl" />,
@@ -68,7 +76,7 @@ function Coverage() {
                 <p className="mb-4 leading-8 text-white/82">{section.description}</p>
               )}
 
-              {section.items && section.items.length > 0 && (
+              {section.items.length > 0 && (
                 <ul className="space-y-3 text-white/88">
                   {section.items.map((item) => (
                     <li

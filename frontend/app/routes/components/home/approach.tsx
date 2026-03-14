@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import {
   FiAlertTriangle,
@@ -66,9 +65,7 @@ export default function Approach() {
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#015095]">
                 Lo que ayudas a evitar
               </p>
-              <p className="mt-3 text-base leading-8 text-[#202F4C]">
-                {blsContent.value.concept}
-              </p>
+              <p className="mt-3 text-base leading-8 text-[#202F4C]">{blsContent.value.concept}</p>
             </div>
           </motion.div>
 
@@ -126,9 +123,7 @@ export default function Approach() {
               </div>
               <p className="text-lg font-semibold text-[#202F4C]">Lo que distingue nuestro servicio</p>
             </div>
-            <p className="text-base leading-8 text-[#5E6878]">
-              {blsContent.differentiator.concept}
-            </p>
+            <p className="text-base leading-8 text-[#5E6878]">{blsContent.differentiator.concept}</p>
             <ul className="mt-5 space-y-3">
               {blsContent.differentiator.pillars.map((item) => (
                 <li
@@ -177,12 +172,8 @@ export default function Approach() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
               Resultado para un cliente
             </p>
-            <p className="mt-4 text-lg font-semibold leading-8">
-              {blsContent.testimonial.before}
-            </p>
-            <p className="mt-4 text-sm leading-7 text-white/72">
-              {blsContent.testimonial.solution}
-            </p>
+            <p className="mt-4 text-lg font-semibold leading-8">{blsContent.testimonial.before}</p>
+            <p className="mt-4 text-sm leading-7 text-white/72">{blsContent.testimonial.solution}</p>
             <p className="mt-4 rounded-[1.4rem] bg-white/10 px-4 py-4 text-base leading-8 text-white">
               {blsContent.testimonial.result}
             </p>

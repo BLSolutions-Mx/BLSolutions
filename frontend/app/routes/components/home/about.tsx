@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { blsContent } from "./blsContent";
 
@@ -21,9 +20,7 @@ export default function About() {
             <div className="mb-8 space-y-4">
               <div className="section-label">Quienes somos</div>
               <h2 className="section-title">Acompanamiento logistico para operaciones Mexico-USA</h2>
-              <p className="section-copy max-w-2xl">
-                {blsContent.about.description}
-              </p>
+              <p className="section-copy max-w-2xl">{blsContent.about.description}</p>
             </div>
 
             <motion.div
@@ -36,9 +33,7 @@ export default function About() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/65">
                 Lo que recibes
               </p>
-              <p className="mt-3 text-lg font-semibold leading-8">
-                {blsContent.proposal.promise}
-              </p>
+              <p className="mt-3 text-lg font-semibold leading-8">{blsContent.proposal.promise}</p>
             </motion.div>
           </div>
         </div>
