@@ -28,7 +28,8 @@ const FlipFooter = () => {
               />
             </Link>
             <p className="max-w-xl text-sm leading-7 text-[#5E6878] md:text-base">
-              Logística integral México-USA con transporte, aduana, almacenamiento y coordinación bajo un solo responsable.
+              Soluciones logísticas sencillas para transporte terrestre, intermodal y
+              consultoría logística.
             </p>
           </div>
 
@@ -37,6 +38,7 @@ const FlipFooter = () => {
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#202F4C]">Empresa</p>
               <div className="flex flex-col gap-3">
                 <FooterLink to="/">Inicio</FooterLink>
+                <FooterLink to="/consultoria">Consultoría</FooterLink>
                 <FooterLink to="/nosotros">Nosotros</FooterLink>
                 <FooterLink to="/contacto">Contacto</FooterLink>
               </div>
@@ -44,18 +46,26 @@ const FlipFooter = () => {
             <div className="flex flex-col gap-4">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#202F4C]">Servicios</p>
               <div className="flex flex-col gap-3">
-                <FooterLink to="/servicios">Todos los servicios</FooterLink>
-                <FooterLink to="/servicios/terrestre">Transporte Terrestre</FooterLink>
-                <FooterLink to="/servicios/aereo">Transporte Aéreo</FooterLink>
-                <FooterLink to="/servicios/maritimo">Transporte Marítimo</FooterLink>
-                <FooterLink to="/servicios/complementarios">Otros Servicios</FooterLink>
+                <FooterLink to="/servicios/caja-seca">Caja Seca</FooterLink>
+                <FooterLink to="/servicios/plataforma">Plataforma</FooterLink>
+                <FooterLink to="/servicios/caja-refrigerada">Caja Refrigerada</FooterLink>
+                <FooterLink to="/servicios/intermodal">Intermodal</FooterLink>
               </div>
             </div>
           </div>
         </div>
 
         <div className="border-t border-[rgba(94,104,120,0.14)] px-8 py-5 text-xs text-[#5E6878] md:px-10">
-          &copy; {new Date().getFullYear()} BL Solutions. Todos los derechos reservados. - Desarrollado por <a href="https://www.blinkstudio.dev" target="_blank" rel="noopener noreferrer" className="text-[#202F4C] italic">Blink Studio</a>
+          &copy; {new Date().getFullYear()} BL Solutions. Todos los derechos reservados. -
+          Desarrollado por{" "}
+          <a
+            href="https://www.blinkstudio.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#202F4C] italic"
+          >
+            Blink Studio
+          </a>
         </div>
       </div>
     </footer>

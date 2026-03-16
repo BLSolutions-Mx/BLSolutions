@@ -23,8 +23,7 @@ type ContactResponse = {
 type ContactItem = {
   icon: ReactNode;
   title: string;
-  text: string;
-  href?: string;
+  content: ReactNode;
 };
 
 const ContactSection = () => {
@@ -43,19 +42,49 @@ const ContactSection = () => {
     {
       icon: <FiMapPin />,
       title: "Dirección",
-      text: blsContent.contact.address,
+      content: (
+        <div className="space-y-1 text-white/72">
+          {blsContent.contact.addressLines.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
+      ),
     },
     {
       icon: <FiPhone />,
       title: "Teléfono",
-      text: blsContent.contact.phone,
-      href: `tel:${blsContent.contact.phone.replace(/\s+/g, "")}`,
+      content: (
+        <div className="space-y-4 text-white/72">
+          {blsContent.contact.phones.map((group) => (
+            <div key={group.country}>
+              <p className="font-semibold text-white">{group.country}</p>
+              <div className="mt-1 space-y-1">
+                {group.numbers.map((number) => (
+                  <a
+                    key={number}
+                    href={`tel:${number.replace(/\s+/g, "")}`}
+                    className="block break-words transition-colors hover:text-white"
+                  >
+                    {number}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ),
     },
     {
       icon: <FiMail />,
       title: "Correo electrónico",
-      text: blsContent.contact.email,
-      href: `mailto:${blsContent.contact.email}`,
+      content: (
+        <a
+          href={`mailto:${blsContent.contact.email}`}
+          className="break-words text-white/72 transition-colors hover:text-white"
+        >
+          {blsContent.contact.email}
+        </a>
+      ),
     },
   ];
 
@@ -148,40 +177,22 @@ const ContactSection = () => {
             </div>
 
             <div className="space-y-6">
-              {contactItems.map((item, index) =>
-                item.href ? (
-                  <motion.a
-                    key={item.title}
-                    href={item.href}
-                    className="flex min-w-0 items-start space-x-4 rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition-colors hover:bg-white/10"
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.2, type: "spring", stiffness: 100 }}
-                  >
-                    <div className="mt-1 text-2xl text-[#9bc5dd]">{item.icon}</div>
-                    <div className="min-w-0">
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
-                      <p className="mt-1 break-words text-white/72">{item.text}</p>
-                    </div>
-                  </motion.a>
-                ) : (
-                  <motion.div
-                    key={item.title}
-                    className="flex min-w-0 items-start space-x-4 rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition-colors hover:bg-white/10"
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.2, type: "spring", stiffness: 100 }}
-                  >
-                    <div className="mt-1 text-2xl text-[#9bc5dd]">{item.icon}</div>
-                    <div className="min-w-0">
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
-                      <p className="mt-1 break-words text-white/72">{item.text}</p>
-                    </div>
-                  </motion.div>
-                ),
-              )}
+              {contactItems.map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  className="flex min-w-0 items-start space-x-4 rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition-colors hover:bg-white/10"
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2, type: "spring", stiffness: 100 }}
+                >
+                  <div className="mt-1 text-2xl text-[#9bc5dd]">{item.icon}</div>
+                  <div className="min-w-0">
+                    <h3 className="text-lg font-semibold">{item.title}</h3>
+                    <div className="mt-1 break-words">{item.content}</div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
 

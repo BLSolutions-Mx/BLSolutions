@@ -6,15 +6,15 @@ import { blsContent } from "./blsContent";
 
 const slides = [
   {
-    title: "Tu operación México-USA, coordinada de punta a punta",
-    text: "Te apoyamos con transporte, aduana, almacenamiento y seguimiento para que tu carga avance con claridad y control.",
+    title: "Transporte y consultoría logística sin complicaciones",
+    text: "BL Solutions apoya operaciones nacionales e internacionales con una estructura simple y eficiente.",
   },
   {
-    title: "Un solo punto de contacto para toda tu logística",
+    title: "Servicios logísticos enfocados en lo que sí necesitas",
     text: blsContent.proposal.promise,
   },
   {
-    title: "Visibilidad y respuesta durante todo el trayecto",
+    title: "Soluciones integrales de movilidad y logística",
     text: blsContent.workingMethod.philosophy,
   },
 ];
@@ -52,7 +52,10 @@ export default function HeroSlider() {
   };
 
   return (
-    <section id="hero" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pb-10 pt-24 sm:px-6 sm:pt-28 md:pb-14 md:pt-32 lg:min-h-screen">
+    <section
+      id="hero"
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pb-10 pt-24 sm:px-6 sm:pt-28 md:pb-14 md:pt-32 lg:min-h-screen"
+    >
       <div className="absolute inset-0 -z-10">
         <img
           src="/home-imgs/about.avif"
@@ -101,7 +104,7 @@ export default function HeroSlider() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
-                to="/servicios"
+                to="/servicios/caja-seca"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#202F4C] transition-transform hover:-translate-y-0.5 sm:px-6"
               >
                 Ver servicios
@@ -120,8 +123,9 @@ export default function HeroSlider() {
               {slides.map((slide, slideIndex) => (
                 <button
                   key={slide.title}
-                  className={`h-2 rounded-full transition-all ${slideIndex === index ? "w-12 bg-white" : "w-6 bg-white/35"
-                    }`}
+                  className={`h-2 rounded-full transition-all ${
+                    slideIndex === index ? "w-12 bg-white" : "w-6 bg-white/35"
+                  }`}
                   onClick={() => setIndex(slideIndex)}
                   aria-label={`Ir al slide ${slideIndex + 1}`}
                 />

@@ -1,3 +1,10 @@
+export interface ServiceMode {
+  key: string;
+  title: string;
+  image: string;
+  description: string;
+}
+
 export interface TerrestrialSubService {
   key: string;
   title: string;
@@ -10,12 +17,7 @@ export interface TerrestrialService {
   title: string;
   summary: string;
   type: "subservices";
-  subServices: [
-    TerrestrialSubService,
-    TerrestrialSubService,
-    TerrestrialSubService,
-    TerrestrialSubService,
-  ];
+  subServices: TerrestrialSubService[];
 }
 
 export interface BulletService {
@@ -23,7 +25,7 @@ export interface BulletService {
   title: string;
   image: string;
   description: string;
-  bullets: [string, string, string];
+  bullets: string[];
 }
 
 interface BlsContent {
@@ -51,6 +53,16 @@ interface BlsContent {
     BulletService,
     BulletService,
   ];
+  serviceModes: ServiceMode[];
+  intermodal: {
+    title: string;
+    description: string;
+  };
+  consultancy: {
+    intro: string;
+    approach: string[];
+    areas: string[];
+  };
   proposal: {
     summary: string;
     promise: string;
@@ -82,9 +94,12 @@ interface BlsContent {
     conditions: string;
   };
   contact: {
-    phone: string;
+    phones: {
+      country: string;
+      numbers: string[];
+    }[];
     email: string;
-    address: string;
+    addressLines: string[];
   };
   coverage: {
     nationalDescription: string;
@@ -96,221 +111,239 @@ interface BlsContent {
 export const blsContent: BlsContent = {
   company: {
     name: "BL Solutions",
-    slogan: "Una carga menos en tu día.",
-    focus: "Soluciones logísticas México-USA para empresas B2B",
+    slogan: "Logística simple y eficiente",
+    focus: "Empresa logística méxico-americana para operaciones nacionales e internacionales.",
   },
   logisticsRisk: {
-    premise: "Tu operación necesita certeza, seguimiento y cumplimiento en cada movimiento.",
+    premise: "Cada operación necesita una estructura clara para evitar errores, tiempos muertos y sobrecostos.",
     costs: [
-      "Incertidumbre",
-      "Falta de seguimiento",
-      "Retrasos en cruce",
-      "Proveedores informales",
-      "Documentación incorrecta",
-      "Tiempo interno perdido",
+      "Rutas poco eficientes",
+      "Falta de visibilidad",
+      "Costos innecesarios",
+      "Decisiones sin análisis",
+      "Cambios reactivos",
+      "Falta de coordinación",
     ],
     consequence:
-      "Por eso trabajamos para anticipar incidencias y mantener tu operación bajo control.",
+      "Por eso analizamos la operación completa antes de definir la solución logística.",
   },
-  clientsSeek: [
-    "Certeza",
-    "Comunicación constante",
-    "Cumplimiento documental",
-    "Un solo punto de contacto",
-    "Responsabilidad de principio a fin",
-  ],
+  clientsSeek: ["Claridad", "Seguimiento", "Eficiencia", "Mejor control operativo"],
   about: {
     description:
-      "En BL Solutions acompañamos operaciones logísticas México-Estados Unidos para empresas B2B e industriales con atención cercana, seguimiento puntual y soluciones a la medida.",
+      "BL Solutions es una empresa logística méxico-americana con sede en Ciudad de México. Apoyamos a empresas a mover su mercancía de manera eficiente a través de operaciones nacionales e internacionales.",
     clientProfile: [
-      "Fabricantes",
-      "Distribuidores que exportan",
-      "Operaciones industriales",
-      "Carga regular y refrigerada",
+      "Operaciones nacionales",
+      "Operaciones internacionales",
+      "Empresas con carga recurrente",
+      "Equipos que buscan una operación más eficiente",
     ],
   },
-  servicesGeneral: ["Transporte", "Aduana", "Almacenamiento", "Coordinación"],
+  servicesGeneral: ["On the Road", "Intermodal", "Consultoría"],
   servicesSpecific: [
     {
       key: "terrestre",
-      title: "Transporte Terrestre (FTL/LTL)",
+      title: "On the Road",
       summary:
-        "Coordinamos tu carga de punta a punta con la unidad adecuada para cada ruta, ya sea una operación México-USA o una entrega nacional.",
+        "Soluciones terrestres para carga general, carga sobredimensionada y productos con control de temperatura.",
       type: "subservices",
       subServices: [
         {
-          key: "dryvan",
-          title: "Caja seca (Dry Van)",
+          key: "caja-seca",
+          title: "Caja Seca (Dry Van)",
           image: "/home-imgs/terrestre-dryvan.avif",
           description:
-            "Una opción confiable para carga general que requiere puntualidad, visibilidad y coordinación continua.",
+            "Ideal para el transporte de mercancía general que no requiere control de temperatura.",
         },
         {
-          key: "reefer",
-          title: "Refrigerado (Reefer)",
-          image: "/home-imgs/terrestre-reefer.avif",
-          description:
-            "Ideal para productos sensibles que necesitan temperatura controlada y monitoreo durante el trayecto.",
-        },
-        {
-          key: "boxtruck",
-          title: "Camión tipo box",
-          image: "/home-imgs/terrestre-boxtruck.avif",
-          description:
-            "Una alternativa ágil para entregas urbanas, volumen medio y accesos con maniobra limitada.",
-        },
-        {
-          key: "flatbed",
+          key: "plataforma",
           title: "Plataforma (Flatbed)",
           image: "/home-imgs/terrestre-flatbed.avif",
           description:
-            "Pensado para maquinaria y carga sobredimensionada que requiere maniobras especiales.",
+            "Flexibilidad para maquinaria, materiales y carga que no viaja en remolque cerrado.",
+        },
+        {
+          key: "reefer",
+          title: "Caja Refrigerada (Reefer)",
+          image: "/home-imgs/terrestre-reefer.avif",
+          description:
+            "Control de temperatura estable para productos perecederos o sensibles al clima.",
         },
       ],
     },
     {
       key: "aereo",
-      title: "Transporte Aéreo",
+      title: "Análisis logístico",
       image: "/home-imgs/aereo.avif",
-      description:
-        "Movemos envíos urgentes o de alto valor con tiempos controlados y comunicación constante.",
-      bullets: [
-        "Ideal para operaciones sensibles al tiempo",
-        "Coordinación puerta a puerta",
-        "Seguimiento en tiempo real",
-      ],
+      description: "Evaluamos rutas, volúmenes y estructura operativa para proponer mejoras.",
+      bullets: ["Rutas", "Volúmenes", "Estructura operativa"],
     },
     {
       key: "maritimo",
-      title: "Transporte Marítimo (FCL/LCL)",
+      title: "Intermodal",
       image: "/home-imgs/maritimo.avif",
       description:
-        "Te ayudamos a mover volumen internacional con coordinación operativa y documental desde origen hasta entrega.",
-      bullets: [
-        "FCL y LCL según volumen y frecuencia",
-        "Coordinación aduanal",
-        "Seguimiento desde origen hasta destino final",
-      ],
+        "Alternativa para media y larga distancia cuando conviene combinar ferrocarril y transporte terrestre.",
+      bullets: ["Media distancia", "Larga distancia", "Control de costos"],
     },
     {
       key: "aduana",
-      title: "Agencia Aduanal",
+      title: "Análisis de operaciones logísticas",
       image: "/home-imgs/aduana_service.avif",
-      description:
-        "Cuidamos el cumplimiento documental y la coordinación de despacho para que tus cruces fluyan con menos fricción.",
-      bullets: [
-        "Revisión documental",
-        "Coordinación de despacho",
-        "Cumplimiento operativo en rutas México-USA",
-      ],
+      description: "Revisión de rutas, procesos y estructura actual de transporte.",
+      bullets: ["Revisión de rutas", "Procesos actuales", "Cadena logística"],
     },
     {
       key: "almacenamiento",
-      title: "Almacenamiento",
+      title: "Optimización de costos de transporte",
       image: "/home-imgs/almacen_service.avif",
-      description:
-        "Integramos almacenamiento cuando tu operación necesita continuidad, flexibilidad y mejor control.",
-      bullets: [
-        "Soporte para inventario y consolidación",
-        "Mayor flexibilidad para ventanas de entrega",
-        "Integración con transporte y despacho",
-      ],
+      description: "Identificación de oportunidades para reducir costos operativos.",
+      bullets: ["Consolidación", "Selección de proveedores", "Ajustes de ruta"],
     },
     {
       key: "coordinacion",
-      title: "Coordinación Integral",
-      image: "/home-imgs/aereo.avif",
-      description:
-        "Centralizamos tu operación en un solo punto de contacto para que tengas claridad y respuesta durante todo el proceso.",
-      bullets: [
-        "Una sola conversación",
-        "Un solo responsable",
-        "Seguimiento proactivo de principio a fin",
-      ],
+      title: "Diseño de estrategias logísticas",
+      image: "/home-imgs/about.avif",
+      description: "Propuesta de soluciones logísticas alineadas con el crecimiento del cliente.",
+      bullets: ["Estrategia", "Implementación", "Seguimiento"],
     },
   ],
+  serviceModes: [
+    {
+      key: "caja-seca",
+      title: "Caja Seca (Dry Van)",
+      image: "/home-imgs/terrestre-dryvan.avif",
+      description:
+        "Ideal para el transporte de mercancía general que no requiere control de temperatura. Este tipo de remolque cerrado protege la carga de las condiciones climáticas y es una de las soluciones más utilizadas para envíos nacionales y transfronterizos.",
+    },
+    {
+      key: "plataforma",
+      title: "Plataforma (Flatbed)",
+      image: "/home-imgs/terrestre-flatbed.avif",
+      description:
+        "Utilizada para transportar carga sobredimensionada, maquinaria o materiales que no pueden transportarse dentro de un remolque cerrado. Permite mayor flexibilidad para carga y descarga desde diferentes ángulos.",
+    },
+    {
+      key: "reefer",
+      title: "Caja Refrigerada (Reefer)",
+      image: "/home-imgs/terrestre-reefer.avif",
+      description:
+        "Remolques con control de temperatura diseñados para transportar productos perecederos o sensibles al clima, manteniendo condiciones térmicas estables durante todo el trayecto.",
+    },
+  ],
+  intermodal: {
+    title: "Intermodal",
+    description:
+      "El transporte intermodal combina ferrocarril y transporte terrestre para optimizar costos y eficiencia en rutas de media y larga distancia, permitiendo mover grandes volúmenes de mercancía de forma más estable y eficiente.",
+  },
+  consultancy: {
+    intro:
+      "En BL Solutions ofrecemos servicios de consultoría logística para empresas que buscan optimizar sus operaciones de transporte y cadena de suministro.",
+    approach: [
+      "Nuestro enfoque comienza con entender cómo funciona la operación actual del cliente. Analizamos rutas, volúmenes, procesos y estructura logística para identificar oportunidades que permitan mejorar costos, tiempos de tránsito y eficiencia operativa.",
+      "A partir de este análisis, proponemos estrategias prácticas que pueden incluir ajustes en rutas, cambios en modos de transporte o mejoras en la estructura logística general.",
+      "Nuestro objetivo es ayudar a las empresas a tomar mejores decisiones logísticas basadas en análisis operativo y experiencia en operaciones nacionales e internacionales.",
+    ],
+    areas: [
+      "Análisis de operaciones logísticas",
+      "Optimización de costos de transporte",
+      "Evaluación de rutas y modos de transporte",
+      "Optimización de operaciones cross-border",
+      "Diseño de estrategias logísticas",
+    ],
+  },
   proposal: {
     summary:
-      "Tienes un solo punto de contacto para coordinar transporte, aduana, almacenamiento y seguimiento.",
-    promise: "Una sola conversación para mover tu operación con claridad.",
+      "Operamos soluciones sencillas para transporte terrestre, intermodal y consultoría logística con un solo equipo coordinando todo.",
+    promise: "Entendemos la operación, definimos la estrategia y ejecutamos con seguimiento claro.",
   },
   workingMethod: {
     philosophy:
-      "Recibes actualizaciones claras y oportunas para tomar decisiones con mayor tranquilidad.",
+      "Primero entendemos la operación actual del cliente y después proponemos la solución más eficiente.",
     process: [
-      "Entendemos tu operación",
-      "Diseñamos la solución correcta",
-      "Asignamos la unidad y coordinamos la documentación",
-      "Damos seguimiento proactivo",
-      "Confirmamos entrega y cierre",
+      "Analizamos rutas, volúmenes y procesos actuales",
+      "Definimos la estrategia logística adecuada",
+      "Coordinamos la ejecución operativa",
+      "Damos seguimiento puntual a cada movimiento",
+      "Ajustamos la operación cuando el cliente lo necesita",
     ],
   },
   differentiator: {
-    concept: "Tu carga avanza con seguimiento real, comunicación constante y un equipo que responde.",
+    concept:
+      "Nuestro equipo combina análisis operativo con ejecución diaria para que la estrategia también funcione en la realidad.",
     pillars: [
-      "Servicio real",
-      "Comunicación constante",
-      "Seguimiento puntual",
-      "Responsabilidad total",
+      "Operación nacional e internacional",
+      "Seguimiento claro",
+      "Análisis operativo",
+      "Ejecución eficiente",
     ],
   },
   strategicModel: [
-    "Seleccionamos la opción más adecuada para cada ruta",
-    "Buscamos condiciones competitivas para tu operación",
-    "Adaptamos la solución a tu tipo de carga y frecuencia",
-    "Mantenemos flexibilidad ante cambios operativos",
+    "Entender la operación actual antes de mover piezas",
+    "Comparar alternativas de ruta y modo de transporte",
+    "Proponer cambios que puedan ejecutarse",
+    "Ajustar la estrategia conforme cambia la operación",
   ],
   compliance: [
-    "Empresa constituida en México",
-    "RFC y documentación verificable",
-    "Red validada de transportistas",
-    "Cumplimiento de requisitos operativos",
-    "Control documental",
+    "Operación nacional e internacional",
+    "Análisis basado en la operación actual",
+    "Seguimiento por un mismo equipo",
+    "Ejecución alineada con la estrategia",
   ],
   value: {
     concept:
-      "El valor de una solución logística no está solo en la tarifa: también está en evitar retrasos, multas, pérdida de clientes y tiempo interno perdido.",
-    solution: "Te ayudamos a reducir riesgo y proteger la continuidad de tu operación.",
+      "La mejor decisión logística no depende solo de tarifa. También depende de estabilidad, tiempos y capacidad operativa.",
+    solution:
+      "Ayudamos a tomar decisiones logísticas más claras y más útiles para la operación real.",
   },
-  clientExperience: ["Claridad", "Control", "Tranquilidad", "Comunicación constante"],
+  clientExperience: ["Claridad", "Análisis", "Seguimiento", "Ejecución"],
   testimonial: {
     before:
-      "Un cliente movía 15 cajas de Estado de México a California en trailers y pagaba más de 80,000 dólares al mes.",
+      "Cuando una operación necesita bajar costos sin perder estabilidad, evaluamos la ruta completa antes de cambiar proveedores o equipos.",
     solution:
-      "Le propusimos una alternativa intermodal con ferrocarril hasta Mexicali y transbordo a camiones estadounidenses.",
+      "A partir del análisis operativo, identificamos cuándo conviene mantener transporte terrestre y cuándo una alternativa intermodal genera mejores resultados.",
     result:
-      "Hoy proyecta reducir cerca de un tercio de su costo manteniendo el mismo volumen con una operación más eficiente y segura.",
-    client: "",
+      "El cliente toma decisiones logísticas con más claridad, mejor estructura operativa y una ruta más eficiente.",
+    client: "BL Solutions",
   },
   nextStep: {
-    action: "Solicita una evaluación de tu ruta México-USA.",
+    action: "Revisemos tu operación y definamos la mejor solución logística.",
     benefits: [
-      "Detectamos riesgos operativos",
-      "Identificamos oportunidades de ahorro",
-      "Te proponemos mejoras concretas",
+      "Análisis práctico de la operación",
+      "Recomendaciones claras",
+      "Ejecución eficiente",
     ],
-    conditions: "Sin costo. Sin compromiso.",
+    conditions: "Sin complicaciones y con enfoque directo.",
   },
   contact: {
-    phone: "+52 55 8232 3839",
+    phones: [
+      {
+        country: "Mexico",
+        numbers: ["+52 5582323839", "+52 5549183873"],
+      },
+      {
+        country: "Estados Unidos",
+        numbers: ["+1 832 671 7796"],
+      },
+    ],
     email: "operations@blsolutions.com.mx",
-    address:
-      "Bosque de Cafetos 14, Bosques de las Lomas, Miguel Hidalgo, Ciudad de México, México",
+    addressLines: [
+      "Paseo de la Reforma 369 - 5",
+      "06500",
+      "Ciudad de México, CDMX",
+    ],
   },
   coverage: {
     nationalDescription:
-      "Coordinamos soluciones logísticas en todo México conectando puertos, fronteras y centros industriales con entregas eficientes y seguras.",
+      "Apoyamos operaciones nacionales e internacionales con foco en rutas que requieren coordinación eficiente.",
     corridorPoints: [
-      "Atención para operaciones B2B e industriales",
-      "Carga regular y refrigerada",
-      "Un solo punto de contacto",
+      "Operación méxico-americana",
+      "Rutas nacionales e internacionales",
+      "Un solo equipo coordinando",
     ],
     crossings: [
-      "Tijuana - San Diego (Otay Mesa)",
-      "San Luis Río Colorado - Yuma, Arizona",
-      "Ciudad Juárez - El Paso",
-      "Nuevo Laredo - Laredo, Texas",
-      "Matamoros - Brownsville, Texas",
+      "México - Estados Unidos",
+      "Rutas nacionales en México",
+      "Corredores de media y larga distancia",
     ],
   },
 };

@@ -6,9 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import "lenis/dist/lenis.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,6 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <GlobalLenis />
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -43,6 +46,29 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+function GlobalLenis() {
+  useEffect(() => {
+    let lenisInstance: { destroy: () => void } | null = null;
+
+    const setupLenis = async () => {
+      const { default: Lenis } = await import("lenis");
+
+      lenisInstance = new Lenis({
+        autoRaf: true,
+        anchors: true,
+      });
+    };
+
+    void setupLenis();
+
+    return () => {
+      lenisInstance?.destroy();
+    };
+  }, []);
+
+  return null;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
