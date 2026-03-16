@@ -42,18 +42,18 @@ const ContactSection = () => {
   const contactItems: ContactItem[] = [
     {
       icon: <FiMapPin />,
-      title: "Direccion",
+      title: "Dirección",
       text: blsContent.contact.address,
     },
     {
       icon: <FiPhone />,
-      title: "Telefono",
+      title: "Teléfono",
       text: blsContent.contact.phone,
       href: `tel:${blsContent.contact.phone.replace(/\s+/g, "")}`,
     },
     {
       icon: <FiMail />,
-      title: "Correo electronico",
+      title: "Correo electrónico",
       text: blsContent.contact.email,
       href: `mailto:${blsContent.contact.email}`,
     },
@@ -86,7 +86,7 @@ const ContactSection = () => {
       if (response.ok && result.success) {
         setSubmitStatus({
           success: true,
-          message: result.message || "Mensaje enviado con exito.",
+          message: result.message || "Mensaje enviado con éxito.",
         });
         setFormData({ name: "", email: "", message: "" });
       } else {
@@ -122,10 +122,10 @@ const ContactSection = () => {
           <div className="min-w-0 rounded-[2rem] bg-[#132633] p-6 text-white sm:p-7 md:p-8">
             <div className="mb-8 space-y-4">
               <div className="section-label border-white/15 bg-white/8 text-white">
-                Evaluacion estrategica
+                Evaluación estratégica
               </div>
               <h2 className="text-3xl font-extrabold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                Revisemos tu ruta Mexico-USA
+                Revisemos tu ruta México-USA
               </h2>
               <p className="text-base leading-8 text-white/72">
                 {blsContent.nextStep.action} {blsContent.nextStep.conditions}
@@ -197,7 +197,7 @@ const ContactSection = () => {
                 Formulario
               </p>
               <p className="mt-3 text-2xl font-semibold text-[#202F4C]">
-                Cuentanos sobre tu operacion
+                Cuéntanos sobre tu operación
               </p>
               <p className="mt-3 text-sm leading-7 text-[#5E6878]">
                 Comparte origen, destino, tipo de carga o problema actual. Revisamos riesgos,

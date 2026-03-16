@@ -6,11 +6,11 @@ import { blsContent } from "./blsContent";
 
 const slides = [
   {
-    title: "Tu operacion Mexico-USA, coordinada de punta a punta",
-    text: "Te apoyamos con transporte, aduana, almacenamiento y seguimiento para que tu carga avance con mayor claridad y control.",
+    title: "Tu operación México-USA, coordinada de punta a punta",
+    text: "Te apoyamos con transporte, aduana, almacenamiento y seguimiento para que tu carga avance con claridad y control.",
   },
   {
-    title: "Un solo punto de contacto para toda tu logistica",
+    title: "Un solo punto de contacto para toda tu logística",
     text: blsContent.proposal.promise,
   },
   {
@@ -52,13 +52,22 @@ export default function HeroSlider() {
   };
 
   return (
-    <section id="hero" className="relative overflow-hidden px-5 pb-10 pt-24 sm:px-6 sm:pt-28 md:pb-14 md:pt-32">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(1,80,149,0.38),_transparent_34%),linear-gradient(135deg,_#202F4C_0%,_#16243d_40%,_#015095_100%)]" />
+    <section id="hero" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pb-10 pt-24 sm:px-6 sm:pt-28 md:pb-14 md:pt-32 lg:min-h-screen">
+      <div className="absolute inset-0 -z-10">
+        <img
+          src="/home-imgs/about.avif"
+          alt="Operaciones logísticas"
+          loading="eager"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(1,80,149,0.38),_transparent_34%),linear-gradient(135deg,rgba(32,47,76,0.85)_0%,rgba(22,36,61,0.80)_40%,rgba(1,80,149,0.90)_100%)]" />
+      </div>
       <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(circle,_rgba(255,255,255,0.18),_transparent_58%)] blur-3xl" />
 
       <div className="section-shell">
-        <div className="grid min-h-[auto] items-center gap-8 lg:min-h-[84vh] lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:gap-12">
-          <div className="space-y-7 pt-6 text-white sm:space-y-8 lg:pr-6 lg:pt-0">
+        <div className="grid items-center gap-8 lg:content-center lg:items-end lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:gap-12">
+          <div className="space-y-5 pt-6 text-white sm:space-y-8 lg:pr-6 lg:pt-0">
             <div className="section-label border-white/20 bg-white/8 text-white">
               {blsContent.company.slogan}
             </div>
@@ -69,7 +78,7 @@ export default function HeroSlider() {
               dragConstraints={{ left: 0, right: 0 }}
               onDragEnd={handleDragEnd}
             >
-              <div className="relative min-h-[17.5rem] sm:min-h-[15.5rem] md:min-h-[18rem] lg:min-h-[19rem]">
+              <div className="relative min-h-[14.5rem] sm:min-h-[15.5rem] md:min-h-[18rem] lg:min-h-[19rem]">
                 <AnimatePresence mode="sync" initial={false}>
                   <motion.div
                     key={index}
@@ -111,9 +120,8 @@ export default function HeroSlider() {
               {slides.map((slide, slideIndex) => (
                 <button
                   key={slide.title}
-                  className={`h-2 rounded-full transition-all ${
-                    slideIndex === index ? "w-12 bg-white" : "w-6 bg-white/35"
-                  }`}
+                  className={`h-2 rounded-full transition-all ${slideIndex === index ? "w-12 bg-white" : "w-6 bg-white/35"
+                    }`}
                   onClick={() => setIndex(slideIndex)}
                   aria-label={`Ir al slide ${slideIndex + 1}`}
                 />
@@ -121,29 +129,17 @@ export default function HeroSlider() {
             </div>
           </div>
 
-          <div className="glass-panel mx-auto w-full max-w-xl border-[rgba(94,104,120,0.14)] bg-[#f5f8fc] p-4 text-[#202F4C] shadow-[0_24px_70px_rgba(32,47,76,0.14)] sm:p-5 md:max-w-none md:p-6">
-            <div className="grid gap-4">
-              <div className="rounded-[1.5rem] border border-[rgba(94,104,120,0.14)] bg-white p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
-                  Enfoque
-                </p>
-                <p className="mt-3 text-xl font-semibold leading-tight sm:text-2xl">
-                  {blsContent.company.focus}
-                </p>
-                <p className="mt-3 text-sm leading-7 text-[#5E6878]">
-                  {blsContent.proposal.summary}
-                </p>
-              </div>
-
-              <div className="overflow-hidden rounded-[1.75rem] border border-[rgba(94,104,120,0.14)]">
-                <img
-                  src="/home-imgs/about.avif"
-                  alt="Operaciones logisticas"
-                  loading="eager"
-                  decoding="async"
-                  className="h-56 w-full object-cover sm:h-64"
-                />
-              </div>
+          <div className="hidden w-full lg:flex lg:justify-end">
+            <div className="w-full max-w-sm rounded-[1.5rem] border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-md sm:p-8 md:max-w-md">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
+                Enfoque
+              </p>
+              <p className="mt-3 text-xl font-semibold leading-tight text-[#202F4C] sm:text-2xl">
+                {blsContent.company.focus}
+              </p>
+              <p className="mt-3 text-sm leading-7 text-[#5E6878]">
+                {blsContent.proposal.summary}
+              </p>
             </div>
           </div>
         </div>

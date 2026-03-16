@@ -23,7 +23,7 @@ export function meta() {
     {
       name: "description",
       content:
-        "Transporte terrestre FTL y LTL para operaciones Mexico-USA. Caja seca, refrigerado, camion tipo box y plataforma.",
+        "Transporte terrestre FTL y LTL para operaciones México-USA. Caja seca, refrigerado, camión tipo box y plataforma.",
     },
   ];
 }
@@ -43,7 +43,7 @@ export default function TransporteTerrestre() {
       <section className="relative overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
         <div className="absolute inset-0 -z-10">
           <img
-            src="/home-imgs/terrestre-dryvan.avif"
+            src="/home-imgs/hero_terrestre.avif"
             alt="Transporte terrestre"
             className="h-full w-full object-cover"
           />
@@ -90,10 +90,10 @@ export default function TransporteTerrestre() {
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#015095]">Cobertura de servicio</p>
                 <h2 className="mt-2 text-2xl font-semibold text-[#202F4C] md:text-3xl">
-                  La columna vertebral de la logistica Mexico-USA
+                  La columna vertebral de la logística México-USA
                 </h2>
                 <p className="mt-3 section-copy">
-                  Coordinamos el tipo de unidad correcto para cada ruta y tipo de carga. Tus envios avanzan con visibilidad y respuesta real.
+                  Coordinamos el tipo de unidad correcto para cada ruta y tipo de carga. Tus envíos avanzan con visibilidad y respuesta real.
                 </p>
               </div>
               <div className="flex flex-wrap items-start gap-2 md:flex-col md:items-end md:justify-center">
@@ -118,7 +118,7 @@ export default function TransporteTerrestre() {
             <div className="section-label">Modalidades de servicio</div>
             <h2 className="section-title">Elige la unidad adecuada para tu carga</h2>
             <p className="section-copy max-w-3xl">
-              Cada tipo de carga tiene necesidades diferentes. Selecciona la modalidad y conoce como te ayudamos.
+              Cada tipo de carga tiene necesidades diferentes. Selecciona la modalidad y conoce cómo te ayudamos.
             </p>
           </div>
 
@@ -131,11 +131,10 @@ export default function TransporteTerrestre() {
                 <button
                   key={sub.key}
                   onClick={() => setActiveSubIdx(idx)}
-                  className={`flex items-center gap-2.5 rounded-full border px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-300 ease-in-out focus:outline-none ${
-                    isActive
-                      ? "border-[#015095] bg-[#202F4C] text-white shadow-[0_18px_40px_rgba(32,47,76,0.2)]"
-                      : "border-[rgba(1,80,149,0.16)] bg-white/70 text-[#5E6878] hover:border-[rgba(1,80,149,0.4)] hover:bg-white"
-                  }`}
+                  className={`flex items-center gap-2.5 rounded-full border px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-300 ease-in-out focus:outline-none ${isActive
+                    ? "border-[#015095] bg-[#202F4C] text-white shadow-[0_18px_40px_rgba(32,47,76,0.2)]"
+                    : "border-[rgba(1,80,149,0.16)] bg-white/70 text-[#5E6878] hover:border-[rgba(1,80,149,0.4)] hover:bg-white"
+                    }`}
                 >
                   <Icon
                     className={`text-lg transition-colors ${isActive ? "text-white/80" : "text-[#015095]"}`}
@@ -210,78 +209,80 @@ export default function TransporteTerrestre() {
       {/* --- Why Terrestrial Section --- */}
       <section className="px-6 py-20 md:py-24">
         <div className="section-shell">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-6 md:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="rounded-[2rem] bg-[#202F4C] p-6 text-white md:p-8"
-              >
-                <h3 className="text-2xl font-semibold md:text-3xl">
-                  ¿Por que elegir transporte terrestre?
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-white/72">
-                  El transporte terrestre es la columna vertebral de la logistica Mexico-USA.
-                  Te permite mover carga con flexibilidad, visibilidad y control directo.
-                </p>
-                <ul className="mt-6 space-y-3 text-white/86">
-                  {[
-                    "Flexibilidad en rutas y horarios",
-                    "Seguimiento en tiempo real",
-                    "Coordinacion puerta a puerta",
-                    "Opciones para todo tipo de carga",
-                  ].map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm font-medium"
-                    >
-                      <FiCheckCircle className="shrink-0 text-white/60" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+          {/* Top Section: Why Terrestrial (4 cards) */}
+          <div className="mb-20">
+            <div className="mb-12 text-center">
+              <h2 className="section-title">¿Por qué elegir transporte terrestre?</h2>
+              <p className="mt-4 section-copy mx-auto max-w-2xl text-base leading-relaxed">
+                El transporte terrestre es la columna vertebral de la logística México-USA.
+                Te permite mover carga con flexibilidad, visibilidad y control directo.
+              </p>
+            </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="glass-panel p-6 md:p-8"
-              >
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { title: "Flexibilidad en rutas", desc: "Ajustamos los trayectos según la urgencia de tu envío." },
+                { title: "Seguimiento en tiempo real", desc: "Monitoreo 24/7 para que siempre sepas dónde está tu carga." },
+                { title: "Coordinación directa", desc: "Servicio integral logístico desde el origen hasta el destino." },
+                { title: "Para todo tipo de carga", desc: "Unidades especializadas para cada tipo de requerimiento." }
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex flex-col items-center justify-start gap-4 rounded-[2rem] bg-[#202F4C] p-8 text-center text-white transition-transform hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(32,47,76,0.3)]"
+                >
+                  <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-white/10">
+                    <FiCheckCircle className="text-3xl text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold">{item.title}</h4>
+                    <p className="mt-3 text-sm leading-relaxed text-white/70">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom Section: Modalities Layout */}
+          <div className="mx-auto max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="glass-panel p-8 md:p-12"
+            >
+              <div className="mb-10 text-center">
                 <h3 className="text-2xl font-semibold text-[#202F4C] md:text-3xl">
                   Todas las modalidades
                 </h3>
-                <p className="mt-3 section-copy">
-                  Explora cada opcion disponible para encontrar la que mejor se ajusta a tu operacion.
+                <p className="mt-4 section-copy mx-auto max-w-2xl text-base leading-relaxed">
+                  Explora cada opción disponible para encontrar la que mejor se ajusta a tu operación.
                 </p>
-                <div className="mt-6 space-y-3">
-                  {terrestreData.subServices.map((sub, idx) => {
-                    const Icon = subServiceIcons[idx];
-                    return (
-                      <button
-                        key={sub.key}
-                        onClick={() => {
-                          setActiveSubIdx(idx);
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
-                        className="group flex w-full items-center gap-3 rounded-2xl border border-[rgba(94,104,120,0.14)] bg-white p-4 text-left transition-all hover:border-[rgba(1,80,149,0.3)] hover:shadow-[0_4px_12px_rgba(32,47,76,0.06)]"
-                      >
-                        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#015095]/8">
-                          <Icon className="text-lg text-[#015095]" />
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                {terrestreData.subServices.map((sub, idx) => {
+                  const Icon = subServiceIcons[idx];
+                  return (
+                    <div
+                      key={sub.key}
+                      className="group flex flex-col gap-4 rounded-[1.5rem] border border-[rgba(94,104,120,0.14)] bg-white/70 p-6 text-left transition-all duration-300 hover:border-[rgba(1,80,149,0.3)] hover:bg-white hover:shadow-[0_8px_30px_rgba(1,80,149,0.06)]"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#015095]/8 transition-colors duration-300 group-hover:bg-[#015095]/12">
+                          <Icon className="text-xl text-[#015095]" />
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-sm font-semibold text-[#202F4C]">{sub.title}</p>
-                          <p className="mt-0.5 truncate text-xs text-[#5E6878]">{sub.description}</p>
-                        </div>
-                        <FiChevronRight className="shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5" />
-                      </button>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            </div>
+                        <h4 className="text-lg font-semibold text-[#202F4C] transition-colors duration-300 group-hover:text-[#015095]">{sub.title}</h4>
+                      </div>
+                      <p className="text-sm leading-relaxed text-[#5E6878]">{sub.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -302,14 +303,14 @@ export default function TransporteTerrestre() {
                   ¿Listo para mover tu carga con mayor certeza?
                 </h2>
                 <p className="mt-3 text-sm leading-7 text-white/72">
-                  Evaluamos tu ruta, tipo de carga y frecuencia para ofrecerte la mejor opcion terrestre.
+                  Evaluamos tu ruta, tipo de carga y frecuencia para ofrecerte la mejor opción terrestre.
                 </p>
               </div>
               <Link
                 to="/contacto"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#202F4C] transition-transform hover:-translate-y-0.5"
               >
-                Solicitar cotizacion
+                Solicitar cotización
                 <FiArrowRight />
               </Link>
             </div>

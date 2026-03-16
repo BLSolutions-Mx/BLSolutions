@@ -96,32 +96,32 @@ interface BlsContent {
 export const blsContent: BlsContent = {
   company: {
     name: "BL Solutions",
-    slogan: "Una carga menos en tu dia.",
-    focus: "Soluciones logisticas Mexico-USA para empresas B2B",
+    slogan: "Una carga menos en tu día.",
+    focus: "Soluciones logísticas México-USA para empresas B2B",
   },
   logisticsRisk: {
-    premise: "Tu operacion necesita certeza, seguimiento y cumplimiento en cada movimiento.",
+    premise: "Tu operación necesita certeza, seguimiento y cumplimiento en cada movimiento.",
     costs: [
       "Incertidumbre",
       "Falta de seguimiento",
       "Retrasos en cruce",
       "Proveedores informales",
-      "Documentacion incorrecta",
+      "Documentación incorrecta",
       "Tiempo interno perdido",
     ],
     consequence:
-      "Por eso trabajamos para anticipar incidencias y mantener tu operacion bajo control.",
+      "Por eso trabajamos para anticipar incidencias y mantener tu operación bajo control.",
   },
   clientsSeek: [
     "Certeza",
-    "Comunicacion constante",
+    "Comunicación constante",
     "Cumplimiento documental",
     "Un solo punto de contacto",
     "Responsabilidad de principio a fin",
   ],
   about: {
     description:
-      "En BL Solutions acompanamos operaciones logisticas Mexico-Estados Unidos para empresas B2B e industriales con atencion cercana, seguimiento puntual y soluciones a la medida.",
+      "En BL Solutions acompañamos operaciones logísticas México-Estados Unidos para empresas B2B e industriales con atención cercana, seguimiento puntual y soluciones a la medida.",
     clientProfile: [
       "Fabricantes",
       "Distribuidores que exportan",
@@ -129,13 +129,13 @@ export const blsContent: BlsContent = {
       "Carga regular y refrigerada",
     ],
   },
-  servicesGeneral: ["Transporte", "Aduana", "Almacenamiento", "Coordinacion"],
+  servicesGeneral: ["Transporte", "Aduana", "Almacenamiento", "Coordinación"],
   servicesSpecific: [
     {
       key: "terrestre",
       title: "Transporte Terrestre (FTL/LTL)",
       summary:
-        "Coordinamos tu carga de punta a punta con la unidad adecuada para cada ruta, ya sea una operacion Mexico-USA o una entrega nacional.",
+        "Coordinamos tu carga de punta a punta con la unidad adecuada para cada ruta, ya sea una operación México-USA o una entrega nacional.",
       type: "subservices",
       subServices: [
         {
@@ -143,7 +143,7 @@ export const blsContent: BlsContent = {
           title: "Caja seca (Dry Van)",
           image: "/home-imgs/terrestre-dryvan.avif",
           description:
-            "Una opcion confiable para carga general que requiere puntualidad, visibilidad y coordinacion continua.",
+            "Una opción confiable para carga general que requiere puntualidad, visibilidad y coordinación continua.",
         },
         {
           key: "reefer",
@@ -154,10 +154,10 @@ export const blsContent: BlsContent = {
         },
         {
           key: "boxtruck",
-          title: "Camion tipo box",
+          title: "Camión tipo box",
           image: "/home-imgs/terrestre-boxtruck.avif",
           description:
-            "Una alternativa agil para entregas urbanas, volumen medio y accesos con maniobra limitada.",
+            "Una alternativa ágil para entregas urbanas, volumen medio y accesos con maniobra limitada.",
         },
         {
           key: "flatbed",
@@ -170,60 +170,60 @@ export const blsContent: BlsContent = {
     },
     {
       key: "aereo",
-      title: "Transporte Aereo",
+      title: "Transporte Aéreo",
       image: "/home-imgs/aereo.avif",
       description:
-        "Movemos envios urgentes o de alto valor con tiempos controlados y comunicacion constante.",
+        "Movemos envíos urgentes o de alto valor con tiempos controlados y comunicación constante.",
       bullets: [
         "Ideal para operaciones sensibles al tiempo",
-        "Coordinacion puerta a puerta",
+        "Coordinación puerta a puerta",
         "Seguimiento en tiempo real",
       ],
     },
     {
       key: "maritimo",
-      title: "Transporte Maritimo (FCL/LCL)",
+      title: "Transporte Marítimo (FCL/LCL)",
       image: "/home-imgs/maritimo.avif",
       description:
-        "Te ayudamos a mover volumen internacional con coordinacion operativa y documental desde origen hasta entrega.",
+        "Te ayudamos a mover volumen internacional con coordinación operativa y documental desde origen hasta entrega.",
       bullets: [
-        "FCL y LCL segun volumen y frecuencia",
-        "Coordinacion aduanal",
+        "FCL y LCL según volumen y frecuencia",
+        "Coordinación aduanal",
         "Seguimiento desde origen hasta destino final",
       ],
     },
     {
       key: "aduana",
       title: "Agencia Aduanal",
-      image: "/home-imgs/about.avif",
+      image: "/home-imgs/aduana_service.avif",
       description:
-        "Cuidamos el cumplimiento documental y la coordinacion de despacho para que tus cruces fluyan con menos friccion.",
+        "Cuidamos el cumplimiento documental y la coordinación de despacho para que tus cruces fluyan con menos fricción.",
       bullets: [
-        "Revision documental",
-        "Coordinacion de despacho",
-        "Cumplimiento operativo en rutas Mexico-USA",
+        "Revisión documental",
+        "Coordinación de despacho",
+        "Cumplimiento operativo en rutas México-USA",
       ],
     },
     {
       key: "almacenamiento",
       title: "Almacenamiento",
-      image: "/home-imgs/maritimo.avif",
+      image: "/home-imgs/almacen_service.avif",
       description:
-        "Integramos almacenamiento cuando tu operacion necesita continuidad, flexibilidad y mejor control.",
+        "Integramos almacenamiento cuando tu operación necesita continuidad, flexibilidad y mejor control.",
       bullets: [
-        "Soporte para inventario y consolidacion",
+        "Soporte para inventario y consolidación",
         "Mayor flexibilidad para ventanas de entrega",
-        "Integracion con transporte y despacho",
+        "Integración con transporte y despacho",
       ],
     },
     {
       key: "coordinacion",
-      title: "Coordinacion Integral",
+      title: "Coordinación Integral",
       image: "/home-imgs/aereo.avif",
       description:
-        "Centralizamos tu operacion en un solo punto de contacto para que tengas claridad y respuesta durante todo el proceso.",
+        "Centralizamos tu operación en un solo punto de contacto para que tengas claridad y respuesta durante todo el proceso.",
       bullets: [
-        "Una sola conversacion",
+        "Una sola conversación",
         "Un solo responsable",
         "Seguimiento proactivo de principio a fin",
       ],
@@ -232,58 +232,58 @@ export const blsContent: BlsContent = {
   proposal: {
     summary:
       "Tienes un solo punto de contacto para coordinar transporte, aduana, almacenamiento y seguimiento.",
-    promise: "Una sola conversacion para mover tu operacion con claridad.",
+    promise: "Una sola conversación para mover tu operación con claridad.",
   },
   workingMethod: {
     philosophy:
       "Recibes actualizaciones claras y oportunas para tomar decisiones con mayor tranquilidad.",
     process: [
-      "Entendemos tu operacion",
-      "Disenamos la solucion correcta",
-      "Asignamos unidad y coordinamos documentacion",
+      "Entendemos tu operación",
+      "Diseñamos la solución correcta",
+      "Asignamos la unidad y coordinamos la documentación",
       "Damos seguimiento proactivo",
       "Confirmamos entrega y cierre",
     ],
   },
   differentiator: {
-    concept: "Tu carga avanza con seguimiento real, comunicacion constante y un equipo que responde.",
+    concept: "Tu carga avanza con seguimiento real, comunicación constante y un equipo que responde.",
     pillars: [
       "Servicio real",
-      "Comunicacion constante",
+      "Comunicación constante",
       "Seguimiento puntual",
       "Responsabilidad total",
     ],
   },
   strategicModel: [
-    "Seleccionamos la opcion mas adecuada para cada ruta",
-    "Buscamos condiciones competitivas para tu operacion",
-    "Adaptamos la solucion a tu tipo de carga y frecuencia",
+    "Seleccionamos la opción más adecuada para cada ruta",
+    "Buscamos condiciones competitivas para tu operación",
+    "Adaptamos la solución a tu tipo de carga y frecuencia",
     "Mantenemos flexibilidad ante cambios operativos",
   ],
   compliance: [
-    "Empresa constituida en Mexico",
-    "RFC y documentacion verificable",
+    "Empresa constituida en México",
+    "RFC y documentación verificable",
     "Red validada de transportistas",
     "Cumplimiento de requisitos operativos",
     "Control documental",
   ],
   value: {
     concept:
-      "El valor de una solucion logistica no esta solo en la tarifa: tambien esta en evitar retrasos, multas, perdida de cliente y tiempo interno perdido.",
-    solution: "Te ayudamos a reducir riesgo y proteger la continuidad de tu operacion.",
+      "El valor de una solución logística no está solo en la tarifa: también está en evitar retrasos, multas, pérdida de clientes y tiempo interno perdido.",
+    solution: "Te ayudamos a reducir riesgo y proteger la continuidad de tu operación.",
   },
-  clientExperience: ["Claridad", "Control", "Tranquilidad", "Comunicacion constante"],
+  clientExperience: ["Claridad", "Control", "Tranquilidad", "Comunicación constante"],
   testimonial: {
     before:
-      "Un cliente movia 15 cajas de Estado de Mexico a California en trailers y pagaba mas de 80,000 dolares al mes.",
+      "Un cliente movía 15 cajas de Estado de México a California en trailers y pagaba más de 80,000 dólares al mes.",
     solution:
       "Le propusimos una alternativa intermodal con ferrocarril hasta Mexicali y transbordo a camiones estadounidenses.",
     result:
-      "Hoy proyecta reducir cerca de un tercio de su costo manteniendo el mismo volumen con una operacion mas eficiente y segura.",
-    client: "Cliente BL Solutions",
+      "Hoy proyecta reducir cerca de un tercio de su costo manteniendo el mismo volumen con una operación más eficiente y segura.",
+    client: "",
   },
   nextStep: {
-    action: "Solicita una evaluacion de tu ruta Mexico-USA.",
+    action: "Solicita una evaluación de tu ruta México-USA.",
     benefits: [
       "Detectamos riesgos operativos",
       "Identificamos oportunidades de ahorro",
@@ -295,20 +295,20 @@ export const blsContent: BlsContent = {
     phone: "+52 55 8232 3839",
     email: "operations@blsolutions.com.mx",
     address:
-      "Bosque de Cafetos 14, Bosques de las Lomas, Miguel Hidalgo, Ciudad de Mexico, Mexico",
+      "Bosque de Cafetos 14, Bosques de las Lomas, Miguel Hidalgo, Ciudad de México, México",
   },
   coverage: {
     nationalDescription:
-      "Coordinamos soluciones logisticas en todo Mexico conectando puertos, fronteras y centros industriales con entregas eficientes y seguras.",
+      "Coordinamos soluciones logísticas en todo México conectando puertos, fronteras y centros industriales con entregas eficientes y seguras.",
     corridorPoints: [
-      "Atencion para operaciones B2B e industriales",
+      "Atención para operaciones B2B e industriales",
       "Carga regular y refrigerada",
       "Un solo punto de contacto",
     ],
     crossings: [
       "Tijuana - San Diego (Otay Mesa)",
-      "San Luis Rio Colorado - Yuma, Arizona",
-      "Ciudad Juarez - El Paso",
+      "San Luis Río Colorado - Yuma, Arizona",
+      "Ciudad Juárez - El Paso",
       "Nuevo Laredo - Laredo, Texas",
       "Matamoros - Brownsville, Texas",
     ],

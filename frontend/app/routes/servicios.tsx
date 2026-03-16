@@ -14,11 +14,11 @@ import WhatsAppFloatingButton from "./components/ui/whatsAppFloatButton";
 
 export function meta() {
   return [
-    { title: "Servicios Logisticos | BL Solutions" },
+    { title: "Servicios Logísticos | BL Solutions" },
     {
       name: "description",
       content:
-        "Descubre nuestros servicios logisticos: transporte terrestre, aereo, maritimo, agencia aduanal, almacenamiento y coordinacion integral.",
+        "Descubre nuestros servicios logísticos: transporte terrestre, aéreo, marítimo, agencia aduanal, almacenamiento y coordinación integral.",
     },
   ];
 }
@@ -29,44 +29,44 @@ const serviceCategories = [
     title: "Transporte Terrestre",
     subtitle: "FTL / LTL",
     summary:
-      "Coordinamos tu carga de punta a punta con la unidad adecuada para cada ruta, ya sea una operacion Mexico-USA o una entrega nacional.",
+      "Coordinamos tu carga de punta a punta con la unidad adecuada para cada ruta, ya sea una operación México-USA o una entrega nacional.",
     icon: FiTruck,
     image: "/home-imgs/terrestre-dryvan.avif",
     href: "/servicios/terrestre",
-    highlights: ["Caja seca (Dry Van)", "Refrigerado (Reefer)", "Camion tipo box", "Plataforma (Flatbed)"],
+    highlights: ["Caja seca (Dry Van)", "Refrigerado (Reefer)", "Camión tipo box", "Plataforma (Flatbed)"],
   },
   {
     key: "aereo",
-    title: "Transporte Aereo",
-    subtitle: "Envios urgentes",
+    title: "Transporte Aéreo",
+    subtitle: "Envíos urgentes",
     summary:
-      "Movemos envios urgentes o de alto valor con tiempos controlados y comunicacion constante.",
+      "Movemos envíos urgentes o de alto valor con tiempos controlados y comunicación constante.",
     icon: FiWind,
     image: "/home-imgs/aereo.avif",
     href: "/servicios/aereo",
-    highlights: ["Operaciones sensibles al tiempo", "Coordinacion puerta a puerta", "Seguimiento en tiempo real"],
+    highlights: ["Operaciones sensibles al tiempo", "Coordinación puerta a puerta", "Seguimiento en tiempo real"],
   },
   {
     key: "maritimo",
-    title: "Transporte Maritimo",
+    title: "Transporte Marítimo",
     subtitle: "FCL / LCL",
     summary:
-      "Te ayudamos a mover volumen internacional con coordinacion operativa y documental desde origen hasta entrega.",
+      "Te ayudamos a mover volumen internacional con coordinación operativa y documental desde origen hasta entrega.",
     icon: FiAnchor,
     image: "/home-imgs/maritimo.avif",
     href: "/servicios/maritimo",
-    highlights: ["FCL y LCL", "Coordinacion aduanal", "Seguimiento desde origen"],
+    highlights: ["FCL y LCL", "Coordinación aduanal", "Seguimiento desde origen"],
   },
   {
     key: "complementarios",
     title: "Servicios Complementarios",
-    subtitle: "Aduana · Almacen · Coordinacion",
+    subtitle: "Aduana · Almacén · Coordinación",
     summary:
-      "Complementamos el transporte con servicios que te ayudan a mantener continuidad, orden documental y una coordinacion mas clara.",
+      "Complementamos el transporte con servicios que te ayudan a mantener continuidad, orden documental y una coordinación más clara.",
     icon: FiLayers,
     image: "/home-imgs/about.avif",
     href: "/servicios/complementarios",
-    highlights: ["Agencia aduanal", "Almacenamiento", "Coordinacion integral"],
+    highlights: ["Agencia aduanal", "Almacenamiento", "Coordinación integral"],
   },
 ];
 
@@ -96,7 +96,7 @@ export default function Servicios() {
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(170deg,rgba(32,47,76,0.96)_0%,rgba(32,47,76,0.82)_40%,rgba(1,80,149,0.88)_100%)]" />
 
         <div className="section-shell">
-          <div className="mx-auto max-w-4xl text-center text-white">
+          <div className="flex flex-col items-center justify-center mx-auto max-w-4xl text-center text-white">
             <div className="section-label mb-6 border-white/20 bg-white/8 text-white">
               Nuestros servicios
             </div>
@@ -111,7 +111,7 @@ export default function Servicios() {
       </section>
 
       {/* --- Overlapping service quick-nav --- */}
-      <section className="-mt-12 px-6 md:-mt-14">
+      <section className="-mt-12 px-6 md:-mt-20">
         <div className="section-shell">
           <div className="flex flex-wrap justify-center gap-3">
             {serviceCategories.map((s) => {
@@ -220,16 +220,16 @@ export default function Servicios() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.18),_transparent_48%)]" />
             <div className="relative z-10 text-center">
               <h2 className="text-3xl font-extrabold leading-[1.02] tracking-[-0.04em] md:text-4xl">
-                ¿Necesitas una solucion a la medida?
+                ¿Necesitas una solución a la medida?
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-base leading-8 text-white/72">
-                Evaluamos tu operacion y proponemos la combinacion ideal de servicios para tu ruta Mexico-USA.
+                Evaluamos tu operación y proponemos la combinación ideal de servicios para tu ruta México-USA.
               </p>
               <Link
                 to="/contacto"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#202F4C] transition-transform hover:-translate-y-0.5"
               >
-                Solicitar evaluacion
+                Solicitar evaluación
                 <FiArrowRight />
               </Link>
             </div>

@@ -19,7 +19,7 @@ export function meta() {
     {
       name: "description",
       content:
-        "Conoce BL Solutions: logistica integral Mexico-USA con atencion cercana, seguimiento puntual y soluciones a la medida.",
+        "Conoce BL Solutions: logística integral México-USA con atención cercana, seguimiento puntual y soluciones a la medida.",
     },
   ];
 }
@@ -37,10 +37,10 @@ export default function Nosotros() {
         <div className="section-shell">
           <div className="mx-auto max-w-4xl text-center text-white">
             <div className="section-label mb-6 border-white/20 bg-white/8 text-white">
-              Quienes somos
+              ¿Quiénes somos?
             </div>
             <h1 className="text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl">
-              Acompanamiento logistico para operaciones Mexico-USA
+              Acompañamiento logístico para operaciones México-USA
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
               {blsContent.about.description}
@@ -128,10 +128,10 @@ export default function Nosotros() {
       <section className="px-6 py-20 md:py-24">
         <div className="section-shell">
           <div className="mb-10 space-y-4">
-            <div className="section-label">Asi te acompanamos</div>
-            <h2 className="section-title">Mas visibilidad y control para tu operacion</h2>
+            <div className="section-label">Así te acompañamos</div>
+            <h2 className="section-title">Más visibilidad y control para tu operación</h2>
             <p className="section-copy max-w-3xl">
-              {blsContent.value.solution} Disenamos soluciones flexibles con seguimiento
+              {blsContent.value.solution} Diseñamos soluciones flexibles con seguimiento
               proactivo y responsabilidad total.
             </p>
           </div>
@@ -308,7 +308,7 @@ export default function Nosotros() {
                 to="/contacto"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[#202F4C] transition-transform hover:-translate-y-0.5"
               >
-                Agendar evaluacion
+                Agendar evaluación
                 <FiArrowRight />
               </Link>
             </motion.div>
@@ -323,9 +323,9 @@ export default function Nosotros() {
             className="mt-6 glass-panel p-6 md:p-8"
           >
             <div className="mb-6 space-y-3">
-              <div className="section-label">Enfoque estrategico</div>
+              <div className="section-label">Enfoque estratégico</div>
               <h3 className="text-2xl font-semibold text-[#202F4C] md:text-3xl">
-                Adaptamos la solucion a la realidad de tu operacion
+                Adaptamos la solución a la realidad de tu operación
               </h3>
             </div>
 
@@ -359,7 +359,7 @@ export default function Nosotros() {
               transition={{ duration: 0.6 }}
               className="section-title"
             >
-              Cobertura operativa para rutas Mexico-USA
+              Cobertura operativa para rutas México-USA
             </motion.h2>
             <p className="section-copy mx-auto max-w-3xl">
               Operamos con enfoque binacional, red validada y seguimiento puntual para mantener el control de cada movimiento.
@@ -369,7 +369,7 @@ export default function Nosotros() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {[
               {
-                title: "Corredor Mexico-USA",
+                title: "Corredor México-USA",
                 items: blsContent.coverage.corridorPoints,
               },
               {
@@ -378,7 +378,7 @@ export default function Nosotros() {
                 description: blsContent.coverage.nationalDescription,
               },
               {
-                title: "Cruces Estrategicos",
+                title: "Cruces Estratégicos",
                 items: blsContent.coverage.crossings,
               },
             ].map((section, idx) => (
@@ -429,7 +429,7 @@ export default function Nosotros() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.18),_transparent_48%)]" />
             <div className="relative z-10 mx-auto max-w-3xl text-center">
               <h2 className="text-3xl font-extrabold leading-[1.02] tracking-[-0.04em] md:text-4xl">
-                Revisemos tu ruta Mexico-USA
+                Revisemos tu ruta México-USA
               </h2>
               <p className="mt-4 text-base leading-8 text-white/72">
                 {blsContent.nextStep.action} {blsContent.nextStep.conditions}

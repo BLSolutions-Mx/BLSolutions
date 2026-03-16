@@ -5,21 +5,21 @@ export default function About() {
   return (
     <section id="about" className="scroll-mt-28 px-6 py-20 md:py-24">
       <div className="section-shell">
-        <div className="section-grid mx-auto max-w-6xl lg:grid-cols-2">
+        <div className="section-grid mx-auto max-w-6xl">
           <div className="min-w-0 glass-panel overflow-hidden p-3">
             <img
               src="/home-imgs/about.avif"
               loading="lazy"
               decoding="async"
-              alt="Equipo de logistica"
+              alt="Equipo de logística"
               className="h-[420px] w-full rounded-[1.6rem] object-cover md:h-[560px]"
             />
           </div>
 
           <div className="min-w-0 glass-panel p-6 sm:p-8 md:p-10 lg:p-12">
             <div className="mb-8 space-y-4">
-              <div className="section-label">Quienes somos</div>
-              <h2 className="section-title">Acompanamiento logistico para operaciones Mexico-USA</h2>
+              <div className="section-label">¿Quiénes somos?</div>
+              <h2 className="section-title">Acompañamiento logístico para operaciones México-USA</h2>
               <p className="section-copy max-w-2xl">{blsContent.about.description}</p>
             </div>
 

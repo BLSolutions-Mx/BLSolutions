@@ -16,13 +16,13 @@ import Footer from "./components/ui/footer";
 import Navbar from "./components/ui/navbar";
 import WhatsAppFloatingButton from "./components/ui/whatsAppFloatButton";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "BL Solutions | Logistica integral Mexico-USA" },
+    { title: "BL Solutions | Logística integral México-USA" },
     {
       name: "description",
       content:
-        "BL Solutions coordina transporte, aduana, almacenamiento y seguimiento para operaciones logisticas Mexico-USA.",
+        "BL Solutions coordina transporte, aduana, almacenamiento y seguimiento para operaciones logísticas México-USA.",
     },
   ];
 }
@@ -38,16 +38,16 @@ const servicePreview = [
   },
   {
     key: "aereo",
-    title: "Transporte Aereo",
-    summary: "Movemos envios urgentes o de alto valor con tiempos controlados.",
+    title: "Transporte Aéreo",
+    summary: "Movemos envíos urgentes o de alto valor con tiempos controlados.",
     icon: FiWind,
     image: "/home-imgs/aereo.avif",
     href: "/servicios/aereo",
   },
   {
     key: "maritimo",
-    title: "Transporte Maritimo",
-    summary: "Coordinacion operativa y documental desde origen hasta entrega.",
+    title: "Transporte Marítimo",
+    summary: "Coordinación operativa y documental desde origen hasta entrega.",
     icon: FiAnchor,
     image: "/home-imgs/maritimo.avif",
     href: "/servicios/maritimo",
@@ -55,7 +55,7 @@ const servicePreview = [
   {
     key: "complementarios",
     title: "Servicios Complementarios",
-    summary: "Aduana, almacenamiento y coordinacion integral para tu operacion.",
+    summary: "Aduana, almacenamiento y coordinación integral para tu operación.",
     icon: FiLayers,
     image: "/home-imgs/about.avif",
     href: "/servicios/complementarios",
@@ -71,21 +71,12 @@ export default function Home() {
       {/* --- About Preview --- */}
       <section className="scroll-mt-28 px-6 py-20 md:py-24">
         <div className="section-shell">
-          <div className="section-grid mx-auto max-w-6xl lg:grid-cols-2">
-            <div className="min-w-0 glass-panel overflow-hidden p-3">
-              <img
-                src="/home-imgs/about.avif"
-                loading="lazy"
-                decoding="async"
-                alt="Equipo de logistica"
-                className="h-[340px] w-full rounded-[1.6rem] object-cover md:h-[440px]"
-              />
-            </div>
+          <div className="section-grid mx-auto max-w-6xl">
             <div className="min-w-0 glass-panel p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-between">
               <div className="space-y-4">
-                <div className="section-label">Quienes somos</div>
+                <div className="section-label">¿Qué hacemos?</div>
                 <h2 className="section-title">
-                  Acompanamiento logistico para operaciones Mexico-USA
+                  Acompañamiento logístico para operaciones México-USA
                 </h2>
                 <p className="section-copy max-w-2xl">
                   {blsContent.about.description}
@@ -96,7 +87,7 @@ export default function Home() {
                   to="/nosotros"
                   className="inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                 >
-                  Conocer mas
+                  Conocer más
                   <FiArrowRight />
                 </Link>
                 <Link
@@ -125,7 +116,7 @@ export default function Home() {
             </div>
             <Link
               to="/servicios"
-              className="inline-flex items-center gap-2 self-start rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095] lg:self-auto"
+              className="inline-flex text-nowrap items-center gap-2 self-start rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095] lg:self-auto"
             >
               Ver todos los servicios
               <FiArrowRight />
@@ -177,7 +168,7 @@ export default function Home() {
           <div className="glass-panel mx-auto max-w-6xl overflow-hidden">
             <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
               <div className="p-6 md:p-10">
-                <div className="section-label mb-4">Por que BL Solutions</div>
+                <div className="section-label mb-4">Por qué BL Solutions</div>
                 <h2 className="section-title mb-6">
                   {blsContent.differentiator.concept}
                 </h2>
@@ -200,7 +191,7 @@ export default function Home() {
                   to="/nosotros"
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                 >
-                  Mas sobre nosotros
+                  Más sobre nosotros
                   <FiArrowRight />
                 </Link>
               </div>
@@ -285,7 +276,7 @@ export default function Home() {
                 to="/contacto"
                 className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#202F4C] transition-transform hover:-translate-y-0.5"
               >
-                Agendar evaluacion
+                Agendar evaluación
                 <FiArrowRight />
               </Link>
             </div>

@@ -15,7 +15,7 @@ type CoverageSection = {
 function Coverage() {
   const coverageData: CoverageSection[] = [
     {
-      title: "Corredor Mexico-USA",
+      title: "Corredor México-USA",
       icon: <FaGlobe className="text-2xl" />,
       items: blsContent.coverage.corridorPoints,
       color: "from-[#202F4C] to-[#015095]",
@@ -28,7 +28,7 @@ function Coverage() {
       color: "from-[#202F4C] to-[#015095]",
     },
     {
-      title: "Cruces Estrategicos",
+      title: "Cruces Estratégicos",
       icon: <FaShip className="text-2xl" />,
       items: blsContent.coverage.crossings,
       color: "from-[#202F4C] to-[#015095]",
@@ -47,7 +47,7 @@ function Coverage() {
             transition={{ duration: 0.6 }}
             className="section-title"
           >
-            Cobertura operativa para rutas Mexico-USA
+            Cobertura operativa para rutas México-USA
           </motion.h2>
           <p className="section-copy mx-auto max-w-3xl">
             Operamos con enfoque binacional, red validada y seguimiento puntual para mantener el control de cada movimiento.

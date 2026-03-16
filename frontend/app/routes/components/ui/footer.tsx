@@ -28,24 +28,34 @@ const FlipFooter = () => {
               />
             </Link>
             <p className="max-w-xl text-sm leading-7 text-[#5E6878] md:text-base">
-              Logistica integral Mexico-USA con transporte, aduana, almacenamiento y coordinacion bajo un solo responsable.
+              Logística integral México-USA con transporte, aduana, almacenamiento y coordinación bajo un solo responsable.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <FooterLink to="/">Inicio</FooterLink>
-            <FooterLink to="/servicios">Servicios</FooterLink>
-            <FooterLink to="/nosotros">Nosotros</FooterLink>
-            <FooterLink to="/contacto">Contacto</FooterLink>
-            <FooterLink to="/servicios/terrestre">Terrestre</FooterLink>
-            <FooterLink to="/servicios/aereo">Aereo</FooterLink>
-            <FooterLink to="/servicios/maritimo">Maritimo</FooterLink>
-            <FooterLink to="/servicios/complementarios">Complementarios</FooterLink>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-2">
+            <div className="flex flex-col gap-4">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#202F4C]">Empresa</p>
+              <div className="flex flex-col gap-3">
+                <FooterLink to="/">Inicio</FooterLink>
+                <FooterLink to="/nosotros">Nosotros</FooterLink>
+                <FooterLink to="/contacto">Contacto</FooterLink>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#202F4C]">Servicios</p>
+              <div className="flex flex-col gap-3">
+                <FooterLink to="/servicios">Todos los servicios</FooterLink>
+                <FooterLink to="/servicios/terrestre">Transporte Terrestre</FooterLink>
+                <FooterLink to="/servicios/aereo">Transporte Aéreo</FooterLink>
+                <FooterLink to="/servicios/maritimo">Transporte Marítimo</FooterLink>
+                <FooterLink to="/servicios/complementarios">Otros Servicios</FooterLink>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="border-t border-[rgba(94,104,120,0.14)] px-8 py-5 text-xs text-[#5E6878] md:px-10">
-          &copy; {new Date().getFullYear()} BL Solutions. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} BL Solutions. Todos los derechos reservados. - Desarrollado por <a href="https://www.blinkstudio.dev" target="_blank" rel="noopener noreferrer" className="text-[#202F4C] italic">Blink Studio</a>
         </div>
       </div>
     </footer>

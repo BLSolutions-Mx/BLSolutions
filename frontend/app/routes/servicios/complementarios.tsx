@@ -20,7 +20,7 @@ export function meta() {
     {
       name: "description",
       content:
-        "Agencia aduanal, almacenamiento y coordinacion integral para mantener tu operacion logistica en movimiento.",
+        "Agencia aduanal, almacenamiento y coordinación integral para mantener tu operación logística en movimiento.",
     },
   ];
 }
@@ -38,7 +38,7 @@ export default function ServiciosComplementarios() {
       <section className="relative overflow-hidden px-6 pb-16 pt-28 md:pb-20 md:pt-36">
         <div className="absolute inset-0 -z-10">
           <img
-            src="/home-imgs/about.avif"
+            src="/home-imgs/hero_complementarios.avif"
             alt="Servicios complementarios"
             className="h-full w-full object-cover"
           />
@@ -59,11 +59,11 @@ export default function ServiciosComplementarios() {
             </div>
           </div>
           <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl md:text-6xl">
-            Servicios complementarios para tu operacion
+            Servicios complementarios para tu operación
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
             Complementamos el transporte con servicios que te ayudan a mantener continuidad,
-            orden documental y una coordinacion mas clara.
+            orden documental y una coordinación más clara.
           </p>
 
           {/* Quick nav pills */}
@@ -71,7 +71,7 @@ export default function ServiciosComplementarios() {
             {[
               { label: "Agencia Aduanal", icon: FiFileText, id: "aduana" },
               { label: "Almacenamiento", icon: FiArchive, id: "almacen" },
-              { label: "Coordinacion Integral", icon: FiRepeat, id: "coordinacion" },
+              { label: "Coordinación Integral", icon: FiRepeat, id: "coordinacion" },
             ].map((pill) => {
               const Icon = pill.icon;
               return (
@@ -96,6 +96,7 @@ export default function ServiciosComplementarios() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="glass-panel mx-auto max-w-[80vw] overflow-hidden"
           >
             <div className="group relative overflow-hidden rounded-[2rem] shadow-[0_24px_80px_rgba(32,47,76,0.12)]">
               <div
@@ -156,69 +157,70 @@ export default function ServiciosComplementarios() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-panel mx-auto max-w-6xl overflow-hidden"
+            className="glass-panel mx-auto max-w-[80vw] overflow-hidden"
           >
-            <div className="grid lg:grid-cols-[0.85fr_1.15fr]">
-              <div className="relative min-h-[320px]">
-                <img
-                  src={almacenData.image}
-                  alt={almacenData.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col justify-center p-6 md:p-8 lg:p-10">
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-[#015095]/10">
-                    <FiArchive className="text-xl text-[#015095]" />
-                  </div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#015095]">
-                    Servicio 02
-                  </p>
+            <div className="group relative overflow-hidden rounded-[2rem] shadow-[0_24px_80px_rgba(32,47,76,0.12)]">
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                style={{ backgroundImage: `url('${almacenData.image}')` }}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(225deg,rgba(32,47,76,0.94)_0%,rgba(32,47,76,0.78)_50%,rgba(1,80,149,0.72)_100%)]" />
+
+              <div className="relative z-10 grid gap-8 p-6 md:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:p-14">
+                <div className="order-2 flex flex-col justify-center lg:order-1">
+                  <ul className="space-y-3">
+                    {almacenData.bullets.map((bullet, idx) => (
+                      <motion.li
+                        key={bullet}
+                        initial={{ opacity: 0, x: -16 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: idx * 0.1 + 0.2 }}
+                        className="flex items-center gap-3 rounded-2xl border border-white/14 bg-white/10 px-4 py-4 text-sm font-medium text-white/90 backdrop-blur-sm"
+                      >
+                        <FiCheckCircle className="shrink-0 text-white/60" />
+                        {bullet}
+                      </motion.li>
+                    ))}
+                  </ul>
                 </div>
-                <h2 className="text-3xl font-semibold text-[#202F4C] md:text-4xl">
-                  {almacenData.title}
-                </h2>
-                <p className="mt-4 text-base leading-8 text-[#5E6878] md:text-lg">
-                  {almacenData.description}
-                </p>
-                <ul className="mt-6 space-y-3">
-                  {almacenData.bullets.map((bullet, idx) => (
-                    <motion.li
-                      key={bullet}
-                      initial={{ opacity: 0, x: -12 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="soft-card flex items-start gap-3 px-4 py-4 text-slate-700"
-                    >
-                      <FiCheckCircle className="mt-0.5 shrink-0 text-[#015095]" />
-                      <span className="font-medium">{bullet}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-                <Link
-                  to="/contacto"
-                  className="mt-6 inline-flex items-center gap-2 self-start rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
-                >
-                  Hablar de este servicio
-                  <FiArrowRight />
-                </Link>
+                <div className="order-1 text-white lg:order-2">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/14 backdrop-blur-sm">
+                      <FiArchive className="text-xl" />
+                    </div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
+                      Servicio 02
+                    </p>
+                  </div>
+                  <h2 className="text-3xl font-semibold leading-tight md:text-4xl">
+                    {almacenData.title}
+                  </h2>
+                  <p className="mt-4 text-base leading-8 text-white/78 md:text-lg">
+                    {almacenData.description}
+                  </p>
+                  <Link
+                    to="/contacto"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[#202F4C] transition-transform hover:-translate-y-0.5"
+                  >
+                    Hablar de este servicio
+                    <FiArrowRight />
+                  </Link>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* --- Coordinacion Section: Centered card emphasis --- */}
+      {/* --- Coordinación Section: Centered card emphasis --- */}
       <section id="coordinacion" className="scroll-mt-28 px-6 py-20 md:py-24">
         <div className="section-shell">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mx-auto max-w-4xl"
+            className="mx-auto max-w-[80vw]"
           >
             <div className="rounded-[2rem] bg-[#202F4C] p-6 text-white shadow-[0_24px_80px_rgba(32,47,76,0.22)] md:p-10 lg:p-14">
               <div className="mb-4 flex items-center gap-3">
@@ -278,10 +280,10 @@ export default function ServiciosComplementarios() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.18),_transparent_48%)]" />
             <div className="relative z-10 mx-auto max-w-3xl text-center">
               <h2 className="text-2xl font-extrabold leading-[1.05] tracking-[-0.03em] md:text-3xl">
-                ¿Buscas una solucion integral?
+                ¿Buscas una solución integral?
               </h2>
               <p className="mt-3 max-w-xl mx-auto text-sm leading-7 text-white/72">
-                Combinamos transporte, aduana, almacenamiento y coordinacion para darte una experiencia mas simple y controlada.
+                Combinamos transporte, aduana, almacenamiento y coordinación para darte una experiencia más simple y controlada.
               </p>
               <Link
                 to="/contacto"

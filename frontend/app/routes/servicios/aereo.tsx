@@ -16,11 +16,11 @@ import WhatsAppFloatingButton from "../components/ui/whatsAppFloatButton";
 
 export function meta() {
   return [
-    { title: "Transporte Aereo | BL Solutions" },
+    { title: "Transporte Aéreo | BL Solutions" },
     {
       name: "description",
       content:
-        "Transporte aereo para envios urgentes y de alto valor. Coordinacion puerta a puerta con seguimiento en tiempo real.",
+        "Transporte aéreo para envíos urgentes y de alto valor. Coordinación puerta a puerta con seguimiento en tiempo real.",
     },
   ];
 }
@@ -36,12 +36,12 @@ const features = [
   {
     icon: FiMapPin,
     title: "Puerta a puerta",
-    description: "Coordinamos desde la recoleccion hasta la entrega final sin que pierdas visibilidad.",
+    description: "Coordinamos desde la recolección hasta la entrega final sin que pierdas visibilidad.",
   },
   {
     icon: FiActivity,
     title: "Seguimiento constante",
-    description: "Monitoreo de tu envio con actualizaciones proactivas durante todo el trayecto.",
+    description: "Monitoreo de tu envío con actualizaciones proactivas durante todo el trayecto.",
   },
 ];
 
@@ -54,8 +54,8 @@ export default function TransporteAereo() {
       <section className="relative overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
         <div className="absolute inset-0 -z-10">
           <img
-            src={aereoData.image}
-            alt="Transporte aereo"
+            src="/home-imgs/hero_aereo.avif"
+            alt="Transporte aéreo"
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(32,47,76,0.92)_0%,rgba(32,47,76,0.68)_45%,rgba(1,80,149,0.82)_100%)]" />
@@ -74,7 +74,7 @@ export default function TransporteAereo() {
               <FiWind className="text-2xl text-white" />
             </div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-              Envios urgentes y de alto valor
+              Envíos urgentes y de alto valor
             </p>
           </div>
           <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl md:text-6xl">
@@ -87,7 +87,7 @@ export default function TransporteAereo() {
             to="/contacto"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#202F4C] transition-transform hover:-translate-y-0.5"
           >
-            Cotizar envio aereo
+            Cotizar envío aéreo
             <FiArrowRight />
           </Link>
         </div>
@@ -125,12 +125,12 @@ export default function TransporteAereo() {
       {/* --- Bullets list with side image --- */}
       <section className="px-6 py-20 md:py-24">
         <div className="section-shell">
-          <div className="glass-panel mx-auto max-w-5xl overflow-hidden">
+          <div className="glass-panel mx-auto max-w-[80vw] overflow-hidden">
             <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
               <div className="relative min-h-[280px] lg:min-h-0">
                 <img
                   src={aereoData.image}
-                  alt="Operaciones aereas"
+                  alt="Operaciones aéreas"
                   loading="lazy"
                   decoding="async"
                   className="absolute inset-0 h-full w-full object-cover"
@@ -177,10 +177,10 @@ export default function TransporteAereo() {
             <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center">
               <FiWind className="text-4xl text-white/40" />
               <h2 className="text-2xl font-extrabold leading-[1.05] tracking-[-0.03em] md:text-3xl">
-                ¿Tienes un envio urgente?
+                ¿Tienes un envío urgente?
               </h2>
               <p className="max-w-xl text-sm leading-7 text-white/72">
-                Contactanos y te damos una solucion rapida con seguimiento desde el primer momento.
+                Contáctanos y te damos una solución rápida con seguimiento desde el primer momento.
               </p>
               <Link
                 to="/contacto"

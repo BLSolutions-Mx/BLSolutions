@@ -16,11 +16,11 @@ import WhatsAppFloatingButton from "../components/ui/whatsAppFloatButton";
 
 export function meta() {
   return [
-    { title: "Transporte Maritimo (FCL/LCL) | BL Solutions" },
+    { title: "Transporte Marítimo (FCL/LCL) | BL Solutions" },
     {
       name: "description",
       content:
-        "Transporte maritimo FCL y LCL para comercio internacional. Coordinacion aduanal y seguimiento desde origen hasta destino final.",
+        "Transporte marítimo FCL y LCL para comercio internacional. Coordinación aduanal y seguimiento desde origen hasta destino final.",
     },
   ];
 }
@@ -31,17 +31,17 @@ const advantages = [
   {
     icon: FiGlobe,
     title: "Alcance global",
-    text: "Conectamos tu operacion con puertos estrategicos y rutas internacionales.",
+    text: "Conectamos tu operación con puertos estratégicos y rutas internacionales.",
   },
   {
     icon: FiFileText,
     title: "Soporte documental",
-    text: "Cuidamos la documentacion para que tu carga cruce sin contratiempos.",
+    text: "Cuidamos la documentación para que tu carga cruce sin contratiempos.",
   },
   {
     icon: FiTrendingUp,
     title: "Costo por volumen",
-    text: "Mueve grandes volumenes a costos competitivos con opciones FCL y LCL.",
+    text: "Mueve grandes volúmenes a costos competitivos con opciones FCL y LCL.",
   },
 ];
 
@@ -54,8 +54,8 @@ export default function TransporteMaritimo() {
       <section className="relative overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
         <div className="absolute inset-0 -z-10">
           <img
-            src={maritimoData.image}
-            alt="Transporte maritimo"
+            src="/home-imgs/hero_maritimo.avif"
+            alt="Transporte marítimo"
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(32,47,76,0.82)_0%,rgba(32,47,76,0.60)_40%,rgba(32,47,76,0.92)_100%)]" />
@@ -95,7 +95,7 @@ export default function TransporteMaritimo() {
             <div className="grid gap-8 md:grid-cols-[1.3fr_0.7fr]">
               <div>
                 <h2 className="text-2xl font-semibold text-[#202F4C] md:text-3xl">
-                  Coordinacion maritima de origen a destino
+                  Coordinación marítima de origen a destino
                 </h2>
                 <p className="mt-4 text-base leading-8 text-[#5E6878] md:text-lg">
                   {maritimoData.description}
@@ -104,7 +104,7 @@ export default function TransporteMaritimo() {
                   to="/contacto"
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                 >
-                  Solicitar cotizacion
+                  Solicitar cotización
                   <FiArrowRight />
                 </Link>
               </div>
@@ -134,8 +134,8 @@ export default function TransporteMaritimo() {
       <section className="px-6 py-20 md:py-24">
         <div className="section-shell">
           <div className="mb-10 space-y-4">
-            <div className="section-label">Ventajas maritimas</div>
-            <h2 className="section-title">Mover volumen con coordinacion y control</h2>
+            <div className="section-label">Ventajas marítimas</div>
+            <h2 className="section-title">Mover volumen con coordinación y control</h2>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-3">
@@ -168,10 +168,10 @@ export default function TransporteMaritimo() {
       {/* --- FCL vs LCL comparison --- */}
       <section className="px-6 py-20 md:py-24">
         <div className="section-shell">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-[80vw]">
             <div className="mb-10 space-y-4 text-center">
               <div className="section-label">Modalidades</div>
-              <h2 className="section-title">FCL vs LCL: ¿Cual es la mejor opcion?</h2>
+              <h2 className="section-title">FCL vs LCL: ¿Cuál es la mejor opción?</h2>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
@@ -186,10 +186,10 @@ export default function TransporteMaritimo() {
                 </div>
                 <h3 className="text-2xl font-semibold text-[#202F4C]">Contenedor Completo</h3>
                 <p className="mt-3 text-sm leading-7 text-[#5E6878]">
-                  Ideal cuando tienes volumen suficiente para llenar un contenedor. Mayor control, horarios mas predecibles y costo competitivo por unidad.
+                  Ideal cuando tienes volumen suficiente para llenar un contenedor. Mayor control, horarios más predecibles y costo competitivo por unidad.
                 </p>
                 <ul className="mt-5 space-y-2">
-                  {["Mayor seguridad", "Tiempos de transito directos", "Ideal para alto volumen"].map(
+                  {["Mayor seguridad", "Tiempos de tránsito directos", "Ideal para alto volumen"].map(
                     (item) => (
                       <li
                         key={item}
@@ -214,7 +214,7 @@ export default function TransporteMaritimo() {
                 </div>
                 <h3 className="text-2xl font-semibold text-[#202F4C]">Carga Consolidada</h3>
                 <p className="mt-3 text-sm leading-7 text-[#5E6878]">
-                  Perfecto para volumenes que no llenan un contenedor completo. Compartes espacio reduciendo costos sin perder seguimiento.
+                  Perfecto para volúmenes que no llenan un contenedor completo. Compartes espacio reduciendo costos sin perder seguimiento.
                 </p>
                 <ul className="mt-5 space-y-2">
                   {["Menor inversion inicial", "Flexibilidad de volumen", "Seguimiento integral"].map(
@@ -242,20 +242,20 @@ export default function TransporteMaritimo() {
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="glass-panel mx-auto max-w-4xl p-8 text-center md:p-12"
+            className="glass-panel mx-auto max-w-[80vw] p-8 text-center md:p-12"
           >
             <FiAnchor className="mx-auto text-4xl text-[#015095]/40" />
             <h2 className="mt-4 text-2xl font-extrabold leading-[1.05] tracking-[-0.03em] text-[#202F4C] md:text-3xl">
               ¿Necesitas mover carga por mar?
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#5E6878]">
-              Te ayudamos a elegir entre FCL y LCL segun tu volumen, frecuencia y tipo de carga.
+              Te ayudamos a elegir entre FCL y LCL según tu volumen, frecuencia y tipo de carga.
             </p>
             <Link
               to="/contacto"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
             >
-              Solicitar evaluacion
+              Solicitar evaluación
               <FiArrowRight />
             </Link>
           </motion.div>

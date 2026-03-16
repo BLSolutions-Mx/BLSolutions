@@ -14,10 +14,10 @@ export default function Approach() {
     <section id="approach" className="scroll-mt-28 px-6 py-20 md:py-24">
       <div className="section-shell">
         <div className="mb-10 space-y-4">
-          <div className="section-label">Asi te acompanamos</div>
-          <h2 className="section-title">Mas visibilidad y control para tu operacion</h2>
+          <div className="section-label">Así te acompañamos</div>
+          <h2 className="section-title">Más visibilidad y control para tu operación</h2>
           <p className="section-copy max-w-3xl">
-            {blsContent.value.solution} Disenamos soluciones flexibles con seguimiento
+            {blsContent.value.solution} Diseñamos soluciones flexibles con seguimiento
             proactivo y responsabilidad total.
           </p>
         </div>
@@ -185,7 +185,7 @@ export default function Approach() {
               href="#contact"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[#202F4C] transition-transform hover:-translate-y-0.5"
             >
-              Agendar evaluacion
+              Agendar evaluación
               <FiArrowRight />
             </a>
           </motion.div>
@@ -199,9 +199,9 @@ export default function Approach() {
           className="mt-6 glass-panel p-6 md:p-8"
         >
           <div className="mb-6 space-y-3">
-            <div className="section-label">Enfoque estrategico</div>
+            <div className="section-label">Enfoque estratégico</div>
             <h3 className="text-2xl font-semibold text-[#202F4C] md:text-3xl">
-              Adaptamos la solucion a la realidad de tu operacion
+              Adaptamos la solución a la realidad de tu operación
             </h3>
           </div>
 

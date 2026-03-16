@@ -39,16 +39,15 @@ type NavMenuProps = {
 
 const serviceDropdownItems: DropdownItem[] = [
   { text: "Terrestre", href: "/servicios/terrestre", icon: FiTruck },
-  { text: "Aereo", href: "/servicios/aereo", icon: FiWind },
-  { text: "Maritimo", href: "/servicios/maritimo", icon: FiAnchor },
+  { text: "Aéreo", href: "/servicios/aereo", icon: FiWind },
+  { text: "Marítimo", href: "/servicios/maritimo", icon: FiAnchor },
   { text: "Complementarios", href: "/servicios/complementarios", icon: FiLayers },
 ];
 
 const navItems: NavItem[] = [
   { text: "Inicio", href: "/" },
-  { text: "Servicios Logisticos", href: "/servicios", hasDropdown: true },
+  { text: "Servicios Logísticos", href: "/servicios", hasDropdown: true },
   { text: "Nosotros", href: "/nosotros" },
-  { text: "Contacto", href: "/contacto" },
 ];
 
 const FlipNavWrapper = () => <FlipNav />;
@@ -138,16 +137,14 @@ const FlipNav = () => {
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 px-3 py-4 transition-transform duration-300 sm:px-4 md:px-6 ${
-        isHidden ? "-translate-y-full" : "translate-y-0"
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 px-3 py-4 transition-transform duration-300 sm:px-4 md:px-6 ${isHidden ? "-translate-y-full" : "translate-y-0"
+        }`}
     >
       <div
-        className={`section-shell grid min-w-0 w-full grid-cols-[auto_1fr_auto] items-center rounded-full px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300 sm:px-5 lg:px-6 ${
-          scrolled
+        className={`section-shell grid min-w-0 w-full grid-cols-[auto_1fr_auto] items-center rounded-full px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300 sm:px-5 lg:px-6 ${scrolled
             ? "border-[rgba(94,104,120,0.18)] bg-white backdrop-blur-xl"
             : "border-[rgba(94,104,120,0.14)] bg-white/95 backdrop-blur-xl"
-        }`}
+          }`}
       >
         <Logo />
 
@@ -167,9 +164,8 @@ const FlipNav = () => {
                 >
                   {item.text}
                   <FiChevronDown
-                    className={`text-xs transition-transform duration-200 ${
-                      dropdownOpen ? "rotate-180" : ""
-                    }`}
+                    className={`text-xs transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </Link>
                 <AnimatePresence>
@@ -283,9 +279,8 @@ const NavMenu = ({
             >
               {item.text}
               <FiChevronDown
-                className={`text-sm transition-transform duration-200 ${
-                  mobileServicesOpen ? "rotate-180" : ""
-                }`}
+                className={`text-sm transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""
+                  }`}
               />
             </motion.button>
             <AnimatePresence>

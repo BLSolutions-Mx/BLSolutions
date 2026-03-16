@@ -13,7 +13,7 @@ export function meta() {
     {
       name: "description",
       content:
-        "Solicita una evaluacion de tu ruta Mexico-USA. Sin costo, sin compromiso.",
+        "Solicita una evaluación de tu ruta México-USA. Sin costo, sin compromiso.",
     },
   ];
 }
@@ -29,18 +29,18 @@ export default function Contacto() {
   const contactItems: Array<{ icon: ReactNode; title: string; text: string; href?: string }> = [
     {
       icon: <FiMapPin />,
-      title: "Direccion",
+      title: "Dirección",
       text: blsContent.contact.address,
     },
     {
       icon: <FiPhone />,
-      title: "Telefono",
+      title: "Teléfono",
       text: blsContent.contact.phone,
       href: `tel:${blsContent.contact.phone.replace(/\s+/g, "")}`,
     },
     {
       icon: <FiMail />,
-      title: "Correo electronico",
+      title: "Correo electrónico",
       text: blsContent.contact.email,
       href: `mailto:${blsContent.contact.email}`,
     },
@@ -68,7 +68,7 @@ export default function Contacto() {
       if (response.ok && result.success) {
         setSubmitStatus({
           success: true,
-          message: result.message || "Mensaje enviado con exito.",
+          message: result.message || "Mensaje enviado con éxito.",
         });
         setFormData({ name: "", email: "", message: "" });
       } else {
@@ -100,10 +100,10 @@ export default function Contacto() {
         <div className="section-shell">
           <div className="mx-auto max-w-4xl text-center text-white">
             <div className="section-label mb-6 border-white/20 bg-white/8 text-white">
-              Evaluacion estrategica
+              Evaluación estratégica
             </div>
             <h1 className="text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl">
-              Revisemos tu ruta Mexico-USA
+              Revisemos tu ruta México-USA
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
               {blsContent.nextStep.action} {blsContent.nextStep.conditions}
@@ -113,14 +113,14 @@ export default function Contacto() {
       </section>
 
       {/* --- Contact Form & Info --- */}
-      <section className="px-6 py-20 md:py-24">
+      <section className="px-2 py-20 md:py-24">
         <div className="section-shell">
           <div className="glass-panel mx-auto grid w-full max-w-6xl gap-6 p-4 sm:p-5 md:grid-cols-2 md:p-6 lg:gap-8">
             {/* Left - Contact Info */}
             <div className="min-w-0 rounded-[2rem] bg-[#132633] p-6 text-white sm:p-7 md:p-8">
               <div className="mb-8 space-y-4">
                 <h2 className="text-3xl font-extrabold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Hablemos de tu operacion
+                  Hablemos de tu operación
                 </h2>
                 <p className="text-base leading-8 text-white/72">
                   Te ayudamos a identificar riesgos, detectar fugas de costo y proponer mejoras concretas.
@@ -174,7 +174,7 @@ export default function Contacto() {
                   Formulario
                 </p>
                 <p className="mt-3 text-2xl font-semibold text-[#202F4C]">
-                  Cuentanos sobre tu operacion
+                  Cuéntanos sobre tu operación
                 </p>
                 <p className="mt-3 text-sm leading-7 text-[#5E6878]">
                   Comparte origen, destino, tipo de carga o problema actual. Revisamos riesgos,
@@ -230,11 +230,10 @@ export default function Contacto() {
                 </div>
                 {submitStatus.message && (
                   <div
-                    className={`rounded-2xl p-3 text-center text-sm ${
-                      submitStatus.success
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
+                    className={`rounded-2xl p-3 text-center text-sm ${submitStatus.success
+                      ? "bg-green-100 text-green-800"
+                      : "bg-red-100 text-red-800"
+                      }`}
                   >
                     {submitStatus.message}
                   </div>
