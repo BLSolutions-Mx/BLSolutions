@@ -45,13 +45,13 @@ export default function HeroSlider() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src="/home-imgs/about.avif"
+          src="/home-imgs/hero-bg.avif"
           alt="Operaciones logísticas"
           loading="eager"
           decoding="async"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(1,80,149,0.38),_transparent_34%),linear-gradient(135deg,rgba(32,47,76,0.85)_0%,rgba(22,36,61,0.80)_40%,rgba(1,80,149,0.90)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(1,80,149,0.38),_transparent_34%),linear-gradient(135deg,rgba(32,47,76,0.85)_0%,rgba(22,36,61,0.80)_40%,rgba(1,80,149,0.90)_100%)] opacity-80" />
       </div>
       <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(circle,_rgba(255,255,255,0.18),_transparent_58%)] blur-3xl" />
 
