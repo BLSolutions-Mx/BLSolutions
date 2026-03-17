@@ -122,20 +122,90 @@ export default function Contacto() {
     <main id="app-shell" className="min-h-screen text-slate-950">
       <Navbar />
 
-      <section className="relative overflow-hidden px-6 pb-16 pt-28 md:pb-20 md:pt-36">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(1,80,149,0.38),_transparent_34%),linear-gradient(135deg,_#202F4C_0%,_#16243d_40%,_#015095_100%)]" />
-        <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(circle,_rgba(255,255,255,0.18),_transparent_58%)] blur-3xl" />
+      <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-20 pt-32 md:pb-32 md:pt-40">
+        {/* Abstract Background Elements - Distinct from others */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-[#015095]/10 to-transparent" />
+          <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-900/20 blur-[100px]" />
+        </div>
 
-        <div className="section-shell">
-          <div className="mx-auto max-w-4xl text-center text-white">
-            <div className="section-label mb-6 border-white/20 bg-white/8 text-white">Contacto</div>
-            <h1 className="text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl">
-              Revisemos tu operación
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
-              Si necesitas transporte, intermodal o consultoría, cuéntanos qué estás moviendo y qué
-              necesitas resolver.
-            </p>
+        <div className="section-shell relative z-10">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-[#0079e3] backdrop-blur-sm">
+                <span className="flex h-2 w-2 rounded-full bg-[#0079e3] shadow-[0_0_8px_#0079e3]" />
+                Contacto
+              </div>
+              <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
+                Revisemos <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">tu operación</span>
+              </h1>
+              <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate-300 md:text-xl">
+                Si necesitas transporte, intermodal o consultoría, cuéntanos qué estás moviendo y qué
+                necesitas resolver.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative hidden lg:block"
+            >
+               {/* Abstract Contact/Map Graphic */}
+               <div className="relative aspect-[4/3] w-full max-w-lg mx-auto">
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 backdrop-blur-sm p-8 flex items-center justify-center">
+                     {/* Stylized Map Points */}
+                     <div className="relative h-full w-full">
+                        {/* Connecting Line */}
+                        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                           <motion.path 
+                              d="M 20,80 Q 50,20 80,33" 
+                              stroke="url(#gradient-line)" 
+                              strokeWidth="0.5" 
+                              fill="none"
+                              initial={{ pathLength: 0, opacity: 0 }}
+                              animate={{ pathLength: 1, opacity: 1 }}
+                              transition={{ duration: 2, ease: "easeInOut" }}
+                           />
+                           <defs>
+                              <linearGradient id="gradient-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                                 <stop offset="0%" stopColor="#0079e3" stopOpacity="0" />
+                                 <stop offset="50%" stopColor="#0079e3" />
+                                 <stop offset="100%" stopColor="#0079e3" stopOpacity="0" />
+                              </linearGradient>
+                           </defs>
+                        </svg>
+
+                        {/* Floating Cards */}
+                        <motion.div 
+                           className="absolute bottom-10 left-10 rounded-xl bg-[#1e293b] border border-white/10 p-4 shadow-xl flex items-center gap-3"
+                           animate={{ y: [0, -5, 0] }}
+                           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                           <div className="h-8 w-8 rounded-full bg-[#0079e3]/20 flex items-center justify-center">
+                              <FiMapPin className="text-[#0079e3]" />
+                           </div>
+                           <div className="h-2 w-16 rounded-full bg-white/20" />
+                        </motion.div>
+
+                        <motion.div 
+                           className="absolute top-10 right-10 rounded-xl bg-[#1e293b] border border-white/10 p-4 shadow-xl flex items-center gap-3"
+                           animate={{ y: [0, 5, 0] }}
+                           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                        >
+                           <div className="h-8 w-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                              <FiMail className="text-blue-400" />
+                           </div>
+                           <div className="h-2 w-20 rounded-full bg-white/20" />
+                        </motion.div>
+                     </div>
+                  </div>
+               </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -143,8 +213,13 @@ export default function Contacto() {
       <section className="px-2 py-20 md:py-24">
         <div className="section-shell">
           <div className="glass-panel mx-auto grid w-full max-w-6xl gap-6 p-4 sm:p-5 md:grid-cols-2 md:p-6 lg:gap-8">
-            <div className="min-w-0 rounded-[2rem] bg-[#132633] p-6 text-white sm:p-7 md:p-8">
-              <div className="mb-8 space-y-4">
+            <div className="relative min-w-0 overflow-hidden rounded-[2rem] bg-[#0B1120] p-6 text-white sm:p-7 md:p-8">
+              <div className="absolute inset-0">
+                <div className="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-[#015095]/10 to-transparent" />
+                <div className="absolute right-0 bottom-0 h-[320px] w-[320px] rounded-full bg-indigo-900/20 blur-[80px]" />
+              </div>
+
+              <div className="relative z-10 mb-8 space-y-4">
                 <h2 className="text-3xl font-extrabold leading-[1] tracking-[-0.04em] sm:text-4xl">
                   Hablemos de tu operación
                 </h2>
@@ -154,7 +229,7 @@ export default function Contacto() {
                 </p>
               </div>
 
-              <div className="mb-6 space-y-3">
+              <div className="relative z-10 mb-6 space-y-3">
                 {blsContent.nextStep.benefits.map((benefit, index) => (
                   <motion.div
                     key={benefit}
@@ -169,7 +244,7 @@ export default function Contacto() {
                 ))}
               </div>
 
-              <div className="space-y-6">
+              <div className="relative z-10 space-y-6">
                 {contactItems.map((item, index) => (
                   <motion.div
                     key={item.title}

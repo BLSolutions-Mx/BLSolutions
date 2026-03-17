@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, type PanInfo } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiPhoneCall } from "react-icons/fi";
 import { blsContent } from "./blsContent";
@@ -38,19 +38,6 @@ export default function HeroSlider() {
     return () => resetTimeout();
   }, [index]);
 
-  const handleDragEnd = (
-    _event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
-  ) => {
-    const offset = info.offset.x;
-
-    if (offset < -100) {
-      setIndex((prev) => (prev + 1) % slides.length);
-    } else if (offset > 100) {
-      setIndex((prev) => (prev - 1 + slides.length) % slides.length);
-    }
-  };
-
   return (
     <section
       id="hero"
@@ -70,17 +57,17 @@ export default function HeroSlider() {
 
       <div className="section-shell">
         <div className="grid items-center gap-8 lg:content-center lg:items-end lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:gap-12">
-          <div className="space-y-5 pt-6 text-white sm:space-y-8 lg:pr-6 lg:pt-0">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-5 pt-6 text-white sm:space-y-8 lg:pr-6 lg:pt-0"
+          >
             <div className="section-label border-white/20 bg-white/8 text-white">
               {blsContent.company.slogan}
             </div>
 
-            <motion.div
-              className="relative w-full max-w-4xl"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={handleDragEnd}
-            >
+            <div className="relative w-full max-w-4xl">
               <div className="relative min-h-[14.5rem] sm:min-h-[15.5rem] md:min-h-[18rem] lg:min-h-[19rem]">
                 <AnimatePresence mode="sync" initial={false}>
                   <motion.div
@@ -100,7 +87,7 @@ export default function HeroSlider() {
                   </motion.div>
                 </AnimatePresence>
               </div>
-            </motion.div>
+            </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
@@ -131,9 +118,14 @@ export default function HeroSlider() {
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="hidden w-full lg:flex lg:justify-end">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="hidden w-full lg:justify-end lg:flex"
+          >
             <div className="w-full max-w-sm rounded-[1.5rem] border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-md sm:p-8 md:max-w-md">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
                 Enfoque
@@ -145,7 +137,7 @@ export default function HeroSlider() {
                 {blsContent.proposal.summary}
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

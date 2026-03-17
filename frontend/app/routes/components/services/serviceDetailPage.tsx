@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons";
-import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import Footer from "../ui/footer";
 import Navbar from "../ui/navbar";
 import WhatsAppFloatingButton from "../ui/whatsAppFloatButton";
@@ -32,26 +32,25 @@ export default function ServiceDetailPage({
         </div>
 
         <div className="section-shell relative z-10">
-          <Link
-            to="/servicios/caja-seca"
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 transition-colors hover:bg-white/14"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <FiArrowLeft />
-            Volver a servicios
-          </Link>
-          <div className="max-w-3xl">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/14 backdrop-blur-sm">
-                <Icon className="text-2xl text-white" />
+            <div className="max-w-3xl">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/14 backdrop-blur-sm">
+                  <Icon className="text-2xl text-white" />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
+                  {eyebrow}
+                </p>
               </div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                {eyebrow}
-              </p>
+              <h1 className="text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl md:text-6xl">
+                {title}
+              </h1>
             </div>
-            <h1 className="text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl md:text-6xl">
-              {title}
-            </h1>
-          </div>
+          </motion.div>
         </div>
       </section>
 
