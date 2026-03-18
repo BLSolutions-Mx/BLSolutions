@@ -393,32 +393,26 @@ export default function Contacto() {
 
               <div className="relative z-10 mb-6 space-y-3">
                 {blsContent.nextStep.benefits.map((benefit, index) => (
-                  <motion.div
+                  <div
                     key={benefit}
-                    className="rounded-[1.2rem] border border-white/10 bg-white/6 px-4 py-3 text-sm font-medium text-white/86"
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.15, type: "spring", stiffness: 100 }}
+                    className="reveal-left rounded-[1.2rem] border border-white/10 bg-white/6 px-4 py-3 text-sm font-medium text-white/86"
+                    style={{ ["--reveal-delay" as string]: `${index * 150}ms` }}
                   >
                     {benefit}
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
-              <motion.div
-                className="relative z-10 rounded-[1.6rem] border border-white/10 bg-white/6 p-5"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.45, type: "spring", stiffness: 100 }}
+              <div
+                className="reveal-left relative z-10 rounded-[1.6rem] border border-white/10 bg-white/6 p-5"
+                style={{ ["--reveal-delay" as string]: "450ms" }}
               >
                 <h3 className="text-lg font-semibold">Solicitud guiada</h3>
                 <p className="mt-3 text-sm leading-7 text-white/72">
                   Pedimos cada dato por separado para revisar la solicitud con menos friccion y sin
                   depender de un mensaje libre incompleto.
                 </p>
-              </motion.div>
+              </div>
             </div>
 
             <div className="min-w-0 rounded-[2rem] bg-white p-5 sm:p-6 md:p-8">

@@ -140,13 +140,10 @@ export default function Consultoria() {
                 const description = rest.join(". ");
 
                 return (
-                  <motion.div
+                  <div
                     key={paragraph}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`relative flex flex-col items-center text-center ${approachOffsets[index] ?? ""}`}
+                    className={`reveal-up relative flex flex-col items-center text-center ${approachOffsets[index] ?? ""}`}
+                    style={{ ["--reveal-delay" as string]: `${index * 100}ms` }}
                   >
                     
                     <div className="relative z-10 mb-6 -translate-y-3 transform flex h-20 w-20 items-center justify-center bg-[#23365c] text-white shadow-[0_18px_40px_rgba(35,54,92,0.24)] [clip-path:polygon(50%_0%,93%_25%,93%_75%,50%_100%,7%_75%,7%_25%)] md:mb-10 md:h-24 md:w-24">
@@ -160,7 +157,7 @@ export default function Consultoria() {
                         {description}
                       </p>
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
@@ -189,13 +186,10 @@ export default function Consultoria() {
               const Icon = areaIcons[index];
 
               return (
-                <motion.div
+                <div
                   key={area}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                  className="rounded-3xl bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
+                  className="reveal-up rounded-3xl bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
+                  style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
                 >
                   <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
                     <Icon className="text-xl" />
@@ -204,7 +198,7 @@ export default function Consultoria() {
                   <p className="mt-4 text-sm leading-7 text-slate-600">
                     {areaDescriptions[index]}
                   </p>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -213,12 +207,7 @@ export default function Consultoria() {
 
       <section className="bg-white px-6 py-20 md:py-24">
         <div className="section-shell">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="relative overflow-hidden rounded-[2.5rem] bg-[#0B1120] p-8 text-white shadow-2xl md:p-16"
-          >
+          <div className="reveal-up relative overflow-hidden rounded-[2.5rem] bg-[#0B1120] p-8 text-white shadow-2xl md:p-16">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#1e293b,_transparent_70%)]" />
             <div className="relative z-10 mx-auto max-w-3xl text-center">
               <h2 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl">
@@ -236,7 +225,7 @@ export default function Consultoria() {
                 <FiArrowRight />
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

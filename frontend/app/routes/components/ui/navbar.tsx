@@ -1,18 +1,18 @@
-import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "react-router";
 import {
-  FiArrowUpRight,
   FiArchive,
+  FiArrowUpRight,
+  FiBriefcase,
   FiChevronDown,
-  FiMenu,
-  FiTruck,
   FiGitBranch,
+  FiHome,
+  FiLayers,
+  FiMenu,
   FiPackage,
   FiThermometer,
-  FiLayers,
-  FiBriefcase,
+  FiTruck,
   FiUsers,
   FiX,
 } from "react-icons/fi";
@@ -39,14 +39,16 @@ type NavItem = {
 type NavLinkProps = {
   text: string;
   href: string;
+  onClick?: () => void;
 };
 
 type NavMenuProps = {
   navItems: NavItem[];
   mobileServicesOpen: boolean;
   mobileRoadOpen: boolean;
-  setMobileServicesOpen: Dispatch<SetStateAction<boolean>>;
-  setMobileRoadOpen: Dispatch<SetStateAction<boolean>>;
+  setMobileServicesOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setMobileRoadOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closeMobileMenu: () => void;
 };
 
 const serviceDropdownItems: DropdownItem[] = [
@@ -79,7 +81,11 @@ const navItems: NavItem[] = [
   { text: "Nosotros", href: "/nosotros" },
 ];
 
-const FlipNavWrapper = () => <FlipNav />;
+const FlipNavWrapper = () => {
+  const location = useLocation();
+
+  return <FlipNav key={`${location.pathname}${location.hash}`} />;
+};
 
 const FlipNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -89,19 +95,23 @@ const FlipNav = () => {
   const [roadDropdownOpen, setRoadDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileRoadOpen, setMobileRoadOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const roadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const location = useLocation();
 
-  useEffect(() => {
-    setIsOpen(false);
+  const closeDesktopDropdowns = () => {
     setDropdownOpen(false);
     setRoadDropdownOpen(false);
+  };
+
+  const closeMobileMenu = () => {
+    setIsOpen(false);
     setMobileServicesOpen(false);
     setMobileRoadOpen(false);
-  }, [location.pathname, location.hash]);
+  };
 
+  // External browser scroll state drives the navbar position.
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
@@ -132,8 +142,20 @@ const FlipNav = () => {
     return () => window.removeEventListener("scroll", handler);
   }, [isOpen]);
 
+  // Document pointer events keep the open menus in sync with outside interactions.
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        isOpen &&
+        navRef.current &&
+        event.target instanceof Node &&
+        !navRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+        setMobileServicesOpen(false);
+        setMobileRoadOpen(false);
+      }
+
       if (
         dropdownRef.current &&
         event.target instanceof Node &&
@@ -144,10 +166,11 @@ const FlipNav = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [isOpen]);
 
+  // Timeout refs coordinate desktop hover delays and must be cleared on unmount.
   useEffect(() => {
     return () => {
       if (dropdownTimeoutRef.current !== null) clearTimeout(dropdownTimeoutRef.current);
@@ -180,6 +203,7 @@ const FlipNav = () => {
 
   return (
     <nav
+      ref={navRef}
       className={`fixed inset-x-0 top-0 z-50 px-3 py-4 transition-transform duration-300 sm:px-4 md:px-6 ${
         isHidden ? "-translate-y-full" : "translate-y-0"
       }`}
@@ -206,6 +230,7 @@ const FlipNav = () => {
                 <div className="relative flex items-center gap-1.5">
                   <Link
                     to={item.href}
+                    onClick={closeDesktopDropdowns}
                     className="relative text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:text-[#202F4C]"
                   >
                     {item.text}
@@ -245,6 +270,7 @@ const FlipNav = () => {
                           >
                             <Link
                               to={dropdownItem.href}
+                              onClick={closeDesktopDropdowns}
                               className="flex items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-[#5E6878] transition-all hover:bg-[#f5f8fc] hover:text-[#202F4C]"
                             >
                               <span className="flex items-center gap-3">
@@ -271,6 +297,7 @@ const FlipNav = () => {
                                       <Link
                                         key={child.text}
                                         to={child.href}
+                                        onClick={closeDesktopDropdowns}
                                         className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-[#5E6878] transition-all hover:bg-[#f5f8fc] hover:text-[#202F4C]"
                                       >
                                         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#015095]/8">
@@ -300,31 +327,31 @@ const FlipNav = () => {
           to="/contacto"
           className="hidden items-center justify-self-end gap-2 rounded-full bg-[#202F4C] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#015095] hover:shadow-lg lg:inline-flex"
         >
-          Contactános
+          Contáctanos
           <FiArrowUpRight className="text-lg" />
         </Link>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button
+          type="button"
           className="col-start-3 block justify-self-end text-2xl text-[#202F4C] transition-colors duration-300 ease-in-out lg:hidden"
           onClick={() => setIsOpen((open) => !open)}
           aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
         >
           {isOpen ? <FiX /> : <FiMenu />}
-        </motion.button>
+        </button>
       </div>
 
       <AnimatePresence>
-        {isOpen && (
+        {isOpen ? (
           <NavMenu
             navItems={navItems}
             mobileServicesOpen={mobileServicesOpen}
             mobileRoadOpen={mobileRoadOpen}
             setMobileServicesOpen={setMobileServicesOpen}
             setMobileRoadOpen={setMobileRoadOpen}
+            closeMobileMenu={closeMobileMenu}
           />
-        )}
+        ) : null}
       </AnimatePresence>
     </nav>
   );
@@ -340,9 +367,10 @@ const Logo = () => (
   </Link>
 );
 
-const NavLink = ({ text, href }: NavLinkProps) => (
+const NavLink = ({ text, href, onClick }: NavLinkProps) => (
   <Link
     to={href}
+    onClick={onClick}
     className="relative text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:text-[#202F4C]"
   >
     {text}
@@ -355,127 +383,138 @@ const NavMenu = ({
   mobileRoadOpen,
   setMobileServicesOpen,
   setMobileRoadOpen,
+  closeMobileMenu,
 }: NavMenuProps) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.98, y: -10 }}
     animate={{ opacity: 1, scale: 1, y: 0 }}
     exit={{ opacity: 0, scale: 0.98, y: -10 }}
-    transition={{ duration: 0.3, ease: "easeOut" }}
-    className="section-shell mt-4 w-full max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-[2rem] border border-[rgba(94,104,120,0.14)] bg-white/95 p-3 shadow-[0_32px_72px_rgba(32,47,76,0.20)] backdrop-blur-2xl sm:max-w-[calc(100vw-2rem)] lg:hidden"
+    transition={{ duration: 0.26, ease: "easeOut" }}
+    className="section-shell mt-4 w-full max-w-[calc(100vw-1.5rem)] rounded-[1.75rem] border border-[rgba(94,104,120,0.14)] bg-white p-3 shadow-[0_20px_48px_rgba(32,47,76,0.16)] sm:max-w-[calc(100vw-2rem)] lg:hidden"
   >
-    <div className="flex flex-col space-y-1">
+    <div className="flex flex-col gap-2">
       {navMenuItems.map((item) =>
         item.hasDropdown ? (
-          <div key={item.text}>
-            <motion.div
-              className="flex items-center gap-2"
-              initial={{ x: -10, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+          <motion.div
+            key={item.text}
+            initial={{ x: -10, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -8, opacity: 0 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="rounded-[1.35rem] border border-slate-200 bg-slate-50/70 px-3 py-3"
+          >
+            <button
+              type="button"
+              onClick={() => setMobileServicesOpen((open) => !open)}
+              aria-label={
+                mobileServicesOpen ? "Cerrar submenú de servicios" : "Abrir submenú de servicios"
+              }
+              className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-[13px] font-bold uppercase tracking-[0.2em] text-[#202F4C] transition-colors hover:bg-white"
             >
-              <Link
-                to={item.href}
-                className="group flex-1 rounded-2xl px-5 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C] active:scale-[0.98]"
-              >
-                {item.text}
-              </Link>
-              <button
-                type="button"
-                onClick={() => setMobileServicesOpen((prev) => !prev)}
-                aria-label={
-                  mobileServicesOpen ? "Cerrar submenú de servicios" : "Abrir submenú de servicios"
-                }
-                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C]"
-              >
-                <FiChevronDown
-                  className={`text-sm transition-transform duration-200 ${
-                    mobileServicesOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            </motion.div>
-            <AnimatePresence>
-              {mobileServicesOpen && (
+              <span>{item.text}</span>
+              <FiChevronDown
+                className={`text-sm text-[#5E6878] transition-transform duration-200 ${
+                  mobileServicesOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            <AnimatePresence initial={false}>
+              {mobileServicesOpen ? (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
                   className="overflow-hidden"
                 >
-                  <div className="space-y-1 pb-2 pl-4">
-                    <button
-                      onClick={() => setMobileRoadOpen((prev) => !prev)}
-                      className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.18em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C]"
-                    >
-                      <span className="flex items-center gap-3">
-                        <FiTruck className="text-[#015095]" />
-                        On the Road
-                      </span>
-                      <FiChevronDown
-                        className={`text-sm transition-transform duration-200 ${
-                          mobileRoadOpen ? "rotate-180" : ""
-                        }`}
+                  <div className="mt-2 flex flex-col gap-1">
+                    <div className="rounded-xl bg-white">
+                      <MobileChildLink
+                        to={item.href}
+                        icon={FiArrowUpRight}
+                        label="Ver todos los servicios"
+                        onClick={closeMobileMenu}
                       />
-                    </button>
-                    <AnimatePresence>
-                      {mobileRoadOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="overflow-hidden pl-4"
-                        >
-                          {serviceDropdownItems[0].children?.map((child) => {
-                            const ChildIcon = child.icon;
-                            return (
-                              <Link
+                    </div>
+
+                    <div className="rounded-xl bg-white">
+                      <button
+                        type="button"
+                        onClick={() => setMobileRoadOpen((open) => !open)}
+                        aria-label={
+                          mobileRoadOpen ? "Cerrar submenú On the Road" : "Abrir submenú On the Road"
+                        }
+                        className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-semibold text-[#202F4C] transition-colors hover:bg-slate-50"
+                      >
+                        <span className="flex items-center gap-3">
+                          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#015095]/8">
+                            <FiTruck className="text-[#015095]" />
+                          </span>
+                          {serviceDropdownItems[0].text}
+                        </span>
+                        <FiChevronDown
+                          className={`text-sm text-[#5E6878] transition-transform duration-200 ${
+                            mobileRoadOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+
+                      <AnimatePresence initial={false}>
+                        {mobileRoadOpen ? (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="overflow-hidden border-t border-slate-100 px-3 py-2"
+                          >
+                            {serviceDropdownItems[0].children?.map((child) => (
+                              <MobileChildLink
                                 key={child.text}
                                 to={child.href}
-                                className="flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold tracking-[0.08em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C]"
-                              >
-                                <ChildIcon className="text-[#015095]" />
-                                {child.text}
-                              </Link>
-                            );
-                          })}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                    <Link
-                      to="/servicios/intermodal"
-                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C]"
-                    >
-                      <FiGitBranch className="text-[#015095]" />
-                      Intermodal
-                    </Link>
-                    <Link
-                      to="/servicios/almacenamiento"
-                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C]"
-                    >
-                      <FiArchive className="text-[#015095]" />
-                      Almacenamiento
-                    </Link>
+                                icon={child.icon}
+                                label={child.text}
+                                onClick={closeMobileMenu}
+                              />
+                            ))}
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    </div>
+
+                    {serviceDropdownItems.slice(1).map((service) => (
+                      <div key={service.text} className="rounded-xl bg-white">
+                        <MobileServiceLink
+                          to={service.href}
+                          icon={service.icon}
+                          label={service.text}
+                          onClick={closeMobileMenu}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
-              )}
+              ) : null}
             </AnimatePresence>
-          </div>
+          </motion.div>
         ) : (
-          <MenuLink key={item.text} text={item.text} href={item.href} />
+          <MenuLink key={item.text} text={item.text} href={item.href} onClick={closeMobileMenu} />
         ),
       )}
+
       <motion.div
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.1 }}
+        exit={{ y: 8, opacity: 0 }}
+        transition={{ delay: 0.08, duration: 0.2, ease: "easeOut" }}
       >
         <Link
           to="/contacto"
-          className="mt-3 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#202F4C] px-4 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-white shadow-md transition-all active:scale-[0.98]"
+          onClick={closeMobileMenu}
+          className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#202F4C] px-4 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-white shadow-md"
         >
-          Contactános
+          Contáctanos
           <FiArrowUpRight className="text-xl" />
         </Link>
       </motion.div>
@@ -483,19 +522,27 @@ const NavMenu = ({
   </motion.div>
 );
 
-const MenuLink = ({ text, href }: NavLinkProps) => {
+const MenuLink = ({ text, href, onClick }: NavLinkProps) => {
   const icon =
-    text === "Consultoría" ? <FiBriefcase className="text-lg" /> : <FiUsers className="text-lg" />;
+    text === "Inicio" ? (
+      <FiHome className="text-lg" />
+    ) : text === "Consultoría" ? (
+      <FiBriefcase className="text-lg" />
+    ) : (
+      <FiUsers className="text-lg" />
+    );
 
   return (
     <motion.div
       initial={{ x: -10, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      exit={{ x: -8, opacity: 0 }}
+      transition={{ duration: 0.22, ease: "easeOut" }}
     >
       <Link
         to={href}
-        className="group flex w-full items-center justify-between rounded-2xl px-5 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C] active:scale-[0.98]"
+        onClick={onClick}
+        className="group flex w-full items-center justify-between rounded-2xl px-5 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:bg-slate-100 hover:text-[#202F4C]"
       >
         {text}
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100/50 text-slate-400 transition-colors group-hover:bg-[#015095]/10 group-hover:text-[#202F4C]">
@@ -505,5 +552,52 @@ const MenuLink = ({ text, href }: NavLinkProps) => {
     </motion.div>
   );
 };
+
+const MobileServiceLink = ({
+  to,
+  icon: Icon,
+  label,
+  onClick,
+}: {
+  to: string;
+  icon: typeof FiTruck;
+  label: string;
+  onClick?: () => void;
+}) => (
+  <Link
+    to={to}
+    onClick={onClick}
+    className="flex items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-[#202F4C] transition-colors hover:bg-slate-50"
+  >
+    <span className="flex items-center gap-3">
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#015095]/8">
+        <Icon className="text-[#015095]" />
+      </span>
+      {label}
+    </span>
+    <FiArrowUpRight className="text-base text-[#5E6878]" />
+  </Link>
+);
+
+const MobileChildLink = ({
+  to,
+  icon: Icon,
+  label,
+  onClick,
+}: {
+  to: string;
+  icon: typeof FiTruck | typeof FiArrowUpRight;
+  label: string;
+  onClick?: () => void;
+}) => (
+  <Link
+    to={to}
+    onClick={onClick}
+    className="flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-bold tracking-[0.08em] text-[#5E6878] transition-colors hover:bg-slate-50 hover:text-[#202F4C]"
+  >
+    <Icon className="text-[#015095]" />
+    {label}
+  </Link>
+);
 
 export default FlipNavWrapper;

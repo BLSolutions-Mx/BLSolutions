@@ -91,12 +91,10 @@ export default function ServiciosIndex() {
               const isFeatured = "featured" in card && card.featured;
 
               return (
-                <motion.div
+                <div
                   key={card.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: index * 0.08 }}
-                  className={isFeatured ? "sm:col-span-2 xl:col-span-2 xl:col-start-2" : ""}
+                  className={`reveal-up ${isFeatured ? "sm:col-span-2 xl:col-span-2 xl:col-start-2" : ""}`}
+                  style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
                 >
                   <Link
                     to={card.href}
@@ -105,6 +103,8 @@ export default function ServiciosIndex() {
                     <img
                       src={card.image}
                       alt={card.title}
+                      loading="lazy"
+                      decoding="async"
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(32,47,76,0.12)_0%,rgba(32,47,76,0.28)_35%,rgba(32,47,76,0.88)_100%)]" />
@@ -124,7 +124,7 @@ export default function ServiciosIndex() {
                       </div>
                     </div>
                   </Link>
-                </motion.div>
+                </div>
               );
             })}
           </div>

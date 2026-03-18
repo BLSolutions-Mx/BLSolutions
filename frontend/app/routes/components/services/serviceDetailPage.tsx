@@ -62,12 +62,7 @@ export default function ServiceDetailPage({
 
       <section className="-mt-20 px-6 md:-mt-24">
         <div className="section-shell">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-panel mx-auto max-w-5xl p-6 md:p-10"
-          >
+          <div className="glass-panel reveal-up mx-auto max-w-5xl p-6 md:p-10">
             <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
               <div className="relative min-h-[280px] overflow-hidden rounded-[2rem]">
                 <img
@@ -93,7 +88,7 @@ export default function ServiceDetailPage({
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

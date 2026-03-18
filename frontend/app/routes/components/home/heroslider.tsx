@@ -28,6 +28,7 @@ export default function HeroSlider() {
     }
   };
 
+  // Browser timers drive the hero autoplay cadence.
   useEffect(() => {
     resetTimeout();
     timeoutRef.current = setTimeout(() => {
