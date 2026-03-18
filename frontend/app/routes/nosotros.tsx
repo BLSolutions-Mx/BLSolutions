@@ -45,12 +45,12 @@ const MarqueeLogoScroller = React.forwardRef<HTMLDivElement, MarqueeLogoScroller
           ref={ref}
           aria-label={title}
           className={cn(
-            "w-full rounded-[2rem] border border-slate-200/60 bg-white overflow-hidden shadow-[0_24px_80px_rgba(32,47,76,0.10)]",
+            "w-full rounded-[2rem] pb-10 border border-slate-200/60 bg-white overflow-hidden shadow-[0_24px_80px_rgba(32,47,76,0.10)]",
             className
           )}
           {...props}
         >
-          <div className="p-6 md:p-8 lg:p-10">
+          <div className="p-6 md:px-8 lg:px-10">
             <div className="pb-6 md:pb-8">
               <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-[#202F4C] text-balance">
                 {title}
@@ -297,7 +297,7 @@ export default function Nosotros() {
             >
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-auto lg:h-[800px]">
                 <img
-                  src="/home-imgs/about.avif"
+                  src="/home-imgs/hero_terrestre.avif"
                   alt="Equipo y operaciones de BL Solutions"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -373,7 +373,7 @@ export default function Nosotros() {
             <img
               src="/home-imgs/truck-2.avif"
               alt="Operación logística y movilidad de BL Solutions"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-bottom"
             />
             <div className="absolute inset-0 bg-[#0B1120]/30" />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -413,7 +413,6 @@ export default function Nosotros() {
             <div className="absolute inset-0">
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3" />
               <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/20 rounded-full blur-[80px] translate-y-1/3 -translate-x-1/4" />
-              <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
             </div>
             
             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
