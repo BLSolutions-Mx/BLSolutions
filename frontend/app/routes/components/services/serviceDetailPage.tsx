@@ -58,7 +58,7 @@ export default function ServiceDetailPage({
 
       <section className="-mt-20 px-6 md:-mt-24">
         <div className="section-shell">
-          <div className="glass-panel reveal-up mx-auto max-w-5xl p-6 md:p-10">
+          <div className="service-detail-glass reveal-up mx-auto max-w-5xl p-6 md:p-10">
             <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
               <div className="relative min-h-[280px] overflow-hidden rounded-[2rem]">
                 <img

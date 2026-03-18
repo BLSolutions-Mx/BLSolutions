@@ -56,6 +56,15 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.72);
 }
 
+.service-detail-glass {
+  @apply rounded-[2rem] shadow-[0_28px_90px_rgba(32,47,76,0.18)];
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.72) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
 .section-grid {
   @apply grid items-start gap-6 lg:gap-8;
 }
@@ -181,6 +190,13 @@ body.mobile-performance .section-label,
 body.mobile-performance [class*="backdrop-blur"] {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+}
+
+body.mobile-performance .service-detail-glass {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 251, 253, 0.94) 100%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 body.mobile-performance [class*="blur-"] {
