@@ -46,9 +46,18 @@ type NavMenuProps = {
   navItems: NavItem[];
   mobileServicesOpen: boolean;
   mobileRoadOpen: boolean;
-  setMobileServicesOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setMobileRoadOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleMobileServices: () => void;
+  toggleMobileRoad: () => void;
   closeMobileMenu: () => void;
+};
+
+type NavUiState = {
+  routeKey: string;
+  isOpen: boolean;
+  dropdownOpen: boolean;
+  roadDropdownOpen: boolean;
+  mobileServicesOpen: boolean;
+  mobileRoadOpen: boolean;
 };
 
 const serviceDropdownItems: DropdownItem[] = [
@@ -59,7 +68,11 @@ const serviceDropdownItems: DropdownItem[] = [
     children: [
       { text: "Caja Seca", href: "/servicios/caja-seca", icon: FiPackage },
       { text: "Plataforma", href: "/servicios/plataforma", icon: FiLayers },
-      { text: "Caja Refrigerada", href: "/servicios/caja-refrigerada", icon: FiThermometer },
+      {
+        text: "Caja Refrigerada",
+        href: "/servicios/caja-refrigerada",
+        icon: FiThermometer,
+      },
     ],
   },
   {
@@ -81,34 +94,125 @@ const navItems: NavItem[] = [
   { text: "Nosotros", href: "/nosotros" },
 ];
 
-const FlipNavWrapper = () => {
-  const location = useLocation();
+const createNavUiState = (routeKey: string): NavUiState => ({
+  routeKey,
+  isOpen: false,
+  dropdownOpen: false,
+  roadDropdownOpen: false,
+  mobileServicesOpen: false,
+  mobileRoadOpen: false,
+});
 
-  return <FlipNav key={`${location.pathname}${location.hash}`} />;
-};
+const getRouteKey = (location: ReturnType<typeof useLocation>) =>
+  location.key || `${location.pathname}${location.search}${location.hash}`;
 
 const FlipNav = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const routeKey = getRouteKey(location);
+  const [navState, setNavState] = useState(() => createNavUiState(routeKey));
   const [scrolled, setScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [roadDropdownOpen, setRoadDropdownOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [mobileRoadOpen, setMobileRoadOpen] = useState(false);
   const navRef = useRef<HTMLElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const roadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resolvedNavState =
+    navState.routeKey === routeKey ? navState : createNavUiState(routeKey);
+  const { isOpen, dropdownOpen, roadDropdownOpen, mobileServicesOpen, mobileRoadOpen } =
+    resolvedNavState;
+
+  const updateNavState = (updater: (state: NavUiState) => NavUiState) => {
+    setNavState((previousState) => {
+      const currentState =
+        previousState.routeKey === routeKey
+          ? previousState
+          : createNavUiState(routeKey);
+
+      return updater(currentState);
+    });
+  };
+
+  const clearDesktopTimeouts = () => {
+    if (dropdownTimeoutRef.current !== null) {
+      clearTimeout(dropdownTimeoutRef.current);
+      dropdownTimeoutRef.current = null;
+    }
+
+    if (roadTimeoutRef.current !== null) {
+      clearTimeout(roadTimeoutRef.current);
+      roadTimeoutRef.current = null;
+    }
+  };
 
   const closeDesktopDropdowns = () => {
-    setDropdownOpen(false);
-    setRoadDropdownOpen(false);
+    clearDesktopTimeouts();
+    updateNavState((state) => ({
+      ...state,
+      dropdownOpen: false,
+      roadDropdownOpen: false,
+    }));
   };
 
   const closeMobileMenu = () => {
-    setIsOpen(false);
-    setMobileServicesOpen(false);
-    setMobileRoadOpen(false);
+    updateNavState((state) => ({
+      ...state,
+      isOpen: false,
+      mobileServicesOpen: false,
+      mobileRoadOpen: false,
+    }));
+  };
+
+  const closeNavOverlays = () => {
+    clearDesktopTimeouts();
+    updateNavState((state) => ({
+      ...state,
+      isOpen: false,
+      dropdownOpen: false,
+      roadDropdownOpen: false,
+      mobileServicesOpen: false,
+      mobileRoadOpen: false,
+    }));
+  };
+
+  const toggleMobileMenu = () => {
+    updateNavState((state) => {
+      const nextIsOpen = !state.isOpen;
+
+      return nextIsOpen
+        ? {
+            ...state,
+            isOpen: true,
+          }
+        : {
+            ...state,
+            isOpen: false,
+            mobileServicesOpen: false,
+            mobileRoadOpen: false,
+          };
+    });
+  };
+
+  const toggleDesktopDropdown = () => {
+    clearDesktopTimeouts();
+    updateNavState((state) => ({
+      ...state,
+      dropdownOpen: !state.dropdownOpen,
+      roadDropdownOpen: false,
+    }));
+  };
+
+  const toggleMobileServices = () => {
+    updateNavState((state) => ({
+      ...state,
+      mobileServicesOpen: !state.mobileServicesOpen,
+    }));
+  };
+
+  const toggleMobileRoad = () => {
+    updateNavState((state) => ({
+      ...state,
+      mobileRoadOpen: !state.mobileRoadOpen,
+    }));
   };
 
   // External browser scroll state drives the navbar position.
@@ -151,9 +255,7 @@ const FlipNav = () => {
         event.target instanceof Node &&
         !navRef.current.contains(event.target)
       ) {
-        setIsOpen(false);
-        setMobileServicesOpen(false);
-        setMobileRoadOpen(false);
+        closeMobileMenu();
       }
 
       if (
@@ -161,43 +263,55 @@ const FlipNav = () => {
         event.target instanceof Node &&
         !dropdownRef.current.contains(event.target)
       ) {
-        setDropdownOpen(false);
-        setRoadDropdownOpen(false);
+        closeDesktopDropdowns();
       }
     };
 
     document.addEventListener("pointerdown", handlePointerDown);
     return () => document.removeEventListener("pointerdown", handlePointerDown);
-  }, [isOpen]);
+  }, [isOpen, routeKey]);
 
   // Timeout refs coordinate desktop hover delays and must be cleared on unmount.
   useEffect(() => {
-    return () => {
-      if (dropdownTimeoutRef.current !== null) clearTimeout(dropdownTimeoutRef.current);
-      if (roadTimeoutRef.current !== null) clearTimeout(roadTimeoutRef.current);
-    };
+    return () => clearDesktopTimeouts();
   }, []);
 
   const handleDropdownEnter = () => {
-    if (dropdownTimeoutRef.current !== null) clearTimeout(dropdownTimeoutRef.current);
-    setDropdownOpen(true);
+    clearDesktopTimeouts();
+    updateNavState((state) => ({
+      ...state,
+      dropdownOpen: true,
+    }));
   };
 
   const handleDropdownLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
-      setDropdownOpen(false);
-      setRoadDropdownOpen(false);
+      updateNavState((state) => ({
+        ...state,
+        dropdownOpen: false,
+        roadDropdownOpen: false,
+      }));
     }, 200);
   };
 
   const handleRoadEnter = () => {
-    if (roadTimeoutRef.current !== null) clearTimeout(roadTimeoutRef.current);
-    setRoadDropdownOpen(true);
+    if (roadTimeoutRef.current !== null) {
+      clearTimeout(roadTimeoutRef.current);
+      roadTimeoutRef.current = null;
+    }
+
+    updateNavState((state) => ({
+      ...state,
+      roadDropdownOpen: true,
+    }));
   };
 
   const handleRoadLeave = () => {
     roadTimeoutRef.current = setTimeout(() => {
-      setRoadDropdownOpen(false);
+      updateNavState((state) => ({
+        ...state,
+        roadDropdownOpen: false,
+      }));
     }, 180);
   };
 
@@ -215,7 +329,7 @@ const FlipNav = () => {
             : "border-[rgba(94,104,120,0.14)] bg-white/95 backdrop-blur-xl"
         }`}
       >
-        <Logo />
+        <Logo onClick={closeNavOverlays} />
 
         <div className="hidden items-center justify-self-center gap-7 lg:flex">
           {navItems.map((item) =>
@@ -237,8 +351,12 @@ const FlipNav = () => {
                   </Link>
                   <button
                     type="button"
-                    onClick={() => setDropdownOpen((open) => !open)}
-                    aria-label={dropdownOpen ? "Cerrar submenú de servicios" : "Abrir submenú de servicios"}
+                    onClick={toggleDesktopDropdown}
+                    aria-label={
+                      dropdownOpen
+                        ? "Cerrar submenú de servicios"
+                        : "Abrir submenú de servicios"
+                    }
                     className="text-[#5E6878] transition-colors hover:text-[#202F4C]"
                   >
                     <FiChevronDown
@@ -279,7 +397,9 @@ const FlipNav = () => {
                                 </span>
                                 {dropdownItem.text}
                               </span>
-                              {hasChildren ? <FiChevronDown className="-rotate-90 text-xs" /> : null}
+                              {hasChildren ? (
+                                <FiChevronDown className="-rotate-90 text-xs" />
+                              ) : null}
                             </Link>
 
                             <AnimatePresence>
@@ -293,6 +413,7 @@ const FlipNav = () => {
                                 >
                                   {dropdownItem.children?.map((child) => {
                                     const ChildIcon = child.icon;
+
                                     return (
                                       <Link
                                         key={child.text}
@@ -318,13 +439,19 @@ const FlipNav = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <NavLink key={item.text} text={item.text} href={item.href} />
+              <NavLink
+                key={item.text}
+                text={item.text}
+                href={item.href}
+                onClick={closeNavOverlays}
+              />
             ),
           )}
         </div>
 
         <Link
           to="/contacto"
+          onClick={closeNavOverlays}
           className="hidden items-center justify-self-end gap-2 rounded-full bg-[#202F4C] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#015095] hover:shadow-lg lg:inline-flex"
         >
           Contáctanos
@@ -334,7 +461,7 @@ const FlipNav = () => {
         <button
           type="button"
           className="col-start-3 block justify-self-end text-2xl text-[#202F4C] transition-colors duration-300 ease-in-out lg:hidden"
-          onClick={() => setIsOpen((open) => !open)}
+          onClick={toggleMobileMenu}
           aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
         >
           {isOpen ? <FiX /> : <FiMenu />}
@@ -347,8 +474,8 @@ const FlipNav = () => {
             navItems={navItems}
             mobileServicesOpen={mobileServicesOpen}
             mobileRoadOpen={mobileRoadOpen}
-            setMobileServicesOpen={setMobileServicesOpen}
-            setMobileRoadOpen={setMobileRoadOpen}
+            toggleMobileServices={toggleMobileServices}
+            toggleMobileRoad={toggleMobileRoad}
             closeMobileMenu={closeMobileMenu}
           />
         ) : null}
@@ -357,8 +484,8 @@ const FlipNav = () => {
   );
 };
 
-const Logo = () => (
-  <Link to="/" className="min-w-0 flex items-center gap-3">
+const Logo = ({ onClick }: { onClick?: () => void }) => (
+  <Link to="/" onClick={onClick} className="min-w-0 flex items-center gap-3">
     <img
       src="/bls_logo.webp"
       alt="BLS - Best Logistics Solutions"
@@ -381,8 +508,8 @@ const NavMenu = ({
   navItems: navMenuItems,
   mobileServicesOpen,
   mobileRoadOpen,
-  setMobileServicesOpen,
-  setMobileRoadOpen,
+  toggleMobileServices,
+  toggleMobileRoad,
   closeMobileMenu,
 }: NavMenuProps) => (
   <motion.div
@@ -405,9 +532,11 @@ const NavMenu = ({
           >
             <button
               type="button"
-              onClick={() => setMobileServicesOpen((open) => !open)}
+              onClick={toggleMobileServices}
               aria-label={
-                mobileServicesOpen ? "Cerrar submenú de servicios" : "Abrir submenú de servicios"
+                mobileServicesOpen
+                  ? "Cerrar submenú de servicios"
+                  : "Abrir submenú de servicios"
               }
               className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-[13px] font-bold uppercase tracking-[0.2em] text-[#202F4C] transition-colors hover:bg-white"
             >
@@ -441,9 +570,11 @@ const NavMenu = ({
                     <div className="rounded-xl bg-white">
                       <button
                         type="button"
-                        onClick={() => setMobileRoadOpen((open) => !open)}
+                        onClick={toggleMobileRoad}
                         aria-label={
-                          mobileRoadOpen ? "Cerrar submenú On the Road" : "Abrir submenú On the Road"
+                          mobileRoadOpen
+                            ? "Cerrar submenú On the Road"
+                            : "Abrir submenú On the Road"
                         }
                         className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-semibold text-[#202F4C] transition-colors hover:bg-slate-50"
                       >
@@ -524,9 +655,9 @@ const NavMenu = ({
 
 const MenuLink = ({ text, href, onClick }: NavLinkProps) => {
   const icon =
-    text === "Inicio" ? (
+    href === "/" ? (
       <FiHome className="text-lg" />
-    ) : text === "Consultoría" ? (
+    ) : href === "/consultoria" ? (
       <FiBriefcase className="text-lg" />
     ) : (
       <FiUsers className="text-lg" />
@@ -600,4 +731,4 @@ const MobileChildLink = ({
   </Link>
 );
 
-export default FlipNavWrapper;
+export default FlipNav;

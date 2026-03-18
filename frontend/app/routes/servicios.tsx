@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiArchive, FiGitBranch, FiLayers, FiPackage, FiThermometer } from "react-icons/fi";
-import Footer from "./components/ui/footer";
-import Navbar from "./components/ui/navbar";
 
 export function meta() {
   return [
@@ -19,31 +17,31 @@ const serviceCards = [
   {
     title: "Caja Seca",
     href: "/servicios/caja-seca",
-    image: "/home-imgs/terrestre-dryvan.webp",
+    image: "/home-imgs/terrestre-dryvan.avif",
     icon: FiPackage,
   },
   {
     title: "Plataforma",
     href: "/servicios/plataforma",
-    image: "/home-imgs/terrestre-flatbed.webp",
+    image: "/home-imgs/terrestre-flatbed.avif",
     icon: FiLayers,
   },
   {
     title: "Caja Refrigerada",
     href: "/servicios/caja-refrigerada",
-    image: "/home-imgs/terrestre-reefer.webp",
+    image: "/home-imgs/terrestre-reefer.avif",
     icon: FiThermometer,
   },
   {
     title: "Intermodal",
     href: "/servicios/intermodal",
-    image: "/home-imgs/train-1.webp",
+    image: "/home-imgs/train-1.avif",
     icon: FiGitBranch,
   },
   {
     title: "Almacenamiento",
     href: "/servicios/almacenamiento",
-    image: "/home-imgs/almacen_service.webp",
+    image: "/home-imgs/almacen_service.avif",
     icon: FiArchive,
     featured: true,
   },
@@ -51,9 +49,7 @@ const serviceCards = [
 
 export default function ServiciosIndex() {
   return (
-    <main id="app-shell" className="min-h-screen text-slate-950">
-      <Navbar />
-
+    <main className="min-h-screen text-slate-950">
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-24 pt-32 md:pb-32 md:pt-40">
         <div className="absolute inset-0 z-0">
           <div className="absolute right-0 top-0 h-[600px] w-[600px] -translate-y-1/2 translate-x-1/3 rounded-full bg-[#015095] opacity-20 blur-[120px]" />
@@ -130,8 +126,6 @@ export default function ServiciosIndex() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

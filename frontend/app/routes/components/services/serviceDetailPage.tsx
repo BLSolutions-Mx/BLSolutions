@@ -2,8 +2,6 @@ import { Link } from "react-router";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import Footer from "../ui/footer";
-import Navbar from "../ui/navbar";
 
 type ServiceDetailPageProps = {
   eyebrow: string;
@@ -21,9 +19,7 @@ export default function ServiceDetailPage({
   icon: Icon,
 }: ServiceDetailPageProps) {
   return (
-    <main id="app-shell" className="min-h-screen text-slate-950">
-      <Navbar />
-
+    <main className="min-h-screen text-slate-950">
       <section className="relative overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
         <div className="absolute inset-0 -z-10">
           <img src={image} alt={title} className="h-full w-full object-cover" />
@@ -91,8 +87,6 @@ export default function ServiceDetailPage({
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

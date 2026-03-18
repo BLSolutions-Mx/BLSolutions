@@ -3,8 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FiMail, FiMapPin } from "react-icons/fi";
 import { blsContent } from "./components/home/blsContent";
-import Footer from "./components/ui/footer";
-import Navbar from "./components/ui/navbar";
 
 export function meta() {
   return [
@@ -279,9 +277,7 @@ export default function Contacto() {
   };
 
   return (
-    <main id="app-shell" className="min-h-screen text-slate-950">
-      <Navbar />
-
+    <main className="min-h-screen text-slate-950">
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-20 pt-32 md:pb-32 md:pt-40">
         <div className="absolute inset-0 z-0">
           <div className="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-[#015095]/10 to-transparent" />
@@ -571,8 +567,6 @@ export default function Contacto() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

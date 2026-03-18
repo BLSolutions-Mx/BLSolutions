@@ -11,8 +11,6 @@ import {
   FiShield,
   FiUsers,
 } from "react-icons/fi";
-import Footer from "./components/ui/footer";
-import Navbar from "./components/ui/navbar";
 import { cn } from "./components/lib/utils";
 
 interface MarqueeLogo {
@@ -167,9 +165,7 @@ const identityCards = [
 
 export default function Nosotros() {
   return (
-    <main id="app-shell" className="min-h-screen text-slate-950">
-      <Navbar />
-
+    <main className="min-h-screen text-slate-950">
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-20 pt-32 md:pb-32 md:pt-40">
         <div className="absolute inset-0 z-0">
           <div className="absolute right-0 top-0 h-[800px] w-[800px] -translate-y-1/2 translate-x-1/3 rounded-full bg-[#1e293b] opacity-50 blur-[120px]" />
@@ -441,8 +437,6 @@ export default function Nosotros() {
           </motion.div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

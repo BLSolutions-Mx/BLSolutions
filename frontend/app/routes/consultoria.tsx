@@ -14,8 +14,6 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import { blsContent } from "./components/home/blsContent";
-import Footer from "./components/ui/footer";
-import Navbar from "./components/ui/navbar";
 
 const approachIcons = [FiCompass, FiBarChart2, FiLayers, FiCheckSquare];
 const approachOffsets = ["md:mt-1", "md:-mt-6", "md:-mt-6", "md:mt-1"];
@@ -42,9 +40,7 @@ export function meta() {
 
 export default function Consultoria() {
   return (
-    <main id="app-shell" className="min-h-screen bg-slate-50 text-slate-950">
-      <Navbar />
-
+    <main className="min-h-screen bg-slate-50 text-slate-950">
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-20 pt-32 md:pb-32 md:pt-40">
         <div className="absolute inset-0 z-0">
           <div className="absolute -left-[10%] -top-[20%] h-[600px] w-[600px] rounded-full bg-[#015095] opacity-20 blur-[120px]" />
@@ -228,9 +224,6 @@ export default function Consultoria() {
           </div>
         </div>
       </section>
-
-
-      <Footer />
     </main>
   );
 }

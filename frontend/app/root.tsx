@@ -7,10 +7,11 @@ import {
   ScrollRestoration,
 } from "react-router";
 import { useEffect } from "react";
+import type Lenis from "lenis";
 
 import type { Route } from "./+types/root";
-import useScrollToTop from "./routes/components/hooks/useScrollToTop";
-import { setLenisInstance } from "./routes/components/lib/lenis";
+import Footer from "./routes/components/ui/footer";
+import Navbar from "./routes/components/ui/navbar";
 import "./app.css";
 import "lenis/dist/lenis.css";
 
@@ -47,14 +48,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <div id="app-shell" className="min-h-screen">
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 }
 
 function GlobalLenis() {
-  useScrollToTop();
-
+  // Lenis owns smooth-scroll lifecycle and must attach to the browser once.
   useEffect(() => {
-    let lenisInstance: { destroy: () => void } | null = null;
+    let lenisInstance: Lenis | null = null;
 
     const setupLenis = async () => {
       const { default: Lenis } = await import("lenis");
@@ -63,14 +69,11 @@ function GlobalLenis() {
         autoRaf: true,
         anchors: true,
       });
-
-      setLenisInstance(lenisInstance);
     };
 
     void setupLenis();
 
     return () => {
-      setLenisInstance(null);
       lenisInstance?.destroy();
     };
   }, []);
@@ -95,11 +98,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="container mx-auto p-4 pt-16">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="w-full overflow-x-auto p-4">
           <code>{stack}</code>
         </pre>
       )}
