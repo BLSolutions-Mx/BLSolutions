@@ -92,20 +92,12 @@ export default function Consultoria() {
                     <FiBarChart className="text-9xl text-white/10" />
                   </div>
                 </div>
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -right-6 -top-6 rounded-2xl border border-white/10 bg-[#1e293b] p-4 shadow-xl"
-                >
+                <div className="absolute -right-6 -top-6 rounded-2xl border border-white/10 bg-[#1e293b] p-4 shadow-xl">
                   <FiTrendingUp className="text-3xl text-blue-400" />
-                </motion.div>
-                <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#1e293b] p-4 shadow-xl"
-                >
+                </div>
+                <div className="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#1e293b] p-4 shadow-xl">
                   <FiCompass className="text-3xl text-blue-400" />
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </div>

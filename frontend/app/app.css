@@ -26,25 +26,6 @@ body {
     linear-gradient(180deg, #f7faff 0%, #f5f8fc 24%, #ffffff 56%, #eef3f8 100%);
 }
 
-#app-shell {
-  position: relative;
-  isolation: isolate;
-  overflow-x: hidden;
-}
-
-#app-shell::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(32, 47, 76, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(32, 47, 76, 0.04) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.32), transparent 80%);
-  pointer-events: none;
-}
-
 ::selection {
   background: rgba(1, 80, 149, 0.18);
   color: var(--color-ink);
@@ -108,6 +89,40 @@ body {
   }
 }
 
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(10px, -10px, 0);
+  }
+}
+
+@keyframes float-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(-10px, 10px, 0);
+  }
+}
+
 .reveal-up {
   opacity: 0;
   animation: reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -120,10 +135,32 @@ body {
   animation-delay: var(--reveal-delay, 0ms);
 }
 
+.reveal-scale {
+  opacity: 0;
+  animation: reveal-scale 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+.float-drift-a {
+  animation: float-drift-a 5s ease-in-out infinite;
+}
+
+.float-drift-b {
+  animation: float-drift-b 6s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-up,
-  .reveal-left {
+  .reveal-left,
+  .reveal-scale {
     opacity: 1;
+    animation: none;
+    transform: none;
+  }
+
+  .float-drift-a,
+  .float-drift-b {
     animation: none;
     transform: none;
   }

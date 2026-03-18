@@ -41,9 +41,9 @@ export default function HeroSlider() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pb-10 pt-24 sm:px-6 sm:pt-28 md:pb-14 md:pt-32 lg:min-h-screen"
+      className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pb-10 pt-24 sm:px-6 sm:pt-28 md:pb-14 md:pt-32 lg:min-h-screen"
     >
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-0">
         <img
           src="/home-imgs/hero-bg.avif"
           alt="Operaciones logisticas"
@@ -53,9 +53,9 @@ export default function HeroSlider() {
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(1,80,149,0.38),_transparent_34%),linear-gradient(135deg,rgba(32,47,76,0.85)_0%,rgba(22,36,61,0.80)_40%,rgba(1,80,149,0.90)_100%)] opacity-80" />
       </div>
-      <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(circle,_rgba(255,255,255,0.18),_transparent_58%)] blur-3xl" />
+      <div className="absolute inset-x-0 top-0 z-0 h-72 bg-[radial-gradient(circle,_rgba(255,255,255,0.18),_transparent_58%)] blur-3xl" />
 
-      <div className="section-shell">
+      <div className="section-shell relative z-10">
         <div className="grid items-center gap-8 lg:content-center lg:items-end lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] xl:gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

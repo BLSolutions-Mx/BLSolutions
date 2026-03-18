@@ -298,11 +298,11 @@ export default function Contacto() {
               <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
                 Revisemos{" "}
                 <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                  tu operacion
+                  tu operación
                 </span>
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate-300 md:text-xl">
-                Si necesitas transporte, intermodal o consultoria, cuentanos que estas moviendo y
+                Si necesitas transporte, intermodal o consultoria, cuéntanos que estás moviendo y
                 que necesitas resolver.
               </p>
             </motion.div>
@@ -339,27 +339,19 @@ export default function Contacto() {
                       </defs>
                     </svg>
 
-                    <motion.div
-                      className="absolute bottom-10 left-10 flex items-center gap-3 rounded-xl border border-white/10 bg-[#1e293b] p-4 shadow-xl"
-                      animate={{ y: [0, -5, 0] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    >
+                    <div className="absolute bottom-10 left-10 flex items-center gap-3 rounded-xl border border-white/10 bg-[#1e293b] p-4 shadow-xl">
                       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0079e3]/20">
                         <FiMapPin className="text-[#0079e3]" />
                       </div>
                       <div className="h-2 w-16 rounded-full bg-white/20" />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      className="absolute right-10 top-10 flex items-center gap-3 rounded-xl border border-white/10 bg-[#1e293b] p-4 shadow-xl"
-                      animate={{ y: [0, 5, 0] }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                    >
+                    <div className="absolute right-10 top-10 flex items-center gap-3 rounded-xl border border-white/10 bg-[#1e293b] p-4 shadow-xl">
                       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20">
                         <FiMail className="text-blue-400" />
                       </div>
                       <div className="h-2 w-20 rounded-full bg-white/20" />
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -379,7 +371,7 @@ export default function Contacto() {
 
               <div className="relative z-10 mb-8 space-y-4">
                 <h2 className="text-3xl font-extrabold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Hablemos de tu operacion
+                  Hablemos de tu operación
                 </h2>
                 <p className="text-base leading-8 text-white/72">
                   Atendemos nuevos proyectos unicamente a traves del formulario. Mientras mas claro
@@ -417,7 +409,7 @@ export default function Contacto() {
                   Formulario
                 </p>
                 <p className="mt-3 text-2xl font-semibold text-[#202F4C]">
-                  Cuentanos que necesitas
+                  Cuéntanos que necesitas
                 </p>
                 <p className="mt-3 text-sm leading-7 text-[#5E6878]">
                   Capturamos los datos clave por separado para cotizar y canalizar mejor la
