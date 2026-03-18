@@ -20,8 +20,8 @@ export default function ServiceDetailPage({
 }: ServiceDetailPageProps) {
   return (
     <main className="min-h-screen text-slate-950">
-      <section className="relative overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
-        <div className="absolute inset-0 -z-10">
+      <section className="relative isolate overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
+        <div className="absolute inset-0 z-0">
           <img src={image} alt={title} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(32,47,76,0.88)_0%,rgba(32,47,76,0.72)_50%,rgba(32,47,76,0.94)_100%)]" />
         </div>
