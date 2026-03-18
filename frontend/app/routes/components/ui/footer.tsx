@@ -27,9 +27,8 @@ const FlipFooter = () => {
                 className="h-14 w-auto object-contain"
               />
             </Link>
-            <p className="max-w-xl text-sm leading-7 text-[#5E6878] md:text-base">
-              Soluciones logísticas sencillas para transporte terrestre, intermodal y
-              consultoría logística.
+            <p className="max-w-2xl text-xl font-semibold leading-[1.25] tracking-[-0.02em] text-[#202F4C] md:text-[1.75rem]">
+              <span className="text-[#015095] font-bold">Consultoría y logística</span> 
             </p>
           </div>
 

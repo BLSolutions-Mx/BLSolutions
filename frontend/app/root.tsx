@@ -9,6 +9,8 @@ import {
 import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
+import useScrollToTop from "./routes/components/hooks/useScrollToTop";
+import { setLenisInstance } from "./routes/components/lib/lenis";
 import "./app.css";
 import "lenis/dist/lenis.css";
 
@@ -49,6 +51,8 @@ export default function App() {
 }
 
 function GlobalLenis() {
+  useScrollToTop();
+
   useEffect(() => {
     let lenisInstance: { destroy: () => void } | null = null;
 
@@ -59,11 +63,14 @@ function GlobalLenis() {
         autoRaf: true,
         anchors: true,
       });
+
+      setLenisInstance(lenisInstance);
     };
 
     void setupLenis();
 
     return () => {
+      setLenisInstance(null);
       lenisInstance?.destroy();
     };
   }, []);

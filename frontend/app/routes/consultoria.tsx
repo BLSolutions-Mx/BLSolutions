@@ -2,21 +2,32 @@ import { Link } from "react-router";
 import { motion } from "framer-motion";
 import {
   FiArrowRight,
+  FiBarChart,
   FiBarChart2,
+  FiCheckSquare,
+  FiClipboard,
   FiCompass,
-  FiTrendingUp,
-  FiTrendingDown,
   FiGitBranch,
   FiGlobe,
-  FiBarChart,
+  FiLayers,
+  FiShield,
+  FiTrendingUp,
 } from "react-icons/fi";
 import { blsContent } from "./components/home/blsContent";
 import Footer from "./components/ui/footer";
 import Navbar from "./components/ui/navbar";
-import WhatsAppFloatingButton from "./components/ui/whatsAppFloatButton";
 
-// Icons for the areas section
-const areaIcons = [FiBarChart2, FiTrendingUp, FiTrendingDown, FiCompass, FiGlobe, FiGitBranch];
+const approachIcons = [FiCompass, FiBarChart2, FiLayers, FiCheckSquare];
+const approachOffsets = ["md:mt-1", "md:-mt-6", "md:-mt-6", "md:mt-1"];
+const areaIcons = [FiBarChart2, FiShield, FiClipboard, FiTrendingUp, FiGitBranch, FiGlobe];
+const areaDescriptions = [
+  "Evaluamos procesos, rutas, costos y estructura para detectar oportunidades concretas de mejora.",
+  "Fortalecemos controles y procesos para alinear la operación con estándares de seguridad y cumplimiento.",
+  "Diseñamos operaciones de almacenamiento con foco en layout, flujo, capacidad y control operativo.",
+  "Optimizamos la cadena de suministro para mejorar continuidad, visibilidad y eficiencia de punta a punta.",
+  "Definimos cuándo y cómo migrar a esquemas intermodales con impacto en costo, estabilidad y servicio.",
+  "Ajustamos operaciones cross-border para reducir fricción documental, operativa y de coordinación.",
+];
 
 export function meta() {
   return [
@@ -34,7 +45,6 @@ export default function Consultoria() {
     <main id="app-shell" className="min-h-screen bg-slate-50 text-slate-950">
       <Navbar />
 
-      {/* SECTION 1: HERO */}
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-20 pt-32 md:pb-32 md:pt-40">
         <div className="absolute inset-0 z-0">
           <div className="absolute -left-[10%] -top-[20%] h-[600px] w-[600px] rounded-full bg-[#015095] opacity-20 blur-[120px]" />
@@ -54,18 +64,21 @@ export default function Consultoria() {
                 Consultoría Logística
               </div>
               <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
-                Análisis logístico para <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">tomar mejores decisiones</span>
+                Análisis logístico para{" "}
+                <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                  tomar mejores decisiones
+                </span>
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate-300 md:text-xl">
                 {blsContent.consultancy.intro}
               </p>
-              
+
               <div className="mt-10 flex flex-wrap gap-4">
-                 <Link
+                <Link
                   to="/contacto"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold uppercase tracking-wider text-[#0B1120] transition-all hover:bg-blue-50 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                 >
-                  Solicitar Análisis
+                  Solicitar análisis
                   <FiArrowRight className="text-lg" />
                 </Link>
               </div>
@@ -77,20 +90,20 @@ export default function Consultoria() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative hidden lg:block"
             >
-              <div className="relative aspect-square w-full max-w-md mx-auto">
-                <div className="absolute inset-0 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm p-8">
-                   <div className="h-full w-full rounded-2xl border border-dashed border-white/10 bg-white/5 flex items-center justify-center">
-                      <FiBarChart className="text-9xl text-white/10" />
-                   </div>
+              <div className="relative mx-auto aspect-square w-full max-w-md">
+                <div className="absolute inset-0 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-8 backdrop-blur-sm">
+                  <div className="flex h-full w-full items-center justify-center rounded-2xl border border-dashed border-white/10 bg-white/5">
+                    <FiBarChart className="text-9xl text-white/10" />
+                  </div>
                 </div>
-                <motion.div 
+                <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute -right-6 -top-6 rounded-2xl border border-white/10 bg-[#1e293b] p-4 shadow-xl"
                 >
                   <FiTrendingUp className="text-3xl text-blue-400" />
                 </motion.div>
-                <motion.div 
+                <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                   className="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#1e293b] p-4 shadow-xl"
@@ -103,162 +116,101 @@ export default function Consultoria() {
         </div>
       </section>
 
-      {/* SECTION 2: APPROACH - Simplified to clean cards */}
-      <section className="px-6 py-20 bg-white">
-        <div className="section-shell">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_54%,#e9f1fb_100%)] px-6 py-20">
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(213,223,238,0.45)_100%)]" />
+        <div className="section-shell relative">
           <div className="mb-12 md:text-center">
-             <h2 className="text-3xl font-bold tracking-tight text-[#0B1120] sm:text-4xl">
-               Nuestro Enfoque
-             </h2>
-             <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-               Metodología probada para optimizar cada eslabón de tu cadena de suministro.
-             </p>
+            <h2 className="text-3xl font-bold tracking-tight text-[#0B1120] sm:text-4xl">
+              Nuestro Enfoque
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+              Metodología probada para optimizar cada eslabón de tu cadena de suministro.
+            </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            {blsContent.consultancy.approach.map((paragraph, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative flex flex-col gap-4 rounded-2xl border border-slate-100 bg-slate-50 p-8 transition-all hover:border-blue-100 hover:shadow-lg"
-              >
-                <div className="text-4xl font-black text-blue-100/80">0{index + 1}</div>
-                <p className="text-base leading-relaxed text-slate-600">
-                  {paragraph}
-                </p>
-              </motion.div>
-            ))}
+          <div className="relative px-2 py-10 md:px-4 md:py-18">
+            <div className="absolute left-1/2 top-[27%] hidden h-[20rem] w-[132%] -translate-x-1/2 rounded-[50%] border-t-[34px] border-[#23365c]/52 md:block" />
+            <div className="absolute left-1/2 top-[28.2%] hidden h-[20rem] w-[132%] -translate-x-1/2 rounded-[50%] border-t-[34px] border-white/65 md:block" />
+
+            <div className="relative grid gap-10 md:grid-cols-4 md:items-start md:gap-6">
+              {blsContent.consultancy.approach.map((paragraph, index) => {
+                const Icon = approachIcons[index];
+                const [rawTitle, ...rest] = paragraph.split(". ");
+                const title = rawTitle.replace(".", "");
+                const description = rest.join(". ");
+
+                return (
+                  <motion.div
+                    key={paragraph}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`relative flex flex-col items-center text-center ${approachOffsets[index] ?? ""}`}
+                  >
+                    
+                    <div className="relative z-10 mb-6 -translate-y-3 transform flex h-20 w-20 items-center justify-center bg-[#23365c] text-white shadow-[0_18px_40px_rgba(35,54,92,0.24)] [clip-path:polygon(50%_0%,93%_25%,93%_75%,50%_100%,7%_75%,7%_25%)] md:mb-10 md:h-24 md:w-24">
+                      <Icon className="text-3xl md:text-[2rem]" />
+                    </div>
+                    <div className="max-w-[18rem]">
+                      <h3 className="text-2xl font-semibold tracking-[-0.03em] text-[#0f3473]">
+                        {title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-600 md:text-base">
+                        {description}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 3: AREAS - Bento Grid (Moved here as requested) */}
-      <section className="px-6 py-20 md:py-28 bg-slate-50">
+      <section className="bg-slate-50 px-6 py-20 md:py-28">
         <div className="section-shell">
           <div className="mb-16 space-y-4">
             <div className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-700">
               Áreas de consultoría
             </div>
-            <h2 className="text-3xl font-bold text-[#0B1120] md:text-4xl">Enfoque práctico y operativo</h2>
+            <h2 className="text-3xl font-bold text-[#0B1120] md:text-4xl">
+              Enfoque práctico y operativo
+            </h2>
             <p className="max-w-3xl text-lg text-slate-600">
-              Revisamos la operación actual, identificamos oportunidades y proponemos cambios que
-              puedan ejecutarse de forma realista.
+              Acompañamos proyectos de cumplimiento, almacenamiento, cadena de suministro e
+              integración modal con una lógica operativa y ejecutable.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:grid-rows-3 lg:gap-6 h-auto md:h-[800px]">
-            {/* Item 1: Analysis - Large Feature (2x2) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-white p-8 shadow-sm transition-all hover:shadow-xl md:col-span-2 md:row-span-2 md:p-10"
-            >
-              <div className="absolute right-0 top-0 h-64 w-64 -translate-y-1/2 translate-x-1/3 rounded-full bg-blue-50/50 blur-3xl transition-transform duration-700 group-hover:scale-125" />
-              <div className="relative z-10">
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
-                  <FiBarChart2 className="text-3xl" />
-                </div>
-                <h3 className="mb-4 text-3xl font-bold text-[#0B1120]">
-                  {blsContent.consultancy.areas[0]}
-                </h3>
-                <p className="max-w-md text-lg leading-relaxed text-slate-600">
-                  Analizamos cada dato de tu operación para encontrar eficiencias ocultas y mejorar el rendimiento global.
-                </p>
-              </div>
-              <div className="relative z-10 mt-8 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-blue-600">
-                Ver detalles <FiArrowRight />
-              </div>
-            </motion.div>
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {blsContent.consultancy.areas.map((area, index) => {
+              const Icon = areaIcons[index];
 
-            {/* Item 2: Costos - Vertical (1x1) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-[#0B1120] p-8 text-white shadow-lg md:col-span-1 md:row-span-1"
-            >
-              <div className="relative z-10">
-                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm">
-                  <FiTrendingDown className="text-xl" />
-                </div>
-                <h3 className="text-xl font-bold leading-tight">
-                  {blsContent.consultancy.areas[1]}
-                </h3>
-              </div>
-              <div className="relative z-10 mt-4 h-1 w-12 rounded-full bg-blue-500/50" />
-            </motion.div>
-
-            {/* Item 3: Rutas - Vertical (1x1) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-blue-50 p-8 shadow-sm transition-all hover:bg-blue-100 md:col-span-1 md:row-span-1"
-            >
-              <div className="relative z-10">
-                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-600 group-hover:bg-white">
-                  <FiCompass className="text-xl" />
-                </div>
-                <h3 className="text-xl font-bold leading-tight text-[#0B1120]">
-                  {blsContent.consultancy.areas[2]}
-                </h3>
-              </div>
-            </motion.div>
-
-            {/* Item 4: Cross-border - Wide (2x1) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="group relative flex flex-col justify-center overflow-hidden rounded-3xl bg-white p-8 shadow-sm transition-all hover:shadow-lg md:col-span-2 md:row-span-1"
-            >
-              <div className="flex items-center gap-6">
-                <div className="hidden h-16 w-16 shrink-0 place-items-center rounded-2xl bg-indigo-50 text-indigo-600 md:grid">
-                  <FiGlobe className="text-3xl" />
-                </div>
-                <div>
-                  <div className="mb-2 md:hidden">
-                    <FiGlobe className="text-3xl text-indigo-600" />
+              return (
+                <motion.div
+                  key={area}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                  className="rounded-3xl bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                    <Icon className="text-xl" />
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-[#0B1120]">
-                    {blsContent.consultancy.areas[3]}
-                  </h3>
-                  <p className="text-sm text-slate-600">
-                    Gestión experta de cruces fronterizos y normatividad internacional.
+                  <h3 className="text-xl font-bold leading-tight text-[#0B1120]">{area}</h3>
+                  <p className="mt-4 text-sm leading-7 text-slate-600">
+                    {areaDescriptions[index]}
                   </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Item 5: Estrategias - Square (1x1) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white shadow-lg md:col-span-1 md:row-span-1"
-            >
-              <div className="relative z-10">
-                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 text-white backdrop-blur-sm">
-                  <FiGitBranch className="text-xl" />
-                </div>
-                <h3 className="text-xl font-bold leading-tight">
-                  {blsContent.consultancy.areas[4]}
-                </h3>
-              </div>
-            </motion.div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 md:py-24 bg-white">
+      <section className="bg-white px-6 py-20 md:py-24">
         <div className="section-shell">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -287,7 +239,7 @@ export default function Consultoria() {
         </div>
       </section>
 
-      <WhatsAppFloatingButton />
+
       <Footer />
     </main>
   );

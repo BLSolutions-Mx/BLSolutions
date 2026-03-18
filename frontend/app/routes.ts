@@ -9,9 +9,6 @@ export default [
   route("servicios/plataforma", "routes/servicios/plataforma.tsx"),
   route("servicios/caja-refrigerada", "routes/servicios/caja-refrigerada.tsx"),
   route("servicios/intermodal", "routes/servicios/intermodal.tsx"),
-  route("servicios/terrestre", "routes/servicios/terrestre.tsx"),
-  route("servicios/aereo", "routes/servicios/aereo.tsx"),
-  route("servicios/maritimo", "routes/servicios/maritimo.tsx"),
-  route("servicios/complementarios", "routes/servicios/complementarios.tsx"),
+  route("servicios/almacenamiento", "routes/servicios/almacenamiento.tsx"),
   route("contacto", "routes/contacto.tsx"),
 ] satisfies RouteConfig;

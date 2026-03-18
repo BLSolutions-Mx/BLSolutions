@@ -149,21 +149,21 @@ export const blsContent: BlsContent = {
       subServices: [
         {
           key: "caja-seca",
-          title: "Caja Seca (Dry Van)",
+          title: "Caja Seca",
           image: "/home-imgs/terrestre-dryvan.avif",
           description:
             "Ideal para el transporte de mercancía general que no requiere control de temperatura.",
         },
         {
           key: "plataforma",
-          title: "Plataforma (Flatbed)",
+          title: "Plataforma",
           image: "/home-imgs/terrestre-flatbed.avif",
           description:
             "Flexibilidad para maquinaria, materiales y carga que no viaja en remolque cerrado.",
         },
         {
           key: "reefer",
-          title: "Caja Refrigerada (Reefer)",
+          title: "Caja Refrigerada",
           image: "/home-imgs/terrestre-reefer.avif",
           description:
             "Control de temperatura estable para productos perecederos o sensibles al clima.",
@@ -210,21 +210,21 @@ export const blsContent: BlsContent = {
   serviceModes: [
     {
       key: "caja-seca",
-      title: "Caja Seca (Dry Van)",
+      title: "Caja Seca",
       image: "/home-imgs/terrestre-dryvan.avif",
       description:
         "Ideal para el transporte de mercancía general que no requiere control de temperatura. Este tipo de remolque cerrado protege la carga de las condiciones climáticas y es una de las soluciones más utilizadas para envíos nacionales y transfronterizos.",
     },
     {
       key: "plataforma",
-      title: "Plataforma (Flatbed)",
+      title: "Plataforma",
       image: "/home-imgs/terrestre-flatbed.avif",
       description:
         "Utilizada para transportar carga sobredimensionada, maquinaria o materiales que no pueden transportarse dentro de un remolque cerrado. Permite mayor flexibilidad para carga y descarga desde diferentes ángulos.",
     },
     {
       key: "reefer",
-      title: "Caja Refrigerada (Reefer)",
+      title: "Caja Refrigerada",
       image: "/home-imgs/terrestre-reefer.avif",
       description:
         "Remolques con control de temperatura diseñados para transportar productos perecederos o sensibles al clima, manteniendo condiciones térmicas estables durante todo el trayecto.",
@@ -239,16 +239,18 @@ export const blsContent: BlsContent = {
     intro:
       "En BL Solutions ofrecemos servicios de consultoría logística para empresas que buscan optimizar sus operaciones de transporte y cadena de suministro.",
     approach: [
-      "Nuestro enfoque comienza con entender cómo funciona la operación actual del cliente. Analizamos rutas, volúmenes, procesos y estructura logística para identificar oportunidades que permitan mejorar costos, tiempos de tránsito y eficiencia operativa.",
-      "A partir de este análisis, proponemos estrategias prácticas que pueden incluir ajustes en rutas, cambios en modos de transporte o mejoras en la estructura logística general.",
-      "Nuestro objetivo es ayudar a las empresas a tomar mejores decisiones logísticas basadas en análisis operativo y experiencia en operaciones nacionales e internacionales.",
+      "Entender. Comprendemos a profundidad la operación logística del cliente, sus flujos, restricciones, niveles de servicio y objetivos de negocio.",
+      "Analizar. Identificamos oportunidades de mejora en costos, tiempos, seguridad y sostenibilidad para priorizar acciones con impacto real.",
+      "Diseñar. Desarrollamos una solución logística a la medida que puede incluir rediseño operativo, almacenamiento, cumplimiento y ajustes de modalidad.",
+      "Operar. Implementamos y gestionamos el proyecto para convertir la estrategia en una operación funcional, medible y sostenible.",
     ],
     areas: [
       "Análisis de operaciones logísticas",
-      "Optimización de costos de transporte",
-      "Evaluación de rutas y modos de transporte",
+      "Cumplimiento CTPAT",
+      "Diseño de operaciones de almacenamiento",
+      "Optimización de cadenas de suministro",
+      "Transición a logística intermodal",
       "Optimización de operaciones cross-border",
-      "Diseño de estrategias logísticas",
     ],
   },
   proposal: {

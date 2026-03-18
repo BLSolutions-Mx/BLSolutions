@@ -2,20 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiPhoneCall } from "react-icons/fi";
-import { blsContent } from "./blsContent";
 
 const slides = [
   {
-    title: "Transporte y consultoría logística sin complicaciones",
-    text: "BL Solutions apoya operaciones nacionales e internacionales con una estructura simple y eficiente.",
+    title: "Transporte terrestre, intermodal y consultoria logistica",
+    text: "BL Solutions apoya operaciones nacionales e internacionales con soluciones logisticas claras y coordinadas.",
   },
   {
-    title: "Servicios logísticos enfocados en lo que sí necesitas",
-    text: blsContent.proposal.promise,
+    title: "Alianzas sostenibles y de largo plazo para cada operación",
+    text: "Construimos relaciones duraderas con clientes y aliados para dar continuidad, respuesta y confianza operativa.",
   },
   {
-    title: "Soluciones integrales de movilidad y logística",
-    text: blsContent.workingMethod.philosophy,
+    title: "Servicios integrales y de alto valor agregado",
+    text: "Integramos analisis, estrategia y ejecucion para resolver cada operacion con mayor eficiencia.",
   },
 ];
 
@@ -46,7 +45,7 @@ export default function HeroSlider() {
       <div className="absolute inset-0 -z-10">
         <img
           src="/home-imgs/hero-bg.avif"
-          alt="Operaciones logísticas"
+          alt="Operaciones logisticas"
           loading="eager"
           decoding="async"
           className="h-full w-full object-cover"
@@ -64,7 +63,7 @@ export default function HeroSlider() {
             className="space-y-5 pt-6 text-white sm:space-y-8 lg:pr-6 lg:pt-0"
           >
             <div className="section-label border-white/20 bg-white/8 text-white">
-              {blsContent.company.slogan}
+              Logistica simple y eficiente
             </div>
 
             <div className="relative w-full max-w-4xl">
@@ -91,7 +90,7 @@ export default function HeroSlider() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
-                to="/servicios/caja-seca"
+                to="/servicios"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#202F4C] transition-transform hover:-translate-y-0.5 sm:px-6"
               >
                 Ver servicios
@@ -124,17 +123,17 @@ export default function HeroSlider() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden w-full lg:justify-end lg:flex"
+            className="hidden w-full lg:flex lg:justify-end"
           >
             <div className="w-full max-w-sm rounded-[1.5rem] border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-md sm:p-8 md:max-w-md">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
                 Enfoque
               </p>
               <p className="mt-3 text-xl font-semibold leading-tight text-[#202F4C] sm:text-2xl">
-                {blsContent.company.focus}
+                Empresa logistica mexico-americana para operaciones nacionales e internacionales.
               </p>
               <p className="mt-3 text-sm leading-7 text-[#5E6878]">
-                {blsContent.proposal.summary}
+                Un solo equipo coordinando transporte, estrategia y seguimiento para cada operacion.
               </p>
             </div>
           </motion.div>

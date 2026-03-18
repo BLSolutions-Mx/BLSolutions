@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "react-router";
 import {
   FiArrowUpRight,
+  FiArchive,
   FiChevronDown,
   FiMenu,
   FiTruck,
@@ -63,6 +64,11 @@ const serviceDropdownItems: DropdownItem[] = [
     text: "Intermodal",
     href: "/servicios/intermodal",
     icon: FiGitBranch,
+  },
+  {
+    text: "Almacenamiento",
+    href: "/servicios/almacenamiento",
+    icon: FiArchive,
   },
 ];
 
@@ -197,17 +203,26 @@ const FlipNav = () => {
                 onMouseEnter={handleDropdownEnter}
                 onMouseLeave={handleDropdownLeave}
               >
-                <button
-                  type="button"
-                  className="relative flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:text-[#202F4C]"
-                >
-                  {item.text}
-                  <FiChevronDown
-                    className={`text-xs transition-transform duration-200 ${
-                      dropdownOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
+                <div className="relative flex items-center gap-1.5">
+                  <Link
+                    to={item.href}
+                    className="relative text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:text-[#202F4C]"
+                  >
+                    {item.text}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setDropdownOpen((open) => !open)}
+                    aria-label={dropdownOpen ? "Cerrar submenú de servicios" : "Abrir submenú de servicios"}
+                    className="text-[#5E6878] transition-colors hover:text-[#202F4C]"
+                  >
+                    <FiChevronDown
+                      className={`text-xs transition-transform duration-200 ${
+                        dropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                </div>
                 <AnimatePresence>
                   {dropdownOpen && (
                     <motion.div
@@ -352,20 +367,33 @@ const NavMenu = ({
       {navMenuItems.map((item) =>
         item.hasDropdown ? (
           <div key={item.text}>
-            <motion.button
-              className="group flex w-full items-center justify-between rounded-2xl px-5 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C] active:scale-[0.98]"
-              onClick={() => setMobileServicesOpen((prev) => !prev)}
+            <motion.div
+              className="flex items-center gap-2"
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              {item.text}
-              <FiChevronDown
-                className={`text-sm transition-transform duration-200 ${
-                  mobileServicesOpen ? "rotate-180" : ""
-                }`}
-              />
-            </motion.button>
+              <Link
+                to={item.href}
+                className="group flex-1 rounded-2xl px-5 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C] active:scale-[0.98]"
+              >
+                {item.text}
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileServicesOpen((prev) => !prev)}
+                aria-label={
+                  mobileServicesOpen ? "Cerrar submenú de servicios" : "Abrir submenú de servicios"
+                }
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C]"
+              >
+                <FiChevronDown
+                  className={`text-sm transition-transform duration-200 ${
+                    mobileServicesOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+            </motion.div>
             <AnimatePresence>
               {mobileServicesOpen && (
                 <motion.div
@@ -421,6 +449,13 @@ const NavMenu = ({
                     >
                       <FiGitBranch className="text-[#015095]" />
                       Intermodal
+                    </Link>
+                    <Link
+                      to="/servicios/almacenamiento"
+                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#5E6878] transition-all hover:bg-slate-100 hover:text-[#202F4C]"
+                    >
+                      <FiArchive className="text-[#015095]" />
+                      Almacenamiento
                     </Link>
                   </div>
                 </motion.div>

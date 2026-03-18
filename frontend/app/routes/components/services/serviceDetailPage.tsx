@@ -1,10 +1,9 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Footer from "../ui/footer";
 import Navbar from "../ui/navbar";
-import WhatsAppFloatingButton from "../ui/whatsAppFloatButton";
 
 type ServiceDetailPageProps = {
   eyebrow: string;
@@ -38,6 +37,13 @@ export default function ServiceDetailPage({
             transition={{ duration: 0.6 }}
           >
             <div className="max-w-3xl">
+              <Link
+                to="/servicios"
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 transition-colors hover:bg-white/14"
+              >
+                <FiArrowLeft />
+                Volver a servicios
+              </Link>
               <div className="mb-4 flex items-center gap-3">
                 <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/14 backdrop-blur-sm">
                   <Icon className="text-2xl text-white" />
@@ -91,7 +97,6 @@ export default function ServiceDetailPage({
         </div>
       </section>
 
-      <WhatsAppFloatingButton />
       <Footer />
     </main>
   );
