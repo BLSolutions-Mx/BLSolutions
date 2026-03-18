@@ -218,8 +218,24 @@ const FlipNav = () => {
   // External browser scroll state drives the navbar position.
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let rafId: number | null = null;
 
-    const handler = () => {
+    // #region agent log
+    let scrollEventCount = 0;
+    let scrollLogInterval: ReturnType<typeof setInterval> | null = null;
+    scrollLogInterval = setInterval(() => {
+      if (scrollEventCount > 0) {
+        fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'navbar.tsx:scrollHandler',message:'Scroll events in last 2s',data:{count:scrollEventCount,isMobile:window.innerWidth<768},timestamp:Date.now(),hypothesisId:'D',runId:'post-fix'})}).catch(()=>{});
+        scrollEventCount = 0;
+      }
+    }, 2000);
+    // #endregion
+
+    const update = () => {
+      rafId = null;
+      // #region agent log
+      scrollEventCount++;
+      // #endregion
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 10);
 
@@ -240,10 +256,22 @@ const FlipNav = () => {
       lastScrollY = currentScrollY;
     };
 
-    window.addEventListener("scroll", handler, { passive: true });
-    handler();
+    const handler = () => {
+      if (rafId === null) {
+        rafId = requestAnimationFrame(update);
+      }
+    };
 
-    return () => window.removeEventListener("scroll", handler);
+    window.addEventListener("scroll", handler, { passive: true });
+    update();
+
+    return () => {
+      window.removeEventListener("scroll", handler);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      // #region agent log
+      if (scrollLogInterval) clearInterval(scrollLogInterval);
+      // #endregion
+    };
   }, [isOpen]);
 
   // Document pointer events keep the open menus in sync with outside interactions.
@@ -325,8 +353,8 @@ const FlipNav = () => {
       <div
         className={`section-shell grid min-w-0 w-full grid-cols-[auto_1fr_auto] items-center rounded-full px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300 sm:px-5 lg:px-6 ${
           scrolled
-            ? "border-[rgba(94,104,120,0.18)] bg-white backdrop-blur-xl"
-            : "border-[rgba(94,104,120,0.14)] bg-white/95 backdrop-blur-xl"
+            ? "border-[rgba(94,104,120,0.18)] bg-white"
+            : "border-[rgba(94,104,120,0.14)] bg-white/95 "
         }`}
       >
         <Logo onClick={closeNavOverlays} />

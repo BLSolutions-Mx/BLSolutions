@@ -22,6 +22,27 @@ export default function HeroSlider() {
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // #region agent log
+  useEffect(() => {
+    let framesBefore: number[] = [];
+    let framesAfter: number[] = [];
+    let lastFrame = performance.now();
+    let counting = 0;
+    const measureFrames = () => {
+      const now = performance.now();
+      const delta = now - lastFrame;
+      lastFrame = now;
+      if (counting < 30) { framesBefore.push(delta); counting++; requestAnimationFrame(measureFrames); }
+      else if (counting === 30) {
+        const avgBefore = framesBefore.reduce((a,b)=>a+b,0)/framesBefore.length;
+        fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'heroslider.tsx:frameCheck',message:'Hero slider frame timing (blur active)',data:{avgFrameTime_ms:avgBefore.toFixed(2),maxFrameTime_ms:Math.max(...framesBefore).toFixed(2),slideIndex:index,isMobile:window.innerWidth<768},timestamp:Date.now(),hypothesisId:'C'})}).catch(()=>{});
+        counting = 31;
+      }
+    };
+    requestAnimationFrame(measureFrames);
+  }, [index]);
+  // #endregion
+
   const resetTimeout = () => {
     if (timeoutRef.current !== null) {
       clearTimeout(timeoutRef.current);
