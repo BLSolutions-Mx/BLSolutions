@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router";
 import {
   FiArrowRight,
@@ -163,32 +163,6 @@ const identityCards = [
 ] as const;
 
 export default function Nosotros() {
-  // #region agent log
-  useEffect(() => {
-    const mountTime = performance.now();
-    fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'nosotros.tsx:mount',message:'Nosotros page mounted',data:{mountTime_ms:mountTime,isMobile:window.innerWidth<768},timestamp:Date.now(),hypothesisId:'E'})}).catch(()=>{});
-
-    const checkVisibility = () => {
-      const revealEls = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-scale');
-      const invisibleEls: string[] = [];
-      revealEls.forEach((el, i) => {
-        const style = window.getComputedStyle(el);
-        if (parseFloat(style.opacity) < 0.1) {
-          const rect = el.getBoundingClientRect();
-          const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
-          if (inViewport) invisibleEls.push(`el${i}:opacity=${style.opacity},top=${rect.top.toFixed(0)}`);
-        }
-      });
-      if (invisibleEls.length > 0) {
-        fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'nosotros.tsx:visibility',message:'Invisible reveal elements in viewport',data:{invisibleEls,totalRevealEls:document.querySelectorAll('.reveal-up, .reveal-left, .reveal-scale').length},timestamp:Date.now(),hypothesisId:'B'})}).catch(()=>{});
-      }
-    };
-    const visInterval = setInterval(checkVisibility, 3000);
-    setTimeout(checkVisibility, 1000);
-
-    return () => clearInterval(visInterval);
-  }, []);
-  // #endregion
   return (
     <main className="min-h-screen text-slate-950">
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-20 pt-32 md:pb-32 md:pt-40">

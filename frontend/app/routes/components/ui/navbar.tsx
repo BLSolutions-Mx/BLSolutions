@@ -218,24 +218,8 @@ const FlipNav = () => {
   // External browser scroll state drives the navbar position.
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    let rafId: number | null = null;
 
-    // #region agent log
-    let scrollEventCount = 0;
-    let scrollLogInterval: ReturnType<typeof setInterval> | null = null;
-    scrollLogInterval = setInterval(() => {
-      if (scrollEventCount > 0) {
-        fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'navbar.tsx:scrollHandler',message:'Scroll events in last 2s',data:{count:scrollEventCount,isMobile:window.innerWidth<768},timestamp:Date.now(),hypothesisId:'D',runId:'post-fix'})}).catch(()=>{});
-        scrollEventCount = 0;
-      }
-    }, 2000);
-    // #endregion
-
-    const update = () => {
-      rafId = null;
-      // #region agent log
-      scrollEventCount++;
-      // #endregion
+    const handler = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 10);
 
@@ -256,22 +240,10 @@ const FlipNav = () => {
       lastScrollY = currentScrollY;
     };
 
-    const handler = () => {
-      if (rafId === null) {
-        rafId = requestAnimationFrame(update);
-      }
-    };
-
     window.addEventListener("scroll", handler, { passive: true });
-    update();
+    handler();
 
-    return () => {
-      window.removeEventListener("scroll", handler);
-      if (rafId !== null) cancelAnimationFrame(rafId);
-      // #region agent log
-      if (scrollLogInterval) clearInterval(scrollLogInterval);
-      // #endregion
-    };
+    return () => window.removeEventListener("scroll", handler);
   }, [isOpen]);
 
   // Document pointer events keep the open menus in sync with outside interactions.
@@ -372,6 +344,7 @@ const FlipNav = () => {
                 <div className="relative flex items-center gap-1.5">
                   <Link
                     to={item.href}
+                    prefetch="intent"
                     onClick={closeDesktopDropdowns}
                     className="relative text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:text-[#202F4C]"
                   >
@@ -416,6 +389,7 @@ const FlipNav = () => {
                           >
                             <Link
                               to={dropdownItem.href}
+                              prefetch="intent"
                               onClick={closeDesktopDropdowns}
                               className="flex items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-[#5E6878] transition-all hover:bg-[#f5f8fc] hover:text-[#202F4C]"
                             >
@@ -446,6 +420,7 @@ const FlipNav = () => {
                                       <Link
                                         key={child.text}
                                         to={child.href}
+                                        prefetch="intent"
                                         onClick={closeDesktopDropdowns}
                                         className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-[#5E6878] transition-all hover:bg-[#f5f8fc] hover:text-[#202F4C]"
                                       >
@@ -479,6 +454,7 @@ const FlipNav = () => {
 
         <Link
           to="/contacto"
+          prefetch="intent"
           onClick={closeNavOverlays}
           className="hidden items-center justify-self-end gap-2 rounded-full bg-[#202F4C] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#015095] hover:shadow-lg lg:inline-flex"
         >
@@ -513,7 +489,12 @@ const FlipNav = () => {
 };
 
 const Logo = ({ onClick }: { onClick?: () => void }) => (
-  <Link to="/" onClick={onClick} className="min-w-0 flex items-center gap-3">
+  <Link
+    to="/"
+    prefetch="intent"
+    onClick={onClick}
+    className="min-w-0 flex items-center gap-3"
+  >
     <img
       src="/bls_logo.webp"
       alt="BLS - Best Logistics Solutions"
@@ -525,6 +506,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
 const NavLink = ({ text, href, onClick }: NavLinkProps) => (
   <Link
     to={href}
+    prefetch="intent"
     onClick={onClick}
     className="relative text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:text-[#202F4C]"
   >
@@ -670,6 +652,7 @@ const NavMenu = ({
       >
         <Link
           to="/contacto"
+          prefetch="intent"
           onClick={closeMobileMenu}
           className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#202F4C] px-4 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-white shadow-md"
         >
@@ -700,6 +683,7 @@ const MenuLink = ({ text, href, onClick }: NavLinkProps) => {
     >
       <Link
         to={href}
+        prefetch="intent"
         onClick={onClick}
         className="group flex w-full items-center justify-between rounded-2xl px-5 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#5E6878] transition-colors hover:bg-slate-100 hover:text-[#202F4C]"
       >
@@ -725,6 +709,7 @@ const MobileServiceLink = ({
 }) => (
   <Link
     to={to}
+    prefetch="intent"
     onClick={onClick}
     className="flex items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-[#202F4C] transition-colors hover:bg-slate-50"
   >
@@ -751,6 +736,7 @@ const MobileChildLink = ({
 }) => (
   <Link
     to={to}
+    prefetch="intent"
     onClick={onClick}
     className="flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-bold tracking-[0.08em] text-[#5E6878] transition-colors hover:bg-slate-50 hover:text-[#202F4C]"
   >

@@ -5,7 +5,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLocation,
 } from "react-router";
 import { useEffect } from "react";
 import type Lenis from "lenis";
@@ -39,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <PerformanceMode />
         <GlobalLenis />
         {children}
         <ScrollRestoration />
@@ -48,45 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-function useRevealObserver() {
-  const location = useLocation();
-
-  useEffect(() => {
-    const selector = ".reveal-up, .reveal-left, .reveal-scale";
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        }
-      },
-      { threshold: 0.15 },
-    );
-
-    const elements = document.querySelectorAll(selector);
-    for (const el of elements) {
-      if (!el.classList.contains("is-visible")) {
-        observer.observe(el);
-      }
-    }
-
-    return () => observer.disconnect();
-  }, [location.pathname]);
-}
-
 export default function App() {
-  // #region agent log
-  const location = useLocation();
-  useEffect(() => {
-    const mountTime = performance.now();
-    fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'root.tsx:App',message:'Route changed',data:{pathname:location.pathname,mountTime_ms:mountTime,isMobile:window.innerWidth<768},timestamp:Date.now(),hypothesisId:'E',runId:'post-fix'})}).catch(()=>{});
-  }, [location.pathname]);
-  // #endregion
-
-  useRevealObserver();
-
   return (
     <div id="app-shell" className="min-h-screen">
       <Navbar />
@@ -97,19 +59,17 @@ export default function App() {
 }
 
 function GlobalLenis() {
+  // Lenis owns smooth-scroll lifecycle and must attach to the browser once.
   useEffect(() => {
-    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
-
-    // #region agent log
-    const lenisStartTime = performance.now();
-    fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'root.tsx:GlobalLenis',message:'Lenis setup check',data:{isTouchDevice,timestamp_ms:lenisStartTime},timestamp:Date.now(),hypothesisId:'A',runId:'post-fix'})}).catch(()=>{});
-    // #endregion
-
-    if (isTouchDevice) return;
-
     let lenisInstance: Lenis | null = null;
+    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const setupLenis = async () => {
+      if (coarsePointerQuery.matches || reducedMotionQuery.matches) {
+        return;
+      }
+
       const { default: Lenis } = await import("lenis");
 
       lenisInstance = new Lenis({
@@ -122,6 +82,33 @@ function GlobalLenis() {
 
     return () => {
       lenisInstance?.destroy();
+    };
+  }, []);
+
+  return null;
+}
+
+function PerformanceMode() {
+  useEffect(() => {
+    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const syncPerformanceMode = () => {
+      const shouldOptimize =
+        coarsePointerQuery.matches || reducedMotionQuery.matches;
+
+      document.body.classList.toggle("mobile-performance", shouldOptimize);
+    };
+
+    syncPerformanceMode();
+
+    coarsePointerQuery.addEventListener("change", syncPerformanceMode);
+    reducedMotionQuery.addEventListener("change", syncPerformanceMode);
+
+    return () => {
+      coarsePointerQuery.removeEventListener("change", syncPerformanceMode);
+      reducedMotionQuery.removeEventListener("change", syncPerformanceMode);
+      document.body.classList.remove("mobile-performance");
     };
   }, []);
 

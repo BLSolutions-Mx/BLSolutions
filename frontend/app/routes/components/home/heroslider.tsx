@@ -20,28 +20,8 @@ const slides = [
 
 export default function HeroSlider() {
   const [index, setIndex] = useState(0);
+  const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // #region agent log
-  useEffect(() => {
-    let framesBefore: number[] = [];
-    let framesAfter: number[] = [];
-    let lastFrame = performance.now();
-    let counting = 0;
-    const measureFrames = () => {
-      const now = performance.now();
-      const delta = now - lastFrame;
-      lastFrame = now;
-      if (counting < 30) { framesBefore.push(delta); counting++; requestAnimationFrame(measureFrames); }
-      else if (counting === 30) {
-        const avgBefore = framesBefore.reduce((a,b)=>a+b,0)/framesBefore.length;
-        fetch('http://127.0.0.1:7873/ingest/6f36cead-20c8-4c23-af80-3f36f10adb2a',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3fbf0e'},body:JSON.stringify({sessionId:'3fbf0e',location:'heroslider.tsx:frameCheck',message:'Hero slider frame timing (blur active)',data:{avgFrameTime_ms:avgBefore.toFixed(2),maxFrameTime_ms:Math.max(...framesBefore).toFixed(2),slideIndex:index,isMobile:window.innerWidth<768},timestamp:Date.now(),hypothesisId:'C'})}).catch(()=>{});
-        counting = 31;
-      }
-    };
-    requestAnimationFrame(measureFrames);
-  }, [index]);
-  // #endregion
 
   const resetTimeout = () => {
     if (timeoutRef.current !== null) {
@@ -51,13 +31,39 @@ export default function HeroSlider() {
 
   // Browser timers drive the hero autoplay cadence.
   useEffect(() => {
+    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const syncAutoplay = () => {
+      setIsAutoplayEnabled(
+        !coarsePointerQuery.matches && !reducedMotionQuery.matches,
+      );
+    };
+
+    syncAutoplay();
+
+    coarsePointerQuery.addEventListener("change", syncAutoplay);
+    reducedMotionQuery.addEventListener("change", syncAutoplay);
+
+    return () => {
+      coarsePointerQuery.removeEventListener("change", syncAutoplay);
+      reducedMotionQuery.removeEventListener("change", syncAutoplay);
+    };
+  }, []);
+
+  useEffect(() => {
     resetTimeout();
+
+    if (!isAutoplayEnabled) {
+      return;
+    }
+
     timeoutRef.current = setTimeout(() => {
       setIndex((prev) => (prev + 1) % slides.length);
     }, 5000);
 
     return () => resetTimeout();
-  }, [index]);
+  }, [index, isAutoplayEnabled]);
 
   return (
     <section
@@ -113,6 +119,7 @@ export default function HeroSlider() {
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
                 to="/servicios"
+                prefetch="intent"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#202F4C] transition-transform hover:-translate-y-0.5 sm:px-6"
               >
                 Ver servicios
@@ -120,6 +127,7 @@ export default function HeroSlider() {
               </Link>
               <Link
                 to="/contacto"
+                prefetch="intent"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/8 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white/14 sm:px-6"
               >
                 Contactar
