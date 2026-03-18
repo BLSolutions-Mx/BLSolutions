@@ -168,8 +168,9 @@ export default function Consultoria() {
         </div>
       </section>
 
-      <section className="bg-slate-50 px-6 py-20 md:py-28">
-        <div className="section-shell">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#e9f1fb_0%,#f8fafc_24%,#f8fafc_100%)] px-6 py-20 md:py-28">
+        <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(213,223,238,0.55)_0%,rgba(248,250,252,0)_100%)]" />
+        <div className="section-shell relative">
           <div className="mb-16 space-y-4">
             <div className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-700">
               Áreas de consultoría
