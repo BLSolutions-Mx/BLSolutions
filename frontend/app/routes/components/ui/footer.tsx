@@ -41,6 +41,7 @@ const FlipFooter = () => {
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#202F4C]">Empresa</p>
               <div className="flex flex-col gap-3">
                 <FooterLink to="/">Inicio</FooterLink>
+                <FooterLink to="/servicios">Servicios logísticos</FooterLink>
                 <FooterLink to="/consultoria">Consultoría</FooterLink>
                 <FooterLink to="/nosotros">Nosotros</FooterLink>
                 <FooterLink to="/contacto">Contacto</FooterLink>
@@ -49,10 +50,10 @@ const FlipFooter = () => {
             <div className="flex flex-col gap-4">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#202F4C]">Servicios</p>
               <div className="flex flex-col gap-3">
-                <FooterLink to="/servicios/caja-seca">Caja Seca</FooterLink>
-                <FooterLink to="/servicios/plataforma">Plataforma</FooterLink>
-                <FooterLink to="/servicios/caja-refrigerada">Caja Refrigerada</FooterLink>
+                <FooterLink to="/servicios/terrestre">Terrestre</FooterLink>
+                <FooterLink to="/servicios/aereo">Aéreo</FooterLink>
                 <FooterLink to="/servicios/intermodal">Intermodal</FooterLink>
+                <FooterLink to="/servicios/almacenamiento">Almacenamiento</FooterLink>
               </div>
             </div>
           </div>
