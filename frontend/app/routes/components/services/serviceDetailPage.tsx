@@ -21,9 +21,10 @@ export default function ServiceDetailPage({
   return (
     <main className="min-h-screen text-slate-950">
       <section className="relative isolate overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
-        <div className="absolute inset-0 z-0">
-          <img src={image} alt={title} className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(32,47,76,0.88)_0%,rgba(32,47,76,0.72)_50%,rgba(32,47,76,0.94)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 z-0 bg-[#0B1120]">
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,#1e293b_0%,#0f172a_50%,#020617_100%)]" />
+          <div className="absolute -right-[15%] -top-[25%] h-[min(520px,70vw)] w-[min(520px,70vw)] rounded-full bg-[#015095]/20 blur-[110px]" />
+          <div className="absolute -bottom-[20%] -left-[15%] h-[min(420px,60vw)] w-[min(420px,60vw)] rounded-full bg-[#202F4C]/25 blur-[100px]" />
         </div>
 
         <div className="section-shell relative z-10">

@@ -37,7 +37,7 @@ export default function HeroSlider() {
               Soluciones logísticas diseñadas para impulsar tu empresa
               </h1>
               <p className="max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-2xl md:leading-9">
-                BL Solutions apoya operaciones nacionales e internacionales con soluciones logísticas claras y coordinadas.
+                Apoyamos operaciones nacionales e internacionales con soluciones logísticas claras y coordinadas.
               </p>
             </div>
 
