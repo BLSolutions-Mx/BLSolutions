@@ -4,12 +4,12 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
 } from "react-router";
 import { useEffect } from "react";
-import type Lenis from "lenis";
 
 import type { Route } from "./+types/root";
+import { useGlobalLenis } from "./routes/components/hooks/useGlobalLenis";
+import useScrollToTop from "./routes/components/hooks/useScrollToTop";
 import Footer from "./routes/components/ui/footer";
 import Navbar from "./routes/components/ui/navbar";
 import "./app.css";
@@ -39,9 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <PerformanceMode />
-        <GlobalLenis />
         {children}
-        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
@@ -49,6 +47,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useGlobalLenis();
+  useScrollToTop();
+
   return (
     <div id="app-shell" className="min-h-screen">
       <Navbar />
@@ -56,36 +57,6 @@ export default function App() {
       <Footer />
     </div>
   );
-}
-
-function GlobalLenis() {
-  // Lenis owns smooth-scroll lifecycle and must attach to the browser once.
-  useEffect(() => {
-    let lenisInstance: Lenis | null = null;
-    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
-    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const setupLenis = async () => {
-      if (coarsePointerQuery.matches || reducedMotionQuery.matches) {
-        return;
-      }
-
-      const { default: Lenis } = await import("lenis");
-
-      lenisInstance = new Lenis({
-        autoRaf: true,
-        anchors: true,
-      });
-    };
-
-    void setupLenis();
-
-    return () => {
-      lenisInstance?.destroy();
-    };
-  }, []);
-
-  return null;
 }
 
 function PerformanceMode() {
