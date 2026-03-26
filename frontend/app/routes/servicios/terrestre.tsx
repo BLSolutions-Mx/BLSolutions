@@ -1,0 +1,99 @@
+import { motion } from "framer-motion";
+import { Link } from "react-router";
+import { FiArrowLeft, FiArrowRight, FiTruck } from "react-icons/fi";
+import { blsContent } from "../components/home/blsContent";
+
+const serviceModes = blsContent.serviceModes;
+
+export function meta() {
+  return [
+    { title: "Terrestre | BL Solutions" },
+    {
+      name: "description",
+      content:
+        "Soluciones de transporte terrestre: caja seca, plataforma y caja refrigerada para operaciones nacionales e internacionales.",
+    },
+  ];
+}
+
+export default function TerrestrePage() {
+  return (
+    <main className="min-h-screen text-slate-950">
+      <section className="relative isolate overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/home-imgs/terrestre-dryvan.avif"
+            alt="Terrestre"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(32,47,76,0.88)_0%,rgba(32,47,76,0.72)_50%,rgba(32,47,76,0.94)_100%)]" />
+        </div>
+
+        <div className="section-shell relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="max-w-3xl">
+              <Link
+                to="/servicios"
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 transition-colors hover:bg-white/14"
+              >
+                <FiArrowLeft />
+                Volver a servicios
+              </Link>
+              <div className="mb-4 flex items-center gap-3">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/14 backdrop-blur-sm">
+                  <FiTruck className="text-2xl text-white" />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
+                  Servicios logísticos
+                </p>
+              </div>
+              <h1 className="text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl md:text-6xl">
+                Terrestre
+              </h1>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="-mt-20 px-6 pb-20 md:-mt-24">
+        <div className="section-shell">
+          <div className="grid gap-6 md:grid-cols-3">
+            {serviceModes.map((mode, index) => (
+              <div
+                key={mode.key}
+                className="service-detail-glass reveal-up p-6 md:p-8"
+                style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
+              >
+                <div className="relative mb-6 min-h-[200px] overflow-hidden rounded-[1.5rem]">
+                  <img
+                    src={mode.image}
+                    alt={mode.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#015095]">
+                  Terrestre
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold text-[#202F4C]">{mode.title}</h2>
+                <p className="mt-3 text-base leading-8 text-[#5E6878]">{mode.description}</p>
+                <Link
+                  to="/contacto"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
+                >
+                  Contactar
+                  <FiArrowRight />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { motion } from "framer-motion";
 import {
   FiArrowRight,
-  FiBarChart,
   FiBarChart2,
   FiCheckSquare,
   FiClipboard,
@@ -87,10 +86,13 @@ export default function Consultoria() {
               className="relative hidden lg:block"
             >
               <div className="relative mx-auto aspect-square w-full max-w-md">
-                <div className="absolute inset-0 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-8 backdrop-blur-sm">
-                  <div className="flex h-full w-full items-center justify-center rounded-2xl border border-dashed border-white/10 bg-white/5">
-                    <FiBarChart className="text-9xl text-white/10" />
-                  </div>
+                <div className="absolute inset-0 overflow-hidden rounded-3xl border border-white/10">
+                  <img
+                    src="/home-imgs/about.avif"
+                    alt="Consultoría logística"
+                    className="h-full w-full object-cover opacity-80"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0B1120]/40 to-transparent" />
                 </div>
                 <div className="absolute -right-6 -top-6 rounded-2xl border border-white/10 bg-[#1e293b] p-4 shadow-xl">
                   <FiTrendingUp className="text-3xl text-blue-400" />
@@ -104,7 +106,7 @@ export default function Consultoria() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_54%,#e9f1fb_100%)] px-6 py-20">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_54%,#e9f1fb_100%)] px-6 pt-20">
         <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(213,223,238,0.45)_100%)]" />
         <div className="section-shell relative">
           <div className="mb-12 md:text-center">
@@ -153,7 +155,7 @@ export default function Consultoria() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#e9f1fb_0%,#f8fafc_24%,#f8fafc_100%)] px-6 py-20 md:py-28">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#e9f1fb_0%,#f8fafc_24%,#f8fafc_100%)] px-6 py-20">
         <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(213,223,238,0.55)_0%,rgba(248,250,252,0)_100%)]" />
         <div className="section-shell relative">
           <div className="mb-16 space-y-4">
@@ -193,7 +195,7 @@ export default function Consultoria() {
         </div>
       </section>
 
-      <section className="bg-white px-6 py-20 md:py-24">
+      <section className="bg-slate-50 px-6 py-16">
         <div className="section-shell">
           <div className="reveal-up relative overflow-hidden rounded-[2.5rem] bg-[#0B1120] p-8 text-white shadow-2xl md:p-16">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#1e293b,_transparent_70%)]" />

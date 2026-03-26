@@ -138,11 +138,11 @@ export const blsContent: BlsContent = {
       "Equipos que buscan una operación más eficiente",
     ],
   },
-  servicesGeneral: ["On the Road", "Intermodal", "Consultoría"],
+  servicesGeneral: ["Terrestre", "Intermodal", "Consultoría"],
   servicesSpecific: [
     {
       key: "terrestre",
-      title: "On the Road",
+      title: "Terrestre",
       summary:
         "Soluciones terrestres para carga general, carga sobredimensionada y productos con control de temperatura.",
       type: "subservices",

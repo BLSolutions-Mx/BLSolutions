@@ -1,70 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiPhoneCall } from "react-icons/fi";
 
-const slides = [
-  {
-    title: "Transporte terrestre, intermodal y consultoria logistica",
-    text: "BL Solutions apoya operaciones nacionales e internacionales con soluciones logisticas claras y coordinadas.",
-  },
-  {
-    title: "Alianzas sostenibles y de largo plazo para cada operación",
-    text: "Construimos relaciones duraderas con clientes y aliados para dar continuidad, respuesta y confianza operativa.",
-  },
-  {
-    title: "Servicios integrales y de alto valor agregado",
-    text: "Integramos analisis, estrategia y ejecucion para resolver cada operacion con mayor eficiencia.",
-  },
-];
-
 export default function HeroSlider() {
-  const [index, setIndex] = useState(0);
-  const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const resetTimeout = () => {
-    if (timeoutRef.current !== null) {
-      clearTimeout(timeoutRef.current);
-    }
-  };
-
-  // Browser timers drive the hero autoplay cadence.
-  useEffect(() => {
-    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
-    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const syncAutoplay = () => {
-      setIsAutoplayEnabled(
-        !coarsePointerQuery.matches && !reducedMotionQuery.matches,
-      );
-    };
-
-    syncAutoplay();
-
-    coarsePointerQuery.addEventListener("change", syncAutoplay);
-    reducedMotionQuery.addEventListener("change", syncAutoplay);
-
-    return () => {
-      coarsePointerQuery.removeEventListener("change", syncAutoplay);
-      reducedMotionQuery.removeEventListener("change", syncAutoplay);
-    };
-  }, []);
-
-  useEffect(() => {
-    resetTimeout();
-
-    if (!isAutoplayEnabled) {
-      return;
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => resetTimeout();
-  }, [index, isAutoplayEnabled]);
-
   return (
     <section
       id="hero"
@@ -94,26 +32,13 @@ export default function HeroSlider() {
               Logistica simple y eficiente
             </div>
 
-            <div className="relative w-full max-w-4xl">
-              <div className="relative min-h-[14.5rem] sm:min-h-[15.5rem] md:min-h-[18rem] lg:min-h-[19rem]">
-                <AnimatePresence mode="sync" initial={false}>
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
-                    transition={{ duration: 1, ease: [0.3, 1, 0.36, 1] }}
-                    className="absolute inset-0 space-y-4 sm:space-y-5"
-                  >
-                    <h1 className="max-w-4xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl lg:text-7xl">
-                      {slides[index].title}
-                    </h1>
-                    <p className="max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-2xl md:leading-9">
-                      {slides[index].text}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+            <div className="space-y-4 sm:space-y-5">
+              <h1 className="max-w-4xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl lg:text-7xl">
+              Soluciones logísticas diseñadas para impulsar tu empresa
+              </h1>
+              <p className="max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-2xl md:leading-9">
+                BL Solutions apoya operaciones nacionales e internacionales con soluciones logisticas claras y coordinadas.
+              </p>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -133,38 +58,6 @@ export default function HeroSlider() {
                 Contactar
                 <FiPhoneCall />
               </Link>
-            </div>
-
-            <div className="flex gap-3">
-              {slides.map((slide, slideIndex) => (
-                <button
-                  key={slide.title}
-                  className={`h-2 rounded-full transition-all ${
-                    slideIndex === index ? "w-12 bg-white" : "w-6 bg-white/35"
-                  }`}
-                  onClick={() => setIndex(slideIndex)}
-                  aria-label={`Ir al slide ${slideIndex + 1}`}
-                />
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden w-full lg:flex lg:justify-end"
-          >
-            <div className="w-full max-w-sm rounded-[1.5rem] border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-md sm:p-8 md:max-w-md">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
-                Enfoque
-              </p>
-              <p className="mt-3 text-xl font-semibold leading-tight text-[#202F4C] sm:text-2xl">
-                Empresa logistica mexico-americana para operaciones nacionales e internacionales.
-              </p>
-              <p className="mt-3 text-sm leading-7 text-[#5E6878]">
-                Un solo equipo coordinando transporte, estrategia y seguimiento para cada operacion.
-              </p>
             </div>
           </motion.div>
         </div>

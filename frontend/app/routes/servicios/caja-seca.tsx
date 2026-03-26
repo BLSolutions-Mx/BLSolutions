@@ -17,7 +17,7 @@ export function meta() {
 export default function CajaSecaPage() {
   return (
     <ServiceDetailPage
-      eyebrow="On the Road"
+      eyebrow="Terrestre"
       title={service.title}
       description={service.description}
       image={service.image}

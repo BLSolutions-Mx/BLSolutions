@@ -20,7 +20,7 @@ const FlipFooterWrapper = () => <FlipFooter />;
 
 const FlipFooter = () => {
   return (
-    <footer className="px-6 pb-8 pt-16">
+    <footer className="bg-slate-50 px-6 pb-8 pt-16">
       <div className="section-shell overflow-hidden rounded-[2rem] border border-[rgba(94,104,120,0.14)] bg-[#f5f8fc] shadow-[0_20px_60px_rgba(32,47,76,0.08)]">
         <div className="grid gap-10 px-8 py-10 md:grid-cols-[1.3fr_1fr] md:px-10 md:py-12">
           <div className="space-y-5">

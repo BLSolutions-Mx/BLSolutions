@@ -287,7 +287,7 @@ export default function Nosotros() {
         </div>
       </section>
 
-      <section className="bg-white px-6 py-24 md:py-32">
+      <section className="bg-slate-50 px-6 py-8">
         <div className="section-shell">
           <div
             className="reveal-up mx-auto mb-16 max-w-3xl text-center md:mb-24"
@@ -307,7 +307,7 @@ export default function Nosotros() {
               return (
                 <div
                   key={value.title}
-                  className="reveal-up group relative overflow-hidden rounded-[2rem] bg-slate-50 p-8 transition-colors duration-500 hover:bg-[#015095]"
+                  className="reveal-up group relative overflow-hidden rounded-[2rem] bg-white shadow-sm p-8 transition-colors duration-500 hover:bg-[#015095]"
                   style={{ ["--reveal-delay" as string]: `${index * 100}ms` }}
                 >
                   <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-white/50 blur-2xl transition-colors duration-500 group-hover:bg-white/10" />
@@ -325,26 +325,11 @@ export default function Nosotros() {
             })}
           </div>
 
-          <div
-            className="reveal-up relative mt-16 h-[400px] overflow-hidden rounded-[2.5rem] shadow-2xl md:mt-24 md:h-[500px]"
-            style={{ ["--reveal-delay" as string]: "180ms" }}
-          >
-            <img
-              src="/home-imgs/truck-2.avif"
-              alt="Operación logística y movilidad de BL Solutions"
-              className="absolute inset-0 h-full w-full object-cover object-bottom"
-            />
-            <div className="absolute inset-0 bg-[#0B1120]/30" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md">
-                <FiShield className="text-4xl text-white" />
-              </div>
-            </div>
-          </div>
+          
         </div>
       </section>
 
-      <section className="px-6 py-20 md:py-24">
+      <section className="bg-slate-50 px-6 py-20">
         <div className="section-shell">
           <div
             className="reveal-up"

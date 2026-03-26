@@ -17,7 +17,7 @@ export function meta() {
 export default function PlataformaPage() {
   return (
     <ServiceDetailPage
-      eyebrow="On the Road"
+      eyebrow="Terrestre"
       title={service.title}
       description={service.description}
       image={service.image}

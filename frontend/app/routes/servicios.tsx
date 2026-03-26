@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import { FiArrowRight, FiArchive, FiGitBranch, FiLayers, FiPackage, FiThermometer } from "react-icons/fi";
+import { FiArrowRight, FiArchive, FiGitBranch, FiSend, FiTruck } from "react-icons/fi";
 
 export function meta() {
   return [
@@ -15,22 +15,16 @@ export function meta() {
 
 const serviceCards = [
   {
-    title: "Caja Seca",
-    href: "/servicios/caja-seca",
+    title: "Terrestre",
+    href: "/servicios/terrestre",
     image: "/home-imgs/terrestre-dryvan.avif",
-    icon: FiPackage,
+    icon: FiTruck,
   },
   {
-    title: "Plataforma",
-    href: "/servicios/plataforma",
-    image: "/home-imgs/terrestre-flatbed.avif",
-    icon: FiLayers,
-  },
-  {
-    title: "Caja Refrigerada",
-    href: "/servicios/caja-refrigerada",
-    image: "/home-imgs/terrestre-reefer.avif",
-    icon: FiThermometer,
+    title: "Aéreo",
+    href: "/servicios/aereo",
+    image: "/home-imgs/aereo.avif",
+    icon: FiSend,
   },
   {
     title: "Intermodal",
@@ -43,7 +37,6 @@ const serviceCards = [
     href: "/servicios/almacenamiento",
     image: "/home-imgs/almacen_service.avif",
     icon: FiArchive,
-    featured: true,
   },
 ] as const;
 
@@ -84,17 +77,16 @@ export default function ServiciosIndex() {
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {serviceCards.map((card, index) => {
               const Icon = card.icon;
-              const isFeatured = "featured" in card && card.featured;
 
               return (
                 <div
                   key={card.title}
-                  className={`reveal-up ${isFeatured ? "sm:col-span-2 xl:col-span-2 xl:col-start-2" : ""}`}
+                  className="reveal-up"
                   style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
                 >
                   <Link
                     to={card.href}
-                    className={`group relative flex overflow-hidden rounded-[2rem] bg-[#202F4C] shadow-[0_24px_60px_rgba(32,47,76,0.18)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(32,47,76,0.24)] ${isFeatured ? "min-h-[18rem]" : "min-h-[22rem]"}`}
+                    className="group relative flex min-h-[22rem] overflow-hidden rounded-[2rem] bg-[#202F4C] shadow-[0_24px_60px_rgba(32,47,76,0.18)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(32,47,76,0.24)]"
                   >
                     <img
                       src={card.image}
