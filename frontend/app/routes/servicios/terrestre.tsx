@@ -58,14 +58,14 @@ export default function TerrestrePage() {
 
       <section className="-mt-20 px-6 pb-20 md:-mt-24">
         <div className="section-shell">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3 md:items-stretch">
             {serviceModes.map((mode, index) => (
               <div
                 key={mode.key}
-                className="service-detail-glass reveal-up p-6 md:p-8"
+                className="service-detail-glass reveal-up flex h-full flex-col p-6 md:p-8"
                 style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
               >
-                <div className="relative mb-6 min-h-[200px] overflow-hidden rounded-[1.5rem]">
+                <div className="relative mb-6 min-h-[200px] shrink-0 overflow-hidden rounded-[1.5rem]">
                   <img
                     src={mode.image}
                     alt={mode.title}
@@ -78,10 +78,10 @@ export default function TerrestrePage() {
                   Terrestre
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold text-[#202F4C]">{mode.title}</h2>
-                <p className="mt-3 text-base leading-8 text-[#5E6878]">{mode.description}</p>
+                <p className="mt-3 flex-1 text-base leading-8 text-[#5E6878]">{mode.description}</p>
                 <Link
                   to="/contacto"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
+                  className="mt-6 inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                 >
                   Contactar
                   <FiArrowRight />
