@@ -10,7 +10,7 @@ export function meta() {
     {
       name: "description",
       content:
-        "Contacta a BL Solutions para revisar tu operacion y definir la mejor solucion en transporte, intermodal o consultoria.",
+        "Contacta a BL Solutions para revisar tu operación y definir la mejor solución en transporte, intermodal o consultoría.",
     },
   ];
 }
@@ -67,8 +67,8 @@ const unitOptions: DropdownOption[] = [
   { value: "Caja refrigerada", label: "Caja refrigerada" },
   { value: "Plataforma", label: "Plataforma" },
   { value: "Intermodal", label: "Intermodal" },
-  { value: "Aereo", label: "Aereo" },
-  { value: "Maritimo", label: "Maritimo" },
+  { value: "Aéreo", label: "Aéreo" },
+  { value: "Marítimo", label: "Marítimo" },
   { value: "Otra", label: "Otra" },
 ];
 
@@ -224,7 +224,7 @@ export default function Contacto() {
     if (!formData.merchandiseType || !formData.unitType) {
       setSubmitStatus({
         success: false,
-        message: "Selecciona el tipo de mercancia y la unidad requerida.",
+        message: "Selecciona el tipo de mercancía y la unidad requerida.",
       });
       return;
     }
@@ -236,7 +236,7 @@ export default function Contacto() {
       const message = [
         `Origen: ${formData.origin}`,
         `Destino: ${formData.destination}`,
-        `Tipo de mercancia: ${formData.merchandiseType}`,
+        `Tipo de mercancía: ${formData.merchandiseType}`,
         `Peso: ${formData.weight}`,
         `Tipo de unidad requerida: ${formData.unitType}`,
         `Detalles adicionales: ${formData.additionalDetails || "N/A"}`,
@@ -256,7 +256,7 @@ export default function Contacto() {
       if (response.ok && result.success) {
         setSubmitStatus({
           success: true,
-          message: result.message || "Mensaje enviado con exito.",
+          message: result.message || "Mensaje enviado con éxito.",
         });
         setFormData(initialFormData);
       } else {
@@ -269,7 +269,7 @@ export default function Contacto() {
       console.error("Submission error:", error);
       setSubmitStatus({
         success: false,
-        message: "No se pudo conectar con el servidor. Intenta mas tarde.",
+        message: "No se pudo conectar con el servidor. Intenta más tarde.",
       });
     } finally {
       setIsSubmitting(false);
@@ -302,8 +302,8 @@ export default function Contacto() {
                 </span>
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate-300 md:text-xl">
-                Si necesitas transporte, intermodal o consultoria, cuéntanos que estás moviendo y
-                que necesitas resolver.
+                Si necesitas transporte, intermodal o consultoría, cuéntanos qué estás moviendo y
+                qué necesitas resolver.
               </p>
             </motion.div>
 
@@ -374,7 +374,7 @@ export default function Contacto() {
                   Hablemos de tu operación
                 </h2>
                 <p className="text-base leading-8 text-white/72">
-                  Atendemos nuevos proyectos unicamente a traves del formulario. Mientras mas claro
+                  Atendemos nuevos proyectos únicamente a través del formulario. Mientras más claro
                   quede el contexto de carga y ruta, mejor priorizamos la respuesta.
                 </p>
               </div>
@@ -397,7 +397,7 @@ export default function Contacto() {
               >
                 <h3 className="text-lg font-semibold">Solicitud guiada</h3>
                 <p className="mt-3 text-sm leading-7 text-white/72">
-                  Pedimos cada dato por separado para revisar la solicitud con menos friccion y sin
+                  Pedimos cada dato por separado para revisar la solicitud con menos fricción y sin
                   depender de un mensaje libre incompleto.
                 </p>
               </div>
@@ -409,7 +409,7 @@ export default function Contacto() {
                   Formulario
                 </p>
                 <p className="mt-3 text-2xl font-semibold text-[#202F4C]">
-                  Cuéntanos que necesitas
+                  Cuéntanos qué necesitas
                 </p>
                 <p className="mt-3 text-sm leading-7 text-[#5E6878]">
                   Capturamos los datos clave por separado para cotizar y canalizar mejor la
@@ -485,8 +485,8 @@ export default function Contacto() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <StyledDropdown
                     id="merchandiseType"
-                    label="Tipo de mercancia"
-                    placeholder="Selecciona una categoria"
+                    label="Tipo de mercancía"
+                    placeholder="Selecciona una categoría"
                     value={formData.merchandiseType}
                     options={merchandiseOptions}
                     onSelect={handleDropdownSelect}

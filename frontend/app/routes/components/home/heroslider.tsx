@@ -11,7 +11,7 @@ export default function HeroSlider() {
       <div className="absolute inset-0 z-0">
         <img
           src="/home-imgs/hero-bg.avif"
-          alt="Operaciones logisticas"
+          alt="Operaciones logísticas"
           loading="eager"
           decoding="async"
           className="h-full w-full object-cover"
@@ -29,7 +29,7 @@ export default function HeroSlider() {
             className="space-y-5 pt-6 text-white sm:space-y-8 lg:pr-6 lg:pt-0"
           >
             <div className="section-label border-white/20 bg-white/8 text-white">
-              Logistica simple y eficiente
+              Logística simple y eficiente
             </div>
 
             <div className="space-y-4 sm:space-y-5">
@@ -37,7 +37,7 @@ export default function HeroSlider() {
               Soluciones logísticas diseñadas para impulsar tu empresa
               </h1>
               <p className="max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-2xl md:leading-9">
-                BL Solutions apoya operaciones nacionales e internacionales con soluciones logisticas claras y coordinadas.
+                BL Solutions apoya operaciones nacionales e internacionales con soluciones logísticas claras y coordinadas.
               </p>
             </div>
 
