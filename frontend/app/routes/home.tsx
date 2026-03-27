@@ -1,28 +1,23 @@
-import type { Route } from "./+types/home";
-import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
+import { buildLocalizedPageMeta } from "../lib/build-page-meta";
+import type { Locale } from "../lib/i18n";
 import HeroSlider from "./components/home/heroslider";
 
-export function meta({}: Route.MetaArgs) {
-  return buildSeoMeta({
-    title: "Logistica sencilla para transporte y consultoria",
-    description:
-      "BL Solutions ofrece transporte terrestre, intermodal y consultoria logistica para operaciones nacionales e internacionales entre Mexico y Estados Unidos.",
-    path: "/",
-    image: OG_IMAGE_PATHS.home,
-    keywords: [
-      "logistica Mexico Estados Unidos",
-      "transporte terrestre",
-      "intermodal",
-      "consultoria logistica",
-      "BL Solutions",
-    ],
-  });
+type HomePageProps = {
+  locale: Locale;
+};
+
+export function meta() {
+  return buildLocalizedPageMeta("home", "es-MX");
+}
+
+export function HomePage({ locale }: HomePageProps) {
+  return (
+    <main className="min-h-screen text-slate-950">
+      <HeroSlider locale={locale} />
+    </main>
+  );
 }
 
 export default function Home() {
-  return (
-    <main className="min-h-screen text-slate-950">
-      <HeroSlider />
-    </main>
-  );
+  return <HomePage locale="es-MX" />;
 }

@@ -2,19 +2,9 @@ import type { ChangeEvent, FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FiMail, FiMapPin } from "react-icons/fi";
-import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
-import { blsContent } from "./components/home/blsContent";
-
-export function meta() {
-  return buildSeoMeta({
-    title: "Contacto",
-    description:
-      "Contacta a BL Solutions para revisar tu operación y definir la mejor solución en transporte, intermodal o consultoría logística.",
-    path: "/contacto",
-    image: OG_IMAGE_PATHS.contacto,
-    keywords: ["contacto BL Solutions", "cotización logística", "transporte México USA"],
-  });
-}
+import { buildLocalizedPageMeta } from "../lib/build-page-meta";
+import type { Locale } from "../lib/i18n";
+import { getBlsContent } from "./components/home/blsContent";
 
 type ContactFormData = {
   name: string;
@@ -54,24 +44,182 @@ const fieldClassName =
 const selectWrapperClassName =
   "relative rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#f8fbfd_0%,#eef5fb_100%)] transition-colors";
 
-const merchandiseOptions: DropdownOption[] = [
-  { value: "Carga general", label: "Carga general" },
-  { value: "Acero o metal", label: "Acero o metal" },
-  { value: "Alimentos", label: "Alimentos" },
-  { value: "Maquinaria", label: "Maquinaria" },
-  { value: "Material peligroso", label: "Material peligroso" },
-  { value: "Otra", label: "Otra" },
-];
-
-const unitOptions: DropdownOption[] = [
-  { value: "Caja seca 53", label: "Caja seca 53" },
-  { value: "Caja refrigerada", label: "Caja refrigerada" },
-  { value: "Plataforma", label: "Plataforma" },
-  { value: "Intermodal", label: "Intermodal" },
-  { value: "Aéreo", label: "Aéreo" },
-  { value: "Marítimo", label: "Marítimo" },
-  { value: "Otra", label: "Otra" },
-];
+const contentByLocale = {
+  "es-MX": {
+    eyebrow: "Contacto",
+    title: "Revisemos tu operación",
+    description:
+      "Si necesitas transporte, intermodal o consultoría, cuéntanos qué estás moviendo y qué necesitas resolver.",
+    asideTitle: "Hablemos de tu operación",
+    asideDescription:
+      "Atendemos nuevos proyectos únicamente a través del formulario. Mientras más claro quede el contexto de carga y ruta, mejor priorizamos la respuesta.",
+    guidedTitle: "Solicitud guiada",
+    guidedDescription:
+      "Pedimos cada dato por separado para revisar la solicitud con menos fricción y sin depender de un mensaje libre incompleto.",
+    formEyebrow: "Formulario",
+    formTitle: "Cuéntanos qué necesitas",
+    formDescription:
+      "Capturamos los datos clave por separado para cotizar y canalizar mejor la solicitud.",
+    labels: {
+      name: "Nombre",
+      email: "Correo",
+      origin: "Origen",
+      destination: "Destino",
+      merchandiseType: "Tipo de mercancía",
+      unitType: "Tipo de unidad requerida",
+      weight: "Peso estimado (kg)",
+      additionalDetails: "Detalles adicionales",
+    },
+    placeholders: {
+      name: "Nombre y empresa",
+      email: "correo@empresa.com",
+      origin: "Ejemplo: Monterrey, NL",
+      destination: "Ejemplo: Laredo, TX",
+      merchandiseType: "Selecciona una categoría",
+      unitType: "Selecciona una unidad",
+      weight: "Ejemplo: 18000",
+      additionalDetails: "Opcional: frecuencia, ventanas de entrega, requisitos especiales o comentarios.",
+    },
+    helper:
+      "Comparte ciudad o cruce fronterizo cuando aplique. Si la carga necesita manejo especial, aclara el detalle abajo.",
+    submit: "Enviar mensaje",
+    submitting: "Enviando...",
+    active: "Activo",
+    validationError: "Selecciona el tipo de mercancía y la unidad requerida.",
+    successMessage: "Mensaje enviado con éxito.",
+    errorMessage: "Hubo un error al enviar el mensaje.",
+    networkError: "No se pudo conectar con el servidor. Intenta más tarde.",
+    merchandiseOptions: [
+      { value: "Carga general", label: "Carga general" },
+      { value: "Acero o metal", label: "Acero o metal" },
+      { value: "Alimentos", label: "Alimentos" },
+      { value: "Maquinaria", label: "Maquinaria" },
+      { value: "Material peligroso", label: "Material peligroso" },
+      { value: "Otra", label: "Otra" },
+    ],
+    unitOptions: [
+      { value: "Caja seca 53", label: "Caja seca 53" },
+      { value: "Caja refrigerada", label: "Caja refrigerada" },
+      { value: "Plataforma", label: "Plataforma" },
+      { value: "Intermodal", label: "Intermodal" },
+      { value: "Aéreo", label: "Aéreo" },
+      { value: "Marítimo", label: "Marítimo" },
+      { value: "Otra", label: "Otra" },
+    ],
+    payloadLabels: {
+      origin: "Origen",
+      destination: "Destino",
+      merchandiseType: "Tipo de mercancía",
+      weight: "Peso",
+      unitType: "Tipo de unidad requerida",
+      additionalDetails: "Detalles adicionales",
+    },
+  },
+  "en-US": {
+    eyebrow: "Contact",
+    title: "Let's review your operation",
+    description:
+      "If you need transportation, intermodal, or consulting support, tell us what you're moving and what needs to be solved.",
+    asideTitle: "Let's talk about your operation",
+    asideDescription:
+      "We onboard new projects exclusively through this form. The clearer the cargo and route context is, the better we can prioritize the request.",
+    guidedTitle: "Guided request",
+    guidedDescription:
+      "We ask for each data point separately so we can review the request with less friction and without relying on an incomplete free-form message.",
+    formEyebrow: "Form",
+    formTitle: "Tell us what you need",
+    formDescription:
+      "We capture the key data separately to quote and route the request more effectively.",
+    labels: {
+      name: "Name",
+      email: "Email",
+      origin: "Origin",
+      destination: "Destination",
+      merchandiseType: "Cargo type",
+      unitType: "Required equipment",
+      weight: "Estimated weight (kg)",
+      additionalDetails: "Additional details",
+    },
+    placeholders: {
+      name: "Name and company",
+      email: "email@company.com",
+      origin: "Example: Monterrey, NL",
+      destination: "Example: Laredo, TX",
+      merchandiseType: "Select a category",
+      unitType: "Select equipment",
+      weight: "Example: 18000",
+      additionalDetails: "Optional: frequency, delivery windows, special requirements, or comments.",
+    },
+    helper:
+      "Share the city or border crossing when relevant. If the cargo needs special handling, clarify it below.",
+    submit: "Send message",
+    submitting: "Sending...",
+    active: "Active",
+    validationError: "Select both the cargo type and required equipment.",
+    successMessage: "Message sent successfully.",
+    errorMessage: "There was an error sending the message.",
+    networkError: "The server could not be reached. Try again later.",
+    merchandiseOptions: [
+      { value: "General cargo", label: "General cargo" },
+      { value: "Steel or metal", label: "Steel or metal" },
+      { value: "Food products", label: "Food products" },
+      { value: "Machinery", label: "Machinery" },
+      { value: "Hazardous materials", label: "Hazardous materials" },
+      { value: "Other", label: "Other" },
+    ],
+    unitOptions: [
+      { value: "53 dry van", label: "53 dry van" },
+      { value: "Reefer", label: "Reefer" },
+      { value: "Flatbed", label: "Flatbed" },
+      { value: "Intermodal", label: "Intermodal" },
+      { value: "Air", label: "Air" },
+      { value: "Ocean", label: "Ocean" },
+      { value: "Other", label: "Other" },
+    ],
+    payloadLabels: {
+      origin: "Origin",
+      destination: "Destination",
+      merchandiseType: "Cargo type",
+      weight: "Weight",
+      unitType: "Required equipment",
+      additionalDetails: "Additional details",
+    },
+  },
+} satisfies Record<
+  Locale,
+  {
+    eyebrow: string;
+    title: string;
+    description: string;
+    asideTitle: string;
+    asideDescription: string;
+    guidedTitle: string;
+    guidedDescription: string;
+    formEyebrow: string;
+    formTitle: string;
+    formDescription: string;
+    labels: Record<keyof ContactFormData, string>;
+    placeholders: Record<keyof ContactFormData, string>;
+    helper: string;
+    submit: string;
+    submitting: string;
+    active: string;
+    validationError: string;
+    successMessage: string;
+    errorMessage: string;
+    networkError: string;
+    merchandiseOptions: DropdownOption[];
+    unitOptions: DropdownOption[];
+    payloadLabels: {
+      origin: string;
+      destination: string;
+      merchandiseType: string;
+      weight: string;
+      unitType: string;
+      additionalDetails: string;
+    };
+  }
+>;
 
 type StyledDropdownProps = {
   id: keyof Pick<ContactFormData, "merchandiseType" | "unitType">;
@@ -79,6 +227,7 @@ type StyledDropdownProps = {
   placeholder: string;
   value: string;
   options: DropdownOption[];
+  activeLabel: string;
   onSelect: (name: StyledDropdownProps["id"], value: string) => void;
 };
 
@@ -88,6 +237,7 @@ function StyledDropdown({
   placeholder,
   value,
   options,
+  activeLabel,
   onSelect,
 }: StyledDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -160,12 +310,7 @@ function StyledDropdown({
               transition={{ duration: 0.18, ease: "easeOut" }}
               className="absolute left-0 right-0 top-[calc(100%+0.55rem)] z-30 overflow-hidden rounded-[1.4rem] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.16)]"
             >
-              <div
-                id={`${id}-listbox`}
-                role="listbox"
-                aria-labelledby={id}
-                className="p-2"
-              >
+              <div id={`${id}-listbox`} role="listbox" aria-labelledby={id} className="p-2">
                 {options.map((option, index) => {
                   const isSelected = option.value === value;
 
@@ -183,13 +328,13 @@ function StyledDropdown({
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.03, duration: 0.16 }}
                       className={`mb-1 flex w-full items-center justify-between rounded-[1rem] px-4 py-3 text-left text-sm transition-colors last:mb-0 ${
-                        isSelected
-                          ? "bg-[#202F4C] text-white"
-                          : "text-slate-700 hover:bg-slate-100"
+                        isSelected ? "bg-[#202F4C] text-white" : "text-slate-700 hover:bg-slate-100"
                       }`}
                     >
                       <span>{option.label}</span>
-                      {isSelected && <span className="text-xs uppercase tracking-[0.18em]">Activo</span>}
+                      {isSelected && (
+                        <span className="text-xs uppercase tracking-[0.18em]">{activeLabel}</span>
+                      )}
                     </motion.button>
                   );
                 })}
@@ -202,13 +347,23 @@ function StyledDropdown({
   );
 }
 
-export default function Contacto() {
+type ContactPageProps = {
+  locale: Locale;
+};
+
+export function meta() {
+  return buildLocalizedPageMeta("contact", "es-MX");
+}
+
+export function ContactPage({ locale }: ContactPageProps) {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success: boolean | null; message: string }>({
     success: null,
     message: "",
   });
+  const content = contentByLocale[locale];
+  const sharedContent = getBlsContent(locale);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -223,10 +378,7 @@ export default function Contacto() {
     event.preventDefault();
 
     if (!formData.merchandiseType || !formData.unitType) {
-      setSubmitStatus({
-        success: false,
-        message: "Selecciona el tipo de mercancía y la unidad requerida.",
-      });
+      setSubmitStatus({ success: false, message: content.validationError });
       return;
     }
 
@@ -235,21 +387,18 @@ export default function Contacto() {
 
     try {
       const message = [
-        `Origen: ${formData.origin}`,
-        `Destino: ${formData.destination}`,
-        `Tipo de mercancía: ${formData.merchandiseType}`,
-        `Peso: ${formData.weight}`,
-        `Tipo de unidad requerida: ${formData.unitType}`,
-        `Detalles adicionales: ${formData.additionalDetails || "N/A"}`,
+        `${content.payloadLabels.origin}: ${formData.origin}`,
+        `${content.payloadLabels.destination}: ${formData.destination}`,
+        `${content.payloadLabels.merchandiseType}: ${formData.merchandiseType}`,
+        `${content.payloadLabels.weight}: ${formData.weight}`,
+        `${content.payloadLabels.unitType}: ${formData.unitType}`,
+        `${content.payloadLabels.additionalDetails}: ${formData.additionalDetails || "N/A"}`,
       ].join("\n");
 
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          message,
-        }),
+        body: JSON.stringify({ ...formData, message }),
       });
 
       const result = (await response.json()) as ContactResponse;
@@ -257,21 +406,18 @@ export default function Contacto() {
       if (response.ok && result.success) {
         setSubmitStatus({
           success: true,
-          message: result.message || "Mensaje enviado con éxito.",
+          message: result.message || content.successMessage,
         });
         setFormData(initialFormData);
       } else {
         setSubmitStatus({
           success: false,
-          message: result.message || "Hubo un error al enviar el mensaje.",
+          message: result.message || content.errorMessage,
         });
       }
     } catch (error) {
       console.error("Submission error:", error);
-      setSubmitStatus({
-        success: false,
-        message: "No se pudo conectar con el servidor. Intenta más tarde.",
-      });
+      setSubmitStatus({ success: false, message: content.networkError });
     } finally {
       setIsSubmitting(false);
     }
@@ -287,24 +433,16 @@ export default function Contacto() {
 
         <div className="section-shell relative z-10">
           <div className="grid items-center gap-12 lg:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-[#0079e3] backdrop-blur-sm">
                 <span className="flex h-2 w-2 rounded-full bg-[#0079e3] shadow-[0_0_8px_#0079e3]" />
-                Contacto
+                {content.eyebrow}
               </div>
               <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
-                Revisemos{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                  tu operación
-                </span>
+                {content.title}
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate-300 md:text-xl">
-                Si necesitas transporte, intermodal o consultoría, cuéntanos qué estás moviendo y
-                qué necesitas resolver.
+                {content.description}
               </p>
             </motion.div>
 
@@ -317,11 +455,7 @@ export default function Contacto() {
               <div className="relative mx-auto aspect-[4/3] w-full max-w-lg">
                 <div className="absolute inset-0 flex items-center justify-center rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-8 backdrop-blur-sm">
                   <div className="relative h-full w-full">
-                    <svg
-                      className="absolute inset-0 h-full w-full"
-                      viewBox="0 0 100 100"
-                      preserveAspectRatio="none"
-                    >
+                    <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                       <motion.path
                         d="M 20,80 Q 50,20 80,33"
                         stroke="url(#gradient-line)"
@@ -372,16 +506,13 @@ export default function Contacto() {
 
               <div className="relative z-10 mb-8 space-y-4">
                 <h2 className="text-3xl font-extrabold leading-[1] tracking-[-0.04em] sm:text-4xl">
-                  Hablemos de tu operación
+                  {content.asideTitle}
                 </h2>
-                <p className="text-base leading-8 text-white/72">
-                  Atendemos nuevos proyectos únicamente a través del formulario. Mientras más claro
-                  quede el contexto de carga y ruta, mejor priorizamos la respuesta.
-                </p>
+                <p className="text-base leading-8 text-white/72">{content.asideDescription}</p>
               </div>
 
               <div className="relative z-10 mb-6 space-y-3">
-                {blsContent.nextStep.benefits.map((benefit, index) => (
+                {sharedContent.nextStep.benefits.map((benefit, index) => (
                   <div
                     key={benefit}
                     className="reveal-left rounded-[1.2rem] border border-white/10 bg-white/6 px-4 py-3 text-sm font-medium text-white/86"
@@ -392,43 +523,32 @@ export default function Contacto() {
                 ))}
               </div>
 
-              <div
-                className="reveal-left relative z-10 rounded-[1.6rem] border border-white/10 bg-white/6 p-5"
-                style={{ ["--reveal-delay" as string]: "450ms" }}
-              >
-                <h3 className="text-lg font-semibold">Solicitud guiada</h3>
-                <p className="mt-3 text-sm leading-7 text-white/72">
-                  Pedimos cada dato por separado para revisar la solicitud con menos fricción y sin
-                  depender de un mensaje libre incompleto.
-                </p>
+              <div className="reveal-left relative z-10 rounded-[1.6rem] border border-white/10 bg-white/6 p-5" style={{ ["--reveal-delay" as string]: "450ms" }}>
+                <h3 className="text-lg font-semibold">{content.guidedTitle}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/72">{content.guidedDescription}</p>
               </div>
             </div>
 
             <div className="min-w-0 rounded-[2rem] bg-white p-5 sm:p-6 md:p-8">
               <div className="mb-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
-                  Formulario
+                  {content.formEyebrow}
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-[#202F4C]">
-                  Cuéntanos qué necesitas
-                </p>
-                <p className="mt-3 text-sm leading-7 text-[#5E6878]">
-                  Capturamos los datos clave por separado para cotizar y canalizar mejor la
-                  solicitud.
-                </p>
+                <p className="mt-3 text-2xl font-semibold text-[#202F4C]">{content.formTitle}</p>
+                <p className="mt-3 text-sm leading-7 text-[#5E6878]">{content.formDescription}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="min-w-0 space-y-4 text-gray-900">
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
                     <label htmlFor="name" className="mb-2 block font-medium">
-                      Nombre
+                      {content.labels.name}
                     </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
-                      placeholder="Nombre y empresa"
+                      placeholder={content.placeholders.name}
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -437,13 +557,13 @@ export default function Contacto() {
                   </div>
                   <div>
                     <label htmlFor="email" className="mb-2 block font-medium">
-                      Correo
+                      {content.labels.email}
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
-                      placeholder="correo@empresa.com"
+                      placeholder={content.placeholders.email}
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -454,13 +574,13 @@ export default function Contacto() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
                     <label htmlFor="origin" className="mb-2 block font-medium">
-                      Origen
+                      {content.labels.origin}
                     </label>
                     <input
                       type="text"
                       id="origin"
                       name="origin"
-                      placeholder="Ejemplo: Monterrey, NL"
+                      placeholder={content.placeholders.origin}
                       value={formData.origin}
                       onChange={handleChange}
                       required
@@ -469,13 +589,13 @@ export default function Contacto() {
                   </div>
                   <div>
                     <label htmlFor="destination" className="mb-2 block font-medium">
-                      Destino
+                      {content.labels.destination}
                     </label>
                     <input
                       type="text"
                       id="destination"
                       name="destination"
-                      placeholder="Ejemplo: Laredo, TX"
+                      placeholder={content.placeholders.destination}
                       value={formData.destination}
                       onChange={handleChange}
                       required
@@ -486,30 +606,32 @@ export default function Contacto() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <StyledDropdown
                     id="merchandiseType"
-                    label="Tipo de mercancía"
-                    placeholder="Selecciona una categoría"
+                    label={content.labels.merchandiseType}
+                    placeholder={content.placeholders.merchandiseType}
                     value={formData.merchandiseType}
-                    options={merchandiseOptions}
+                    options={content.merchandiseOptions}
+                    activeLabel={content.active}
                     onSelect={handleDropdownSelect}
                   />
                   <StyledDropdown
                     id="unitType"
-                    label="Tipo de unidad requerida"
-                    placeholder="Selecciona una unidad"
+                    label={content.labels.unitType}
+                    placeholder={content.placeholders.unitType}
                     value={formData.unitType}
-                    options={unitOptions}
+                    options={content.unitOptions}
+                    activeLabel={content.active}
                     onSelect={handleDropdownSelect}
                   />
                 </div>
                 <div>
                   <label htmlFor="weight" className="mb-2 block font-medium">
-                    Peso estimado (kg)
+                    {content.labels.weight}
                   </label>
                   <input
                     type="number"
                     id="weight"
                     name="weight"
-                    placeholder="Ejemplo: 18000"
+                    placeholder={content.placeholders.weight}
                     value={formData.weight}
                     onChange={handleChange}
                     inputMode="numeric"
@@ -520,18 +642,17 @@ export default function Contacto() {
                   />
                 </div>
                 <div className="rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-6 text-[#5E6878]">
-                  Comparte ciudad o cruce fronterizo cuando aplique. Si la carga necesita manejo
-                  especial, aclara el detalle abajo.
+                  {content.helper}
                 </div>
                 <div>
                   <label htmlFor="additionalDetails" className="mb-2 block font-medium">
-                    Detalles adicionales
+                    {content.labels.additionalDetails}
                   </label>
                   <textarea
                     id="additionalDetails"
                     name="additionalDetails"
                     rows={4}
-                    placeholder="Opcional: frecuencia, ventanas de entrega, requisitos especiales o comentarios."
+                    placeholder={content.placeholders.additionalDetails}
                     value={formData.additionalDetails}
                     onChange={handleChange}
                     className={`${fieldClassName} min-h-32`}
@@ -553,7 +674,7 @@ export default function Contacto() {
                   whileHover={isSubmitting ? {} : { scale: 1.03 }}
                   whileTap={isSubmitting ? {} : { scale: 0.97 }}
                 >
-                  {isSubmitting ? "Enviando..." : "Enviar mensaje"}
+                  {isSubmitting ? content.submitting : content.submit}
                 </motion.button>
               </form>
             </div>
@@ -562,4 +683,8 @@ export default function Contacto() {
       </section>
     </main>
   );
+}
+
+export default function Contacto() {
+  return <ContactPage locale="es-MX" />;
 }

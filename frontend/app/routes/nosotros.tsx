@@ -10,7 +10,8 @@ import {
   FiShield,
   FiUsers,
 } from "react-icons/fi";
-import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
+import { buildLocalizedPageMeta } from "../lib/build-page-meta";
+import { getLocalizedPath, type Locale } from "../lib/i18n";
 import { cn } from "./components/lib/utils";
 
 interface MarqueeLogo {
@@ -62,9 +63,7 @@ const MarqueeLogoScroller = React.forwardRef<HTMLDivElement, MarqueeLogoScroller
 
           <div
             className="w-full overflow-hidden"
-            style={{
-              maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-            }}
+            style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}
           >
             <div
               className="flex w-max items-center gap-5 py-5 pr-5"
@@ -92,78 +91,136 @@ const MarqueeLogoScroller = React.forwardRef<HTMLDivElement, MarqueeLogoScroller
 MarqueeLogoScroller.displayName = "MarqueeLogoScroller";
 
 const partners: MarqueeLogo[] = [
-  {
-    src: "/logomarquee/logo-1.webp",
-    alt: "Procure",
-  },
-  {
-    src: "/logomarquee/logo-2.webp",
-    alt: "Shopify",
-  },
-  {
-    src: "/logomarquee/logo-3.webp",
-    alt: "Blender",
-  },
-  {
-    src: "/logomarquee/logo-4.webp",
-    alt: "Figma",
-  },
-  {
-    src: "/logomarquee/logo-5.webp",
-    alt: "Spotify",
-  },
-  {
-    src: "/logomarquee/logo-6.webp",
-    alt: "Lottielab",
-  },
+  { src: "/logomarquee/logo-1.webp", alt: "Procure" },
+  { src: "/logomarquee/logo-2.webp", alt: "Shopify" },
+  { src: "/logomarquee/logo-3.webp", alt: "Blender" },
+  { src: "/logomarquee/logo-4.webp", alt: "Figma" },
+  { src: "/logomarquee/logo-5.webp", alt: "Spotify" },
+  { src: "/logomarquee/logo-6.webp", alt: "Lottielab" },
 ];
+
+const valuesByLocale = {
+  "es-MX": [
+    { title: "Alianzas sostenibles y de largo plazo", icon: FiUsers },
+    { title: "Comunicación clara y honesta", icon: FiMessageCircle },
+    { title: "Creatividad para resolver problemas complejos", icon: FiHeart },
+    { title: "Prestación de servicios integrales y de alto valor agregado", icon: FiShield },
+  ],
+  "en-US": [
+    { title: "Sustainable, long-term partnerships", icon: FiUsers },
+    { title: "Clear and honest communication", icon: FiMessageCircle },
+    { title: "Creativity for complex operating problems", icon: FiHeart },
+    { title: "Integrated services with high added value", icon: FiShield },
+  ],
+} satisfies Record<Locale, Array<{ title: string; icon: typeof FiUsers }>>;
+
+const identityCardsByLocale = {
+  "es-MX": [
+    {
+      title: "Misión",
+      copy:
+        "Diseñar y ejecutar soluciones logísticas inteligentes que optimicen costos, tiempos, seguridad y sostenibilidad en la cadena de suministro de nuestros clientes.",
+      icon: FiCompass,
+    },
+    {
+      title: "Visión",
+      copy:
+        "Ser la plataforma logística más eficiente de México, combinando ejecución operativa, análisis financiero y tecnología para escalar el comercio internacional.",
+      icon: FiEye,
+    },
+  ],
+  "en-US": [
+    {
+      title: "Mission",
+      copy:
+        "Design and execute smart logistics solutions that optimize cost, transit time, security, and sustainability across our clients' supply chains.",
+      icon: FiCompass,
+    },
+    {
+      title: "Vision",
+      copy:
+        "To become Mexico's most efficient logistics platform by combining operational execution, financial analysis, and technology to scale international trade.",
+      icon: FiEye,
+    },
+  ],
+} satisfies Record<Locale, Array<{ title: string; copy: string; icon: typeof FiCompass }>>;
+
+const copyByLocale = {
+  "es-MX": {
+    eyebrow: "Nosotros",
+    title: "Equipo logístico con enfoque operativo",
+    intro:
+      "Firma de movilidad y logística fundada en Ciudad de México, con enfoque en relaciones duraderas, claridad operativa y servicio integral.",
+    sectionEyebrow: "Quiénes somos",
+    sectionTitle: "Transformando la logística con excelencia",
+    paragraphs: [
+      "Fundada en 2024 en la Ciudad de México, B.L. Solutions es una firma de movilidad y logística comprometida con la excelencia y dedicada a brindar un servicio integral.",
+      "Hemos logrado consolidar relaciones con jugadores clave en México y EUA, quienes han confiado en nosotros para apoyar en operaciones complejas e innovadoras a lo largo de la cadena de suministro.",
+    ],
+    valuesEyebrow: "Nuestros Valores",
+    valuesTitle: "Principios que definen nuestra forma de trabajar",
+    marqueeTitle: "Aliados que confían en nosotros",
+    marqueeDescription: "Colaboramos con empresas líderes para ofrecer soluciones logísticas de alto valor.",
+    closingTitle: "Conversemos sobre tu operación",
+    closingDescription:
+      "Si buscas un aliado para coordinar soluciones logísticas con claridad y visión de largo plazo, podemos ayudarte.",
+    closingCta: "Contactar ahora",
+    imageAlt: "Equipo y operaciones de BL Solutions",
+  },
+  "en-US": {
+    eyebrow: "About",
+    title: "A logistics team with an operational mindset",
+    intro:
+      "A mobility and logistics firm founded in Mexico City with a focus on long-term relationships, operating clarity, and end-to-end service.",
+    sectionEyebrow: "Who we are",
+    sectionTitle: "Transforming logistics through execution excellence",
+    paragraphs: [
+      "Founded in 2024 in Mexico City, B.L. Solutions is a mobility and logistics firm committed to excellence and built to deliver integrated service.",
+      "We have developed relationships with key players in Mexico and the United States who trust us to support complex and innovative operations across the supply chain.",
+    ],
+    valuesEyebrow: "Our Values",
+    valuesTitle: "Principles that shape how we work",
+    marqueeTitle: "Partners who trust us",
+    marqueeDescription: "We collaborate with leading companies to deliver high-value logistics solutions.",
+    closingTitle: "Let's discuss your operation",
+    closingDescription:
+      "If you need a partner to coordinate logistics solutions with clarity and long-term vision, we can help.",
+    closingCta: "Contact now",
+    imageAlt: "BL Solutions team and operations",
+  },
+} satisfies Record<
+  Locale,
+  {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    sectionEyebrow: string;
+    sectionTitle: string;
+    paragraphs: string[];
+    valuesEyebrow: string;
+    valuesTitle: string;
+    marqueeTitle: string;
+    marqueeDescription: string;
+    closingTitle: string;
+    closingDescription: string;
+    closingCta: string;
+    imageAlt: string;
+  }
+>;
+
+type AboutPageProps = {
+  locale: Locale;
+};
 
 export function meta() {
-  return buildSeoMeta({
-    title: "Nosotros",
-    description:
-      "Conoce a BL Solutions, nuestra experiencia en logística México-USA, nuestra visión operativa y los valores que guían cada proyecto.",
-    path: "/nosotros",
-    image: OG_IMAGE_PATHS.nosotros,
-    keywords: ["nosotros BL Solutions", "empresa logística", "logística México USA"],
-  });
+  return buildLocalizedPageMeta("about", "es-MX");
 }
 
-const values = [
-  {
-    title: "Alianzas sostenibles y de largo plazo",
-    icon: FiUsers,
-  },
-  {
-    title: "Comunicación clara y honesta",
-    icon: FiMessageCircle,
-  },
-  {
-    title: "Creatividad para resolver problemas complejos",
-    icon: FiHeart,
-  },
-  {
-    title: "Prestación de servicios integrales y de alto valor agregado",
-    icon: FiShield,
-  },
-];
+export function AboutPage({ locale }: AboutPageProps) {
+  const copy = copyByLocale[locale];
+  const values = valuesByLocale[locale];
+  const identityCards = identityCardsByLocale[locale];
 
-const identityCards = [
-  {
-    title: "Misión",
-    copy:
-      "Diseñar y ejecutar soluciones logísticas inteligentes que optimicen costos, tiempos, seguridad y sostenibilidad en la cadena de suministro de nuestros clientes.",
-    icon: FiCompass,
-  },
-  {
-    title: "Visión",
-    copy:
-      "Ser la plataforma logística más eficiente de México, combinando ejecución operativa, análisis financiero y tecnología para escalar el comercio internacional.",
-    icon: FiEye,
-  },
-] as const;
-
-export default function Nosotros() {
   return (
     <main className="min-h-screen text-slate-950">
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-20 pt-32 md:pb-32 md:pt-40">
@@ -178,36 +235,26 @@ export default function Nosotros() {
             <div className="reveal-left">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-[#0079e3] backdrop-blur-sm">
                 <span className="flex h-2 w-2 rounded-full bg-[#0079e3] shadow-[0_0_8px_#0079e3]" />
-                Nosotros
+                {copy.eyebrow}
               </div>
               <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
-                Equipo logístico con{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                  enfoque operativo
-                </span>
+                {copy.title}
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate-300 md:text-xl">
-                Firma de movilidad y logística fundada en Ciudad de México, con enfoque en
-                relaciones duraderas, claridad operativa y servicio integral.
+                {copy.intro}
               </p>
             </div>
 
-            <div
-              className="relative hidden lg:block reveal-scale"
-              style={{ ["--reveal-delay" as string]: "200ms" }}
-            >
+            <div className="relative hidden lg:block reveal-scale" style={{ ["--reveal-delay" as string]: "200ms" }}>
               <div className="relative mx-auto aspect-square w-full max-w-md">
                 <div className="absolute left-1/2 top-1/2 z-20 flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
                   <FiUsers className="text-4xl text-blue-400" />
                 </div>
-
                 <div className="absolute inset-0 rounded-full border border-dashed border-white/10" />
                 <div className="absolute inset-4 rounded-full border border-white/5" />
-
                 <div className="absolute right-1/4 top-1/4 z-30 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-[#1e293b] shadow-lg">
                   <FiCompass className="text-2xl text-blue-400" />
                 </div>
-
                 <div className="absolute bottom-1/4 left-1/4 z-30 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-[#1e293b] shadow-lg">
                   <FiSettings className="text-2xl text-blue-400" />
                 </div>
@@ -225,21 +272,15 @@ export default function Nosotros() {
               <div>
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-700">
                   <FiUsers className="text-blue-500" />
-                  Quiénes somos
+                  {copy.sectionEyebrow}
                 </div>
                 <h2 className="mb-6 text-4xl font-bold leading-tight text-[#202F4C] md:text-5xl">
-                  Transformando la <span className="text-[#015095]">logística</span> con excelencia
+                  {copy.sectionTitle}
                 </h2>
                 <div className="space-y-6 text-lg leading-relaxed text-slate-600">
-                  <p>
-                    Fundada en 2024 en la Ciudad de México, B.L. Solutions es una firma de movilidad y
-                    logística comprometida con la excelencia y dedicada a brindar un servicio integral.
-                  </p>
-                  <p>
-                    Hemos logrado consolidar relaciones con jugadores clave en México y EUA, quienes
-                    han confiado en nosotros para apoyar en operaciones complejas e innovadoras a lo
-                    largo de la cadena de suministro.
-                  </p>
+                  {copy.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
                 </div>
               </div>
 
@@ -267,7 +308,7 @@ export default function Nosotros() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl lg:h-[800px] lg:aspect-auto">
                 <img
                   src="/imgs/truck-2.avif"
-                  alt="Equipo y operaciones de BL Solutions"
+                  alt={copy.imageAlt}
                   className="absolute inset-0 h-full w-full object-cover object-right"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/80 via-[#0B1120]/20 to-transparent" />
@@ -282,15 +323,12 @@ export default function Nosotros() {
 
       <section className="bg-slate-50 px-6 py-8">
         <div className="section-shell">
-          <div
-            className="reveal-up mx-auto mb-16 max-w-3xl text-center md:mb-24"
-            style={{ ["--reveal-delay" as string]: "100ms" }}
-          >
+          <div className="reveal-up mx-auto mb-16 max-w-3xl text-center md:mb-24" style={{ ["--reveal-delay" as string]: "100ms" }}>
             <span className="mb-4 block text-sm font-semibold uppercase tracking-wider text-[#015095]">
-              Nuestros Valores
+              {copy.valuesEyebrow}
             </span>
             <h2 className="text-3xl font-bold leading-tight text-[#202F4C] md:text-5xl">
-              Principios que definen nuestra forma de trabajar
+              {copy.valuesTitle}
             </h2>
           </div>
 
@@ -300,11 +338,10 @@ export default function Nosotros() {
               return (
                 <div
                   key={value.title}
-                  className="reveal-up group relative overflow-hidden rounded-[2rem] bg-white shadow-sm p-8 transition-colors duration-500 hover:bg-[#015095]"
+                  className="reveal-up group relative overflow-hidden rounded-[2rem] bg-white p-8 shadow-sm transition-colors duration-500 hover:bg-[#015095]"
                   style={{ ["--reveal-delay" as string]: `${index * 100}ms` }}
                 >
                   <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-white/50 blur-2xl transition-colors duration-500 group-hover:bg-white/10" />
-
                   <div className="relative z-10">
                     <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm transition-transform duration-500 group-hover:scale-110">
                       <Icon className="text-2xl text-[#015095]" />
@@ -317,20 +354,15 @@ export default function Nosotros() {
               );
             })}
           </div>
-
-          
         </div>
       </section>
 
       <section className="bg-slate-50 px-6 py-20">
         <div className="section-shell">
-          <div
-            className="reveal-up"
-            style={{ ["--reveal-delay" as string]: "120ms" }}
-          >
+          <div className="reveal-up" style={{ ["--reveal-delay" as string]: "120ms" }}>
             <MarqueeLogoScroller
-              title="Aliados que confían en nosotros"
-              description="Colaboramos con empresas líderes para ofrecer soluciones logísticas de alto valor."
+              title={copy.marqueeTitle}
+              description={copy.marqueeDescription}
               logos={partners}
               speed="normal"
             />
@@ -340,10 +372,7 @@ export default function Nosotros() {
 
       <section className="bg-slate-50 px-6 py-6">
         <div className="section-shell">
-          <div
-            className="reveal-up relative overflow-hidden rounded-[3rem] bg-[#0B1120] p-10 text-white shadow-2xl md:p-16 lg:p-20"
-            style={{ ["--reveal-delay" as string]: "160ms" }}
-          >
+          <div className="reveal-up relative overflow-hidden rounded-[3rem] bg-[#0B1120] p-10 text-white shadow-2xl md:p-16 lg:p-20" style={{ ["--reveal-delay" as string]: "160ms" }}>
             <div className="absolute inset-0">
               <div className="absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/3 rounded-full bg-blue-500/20 blur-[100px]" />
               <div className="absolute bottom-0 left-0 h-[400px] w-[400px] translate-y-1/3 -translate-x-1/4 rounded-full bg-indigo-500/20 blur-[80px]" />
@@ -351,21 +380,16 @@ export default function Nosotros() {
 
             <div className="relative z-10 flex flex-col items-center justify-between gap-12 lg:flex-row">
               <div className="max-w-2xl text-center lg:text-left">
-                <h2 className="mb-6 text-3xl font-bold leading-tight md:text-5xl">
-                  Conversemos sobre tu <span className="text-blue-400">operación</span>
-                </h2>
-                <p className="text-lg leading-relaxed text-slate-300">
-                  Si buscas un aliado para coordinar soluciones logísticas con claridad y visión de
-                  largo plazo, podemos ayudarte.
-                </p>
+                <h2 className="mb-6 text-3xl font-bold leading-tight md:text-5xl">{copy.closingTitle}</h2>
+                <p className="text-lg leading-relaxed text-slate-300">{copy.closingDescription}</p>
               </div>
 
               <div className="shrink-0">
                 <Link
-                  to="/contacto"
+                  to={getLocalizedPath("contact", locale)}
                   className="group relative inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-sm font-bold uppercase tracking-widest text-[#0B1120] transition-all hover:scale-105 hover:bg-blue-50"
                 >
-                  <span>Contactar ahora</span>
+                  <span>{copy.closingCta}</span>
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0B1120] text-white transition-transform group-hover:translate-x-1">
                     <FiArrowRight />
                   </div>
@@ -377,4 +401,8 @@ export default function Nosotros() {
       </section>
     </main>
   );
+}
+
+export default function Nosotros() {
+  return <AboutPage locale="es-MX" />;
 }

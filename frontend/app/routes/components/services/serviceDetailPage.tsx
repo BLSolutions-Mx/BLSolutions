@@ -2,21 +2,31 @@ import { Link } from "react-router";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import type { Locale } from "../../../lib/i18n";
+import { getLocalizedPath } from "../../../lib/i18n";
 
 type ServiceDetailPageProps = {
+  locale: Locale;
   eyebrow: string;
   title: string;
   description: string;
   image: string;
   icon: IconType;
+  backLabel: string;
+  contactLabel: string;
+  imageAlt?: string;
 };
 
 export default function ServiceDetailPage({
+  locale,
   eyebrow,
   title,
   description,
   image,
   icon: Icon,
+  backLabel,
+  contactLabel,
+  imageAlt,
 }: ServiceDetailPageProps) {
   return (
     <main className="min-h-screen text-slate-950">
@@ -35,11 +45,11 @@ export default function ServiceDetailPage({
           >
             <div className="max-w-3xl">
               <Link
-                to="/servicios"
+                to={getLocalizedPath("services", locale)}
                 className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 transition-colors hover:bg-white/14"
               >
                 <FiArrowLeft />
-                Volver a servicios
+                {backLabel}
               </Link>
               <div className="mb-4 flex items-center gap-3">
                 <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/14 backdrop-blur-sm">
@@ -64,7 +74,7 @@ export default function ServiceDetailPage({
               <div className="relative min-h-[280px] overflow-hidden rounded-[2rem]">
                 <img
                   src={image}
-                  alt={title}
+                  alt={imageAlt || title}
                   loading="lazy"
                   decoding="async"
                   className="absolute inset-0 h-full w-full object-cover"
@@ -77,10 +87,10 @@ export default function ServiceDetailPage({
                 <h2 className="mt-3 text-3xl font-semibold text-[#202F4C] md:text-4xl">{title}</h2>
                 <p className="mt-4 text-base leading-8 text-[#5E6878]">{description}</p>
                 <Link
-                  to="/contacto"
+                  to={getLocalizedPath("contact", locale)}
                   className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                 >
-                  Contactar
+                  {contactLabel}
                   <FiArrowRight />
                 </Link>
               </div>

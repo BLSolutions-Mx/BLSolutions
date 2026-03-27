@@ -1,39 +1,81 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowLeft, FiArrowRight, FiAnchor, FiGitBranch } from "react-icons/fi";
-import { buildSeoMeta, OG_IMAGE_PATHS } from "../../lib/seo";
+import { buildLocalizedPageMeta } from "../../lib/build-page-meta";
+import { getLocalizedPath, type Locale } from "../../lib/i18n";
 
-const modes = [
-  {
-    key: "maritimo",
-    title: "Intermodal Marítimo",
-    image: "/imgs/maritimo.avif",
-    icon: FiAnchor,
-    description:
-      "Combinamos transporte marítimo y terrestre para optimizar costos en rutas de larga distancia con grandes volúmenes de carga. Coordinamos cada etapa para mantener tiempos y visibilidad durante todo el trayecto.",
+const modesByLocale = {
+  "es-MX": [
+    {
+      key: "maritimo",
+      title: "Intermodal Marítimo",
+      image: "/imgs/maritimo.avif",
+      icon: FiAnchor,
+      description:
+        "Combinamos transporte marítimo y terrestre para optimizar costos en rutas de larga distancia con grandes volúmenes de carga. Coordinamos cada etapa para mantener tiempos y visibilidad durante todo el trayecto.",
+    },
+    {
+      key: "ferroviario",
+      title: "Intermodal Ferroviario",
+      image: "/imgs/train-1.avif",
+      icon: FiGitBranch,
+      description:
+        "Alternativa eficiente para media y larga distancia cuando conviene combinar ferrocarril y transporte terrestre. Permite mover grandes volúmenes con mayor estabilidad operativa y control de costos.",
+    },
+  ],
+  "en-US": [
+    {
+      key: "ocean",
+      title: "Ocean Intermodal",
+      image: "/imgs/maritimo.avif",
+      icon: FiAnchor,
+      description:
+        "We combine ocean and ground transportation to optimize cost on long-haul routes with large freight volumes. Each stage is coordinated to preserve timing and visibility end to end.",
+    },
+    {
+      key: "rail",
+      title: "Rail Intermodal",
+      image: "/imgs/train-1.avif",
+      icon: FiGitBranch,
+      description:
+        "An efficient option for medium and long-haul lanes where rail plus ground transportation makes sense. It moves large volumes with stronger operating stability and cost control.",
+    },
+  ],
+} satisfies Record<
+  Locale,
+  Array<{ key: string; title: string; image: string; icon: typeof FiAnchor; description: string }>
+>;
+
+const copyByLocale = {
+  "es-MX": {
+    backLabel: "Volver a servicios",
+    eyebrow: "Servicios logísticos",
+    title: "Intermodal",
+    contactLabel: "Contactar",
   },
-  {
-    key: "ferroviario",
-    title: "Intermodal Ferroviario",
-    image: "/imgs/train-1.avif",
-    icon: FiGitBranch,
-    description:
-      "Alternativa eficiente para media y larga distancia cuando conviene combinar ferrocarril y transporte terrestre. Permite mover grandes volúmenes con mayor estabilidad operativa y control de costos.",
+  "en-US": {
+    backLabel: "Back to services",
+    eyebrow: "Logistics services",
+    title: "Intermodal",
+    contactLabel: "Contact us",
   },
-];
+} satisfies Record<
+  Locale,
+  { backLabel: string; eyebrow: string; title: string; contactLabel: string }
+>;
+
+type IntermodalPageProps = {
+  locale: Locale;
+};
 
 export function meta() {
-  return buildSeoMeta({
-    title: "Intermodal",
-    description:
-      "Soluciones intermodales marítimas y ferroviarias para operaciones de media y larga distancia con foco en costo, estabilidad y visibilidad.",
-    path: "/servicios/intermodal",
-    image: OG_IMAGE_PATHS.intermodal,
-    keywords: ["transporte intermodal", "intermodal marítimo", "intermodal ferroviario"],
-  });
+  return buildLocalizedPageMeta("intermodal", "es-MX");
 }
 
-export default function IntermodalPage() {
+export function IntermodalPage({ locale }: IntermodalPageProps) {
+  const copy = copyByLocale[locale];
+  const modes = modesByLocale[locale];
+
   return (
     <main className="min-h-screen text-slate-950">
       <section className="relative isolate overflow-hidden px-6 pb-32 pt-28 md:pb-40 md:pt-36">
@@ -44,29 +86,25 @@ export default function IntermodalPage() {
         </div>
 
         <div className="section-shell relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="max-w-3xl">
               <Link
-                to="/servicios"
+                to={getLocalizedPath("services", locale)}
                 className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 transition-colors hover:bg-white/14"
               >
                 <FiArrowLeft />
-                Volver a servicios
+                {copy.backLabel}
               </Link>
               <div className="mb-4 flex items-center gap-3">
                 <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/14 backdrop-blur-sm">
                   <FiGitBranch className="text-2xl text-white" />
                 </div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Servicios logísticos
+                  {copy.eyebrow}
                 </p>
               </div>
               <h1 className="text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] text-white sm:text-5xl md:text-6xl">
-                Intermodal
+                {copy.title}
               </h1>
             </div>
           </motion.div>
@@ -98,16 +136,16 @@ export default function IntermodalPage() {
                       <Icon className="text-lg text-[#015095]" />
                     </div>
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#015095]">
-                      Intermodal
+                      {copy.title}
                     </p>
                   </div>
                   <h2 className="text-2xl font-semibold text-[#202F4C]">{mode.title}</h2>
                   <p className="mt-3 text-base leading-8 text-[#5E6878]">{mode.description}</p>
                   <Link
-                    to="/contacto"
+                    to={getLocalizedPath("contact", locale)}
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                   >
-                    Contactar
+                    {copy.contactLabel}
                     <FiArrowRight />
                   </Link>
                 </div>
@@ -118,4 +156,8 @@ export default function IntermodalPage() {
       </section>
     </main>
   );
+}
+
+export default function IntermodalRoutePage() {
+  return <IntermodalPage locale="es-MX" />;
 }

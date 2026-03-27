@@ -1,3 +1,5 @@
+import type { Locale } from "../../../lib/i18n";
+
 export interface ServiceMode {
   key: string;
   title: string;
@@ -5,88 +7,11 @@ export interface ServiceMode {
   description: string;
 }
 
-export interface TerrestrialSubService {
-  key: string;
-  title: string;
-  image: string;
-  description: string;
-}
-
-export interface TerrestrialService {
-  key: "terrestre";
-  title: string;
-  summary: string;
-  type: "subservices";
-  subServices: TerrestrialSubService[];
-}
-
-export interface BulletService {
-  key: "aereo" | "maritimo" | "aduana" | "almacenamiento" | "coordinacion";
-  title: string;
-  image: string;
-  description: string;
-  bullets: string[];
-}
-
-interface BlsContent {
-  company: {
-    name: string;
-    slogan: string;
-    focus: string;
-  };
-  logisticsRisk: {
-    premise: string;
-    costs: string[];
-    consequence: string;
-  };
-  clientsSeek: string[];
-  about: {
-    description: string;
-    clientProfile: string[];
-  };
-  servicesGeneral: string[];
-  servicesSpecific: [
-    TerrestrialService,
-    BulletService,
-    BulletService,
-    BulletService,
-    BulletService,
-    BulletService,
-  ];
-  serviceModes: ServiceMode[];
-  intermodal: {
-    title: string;
-    description: string;
-  };
+export interface BlsContent {
   consultancy: {
     intro: string;
     approach: string[];
     areas: string[];
-  };
-  proposal: {
-    summary: string;
-    promise: string;
-  };
-  workingMethod: {
-    philosophy: string;
-    process: string[];
-  };
-  differentiator: {
-    concept: string;
-    pillars: string[];
-  };
-  strategicModel: string[];
-  compliance: string[];
-  value: {
-    concept: string;
-    solution: string;
-  };
-  clientExperience: string[];
-  testimonial: {
-    before: string;
-    solution: string;
-    result: string;
-    client: string;
   };
   nextStep: {
     action: string;
@@ -101,292 +26,217 @@ interface BlsContent {
     email: string;
     addressLines: string[];
   };
-  coverage: {
-    nationalDescription: string;
-    corridorPoints: string[];
-    crossings: string[];
-  };
+  serviceModes: ServiceMode[];
 }
 
-export const blsContent: BlsContent = {
-  company: {
-    name: "BL Solutions",
-    slogan: "Logística simple y eficiente",
-    focus: "Empresa logística méxico-americana para operaciones nacionales e internacionales.",
-  },
-  logisticsRisk: {
-    premise: "Cada operación necesita una estructura clara para evitar errores, tiempos muertos y sobrecostos.",
-    costs: [
-      "Rutas poco eficientes",
-      "Falta de visibilidad",
-      "Costos innecesarios",
-      "Decisiones sin análisis",
-      "Cambios reactivos",
-      "Falta de coordinación",
-    ],
-    consequence:
-      "Por eso analizamos la operación completa antes de definir la solución logística.",
-  },
-  clientsSeek: ["Claridad", "Seguimiento", "Eficiencia", "Mejor control operativo"],
-  about: {
-    description:
-      "BL Solutions es una empresa logística méxico-americana con sede en Ciudad de México. Apoyamos a empresas a mover su mercancía de manera eficiente a través de operaciones nacionales e internacionales.",
-    clientProfile: [
-      "Operaciones nacionales",
-      "Operaciones internacionales",
-      "Empresas con carga recurrente",
-      "Equipos que buscan una operación más eficiente",
-    ],
-  },
-  servicesGeneral: ["Terrestre", "Intermodal", "Consultoría"],
-  servicesSpecific: [
+const sharedContact = {
+  phones: [
     {
-      key: "terrestre",
-      title: "Terrestre",
-      summary:
-        "Soluciones terrestres para carga general, carga sobredimensionada y productos con control de temperatura.",
-      type: "subservices",
-      subServices: [
-        {
-          key: "caja-seca",
-          title: "Caja Seca",
-          image: "/imgs/terrestre-dryvan.avif",
-          description:
-            "Ideal para el transporte de mercancía general que no requiere control de temperatura.",
-        },
-        {
-          key: "plataforma",
-          title: "Plataforma",
-          image: "/imgs/terrestre-flatbed.avif",
-          description:
-            "Flexibilidad para maquinaria, materiales y carga que no viaja en remolque cerrado.",
-        },
-        {
-          key: "reefer",
-          title: "Caja Refrigerada",
-          image: "/imgs/terrestre-reefer.avif",
-          description:
-            "Control de temperatura estable para productos perecederos o sensibles al clima.",
-        },
+      country: "Mexico",
+      numbers: ["+52 5582323839", "+52 5549183873"],
+    },
+    {
+      country: "United States",
+      numbers: ["+1 832 671 7796"],
+    },
+  ],
+  email: "operations@blsolutions.com.mx",
+  addressLines: ["Av. Paseo de la Reforma 369, Col. Cuauhtémoc", "06500 Ciudad de México"],
+};
+
+const contentByLocale: Record<Locale, BlsContent> = {
+  "es-MX": {
+    consultancy: {
+      intro:
+        "En BL Solutions ofrecemos servicios de consultoría logística para empresas que buscan optimizar sus operaciones de transporte y cadena de suministro.",
+      approach: [
+        "Entender. Comprendemos a profundidad la operación logística del cliente, sus flujos, restricciones, niveles de servicio y objetivos de negocio.",
+        "Analizar. Identificamos oportunidades de mejora en costos, tiempos, seguridad y sostenibilidad para priorizar acciones con impacto real.",
+        "Diseñar. Desarrollamos una solución logística a la medida que puede incluir rediseño operativo, almacenamiento, cumplimiento y ajustes de modalidad.",
+        "Operar. Implementamos y gestionamos el proyecto para convertir la estrategia en una operación funcional, medible y sostenible.",
+      ],
+      areas: [
+        "Análisis de operaciones logísticas",
+        "Cumplimiento CTPAT",
+        "Diseño de operaciones de almacenamiento",
+        "Optimización de cadenas de suministro",
+        "Transición a logística intermodal",
+        "Optimización de operaciones cross-border",
       ],
     },
-    {
-      key: "aereo",
-      title: "Análisis logístico",
-      image: "/imgs/aereo.avif",
-      description: "Evaluamos rutas, volúmenes y estructura operativa para proponer mejoras.",
-      bullets: ["Rutas", "Volúmenes", "Estructura operativa"],
+    nextStep: {
+      action: "Revisemos tu operación y definamos la mejor solución logística.",
+      benefits: [
+        "Análisis práctico de la operación",
+        "Recomendaciones claras",
+        "Ejecución eficiente",
+      ],
+      conditions: "Sin complicaciones y con enfoque directo.",
     },
-    {
-      key: "maritimo",
-      title: "Intermodal",
-      image: "/imgs/maritimo.avif",
-      description:
-        "Alternativa para media y larga distancia cuando conviene combinar ferrocarril y transporte terrestre.",
-      bullets: ["Media distancia", "Larga distancia", "Control de costos"],
-    },
-    {
-      key: "aduana",
-      title: "Análisis de operaciones logísticas",
-      image: "/imgs/aduana_service.avif",
-      description: "Revisión de rutas, procesos y estructura actual de transporte.",
-      bullets: ["Revisión de rutas", "Procesos actuales", "Cadena logística"],
-    },
-    {
-      key: "almacenamiento",
-      title: "Optimización de costos de transporte",
-      image: "/imgs/almacen_service.avif",
-      description: "Identificación de oportunidades para reducir costos operativos.",
-      bullets: ["Consolidación", "Selección de proveedores", "Ajustes de ruta"],
-    },
-    {
-      key: "coordinacion",
-      title: "Diseño de estrategias logísticas",
-      image: "/imgs/about.avif",
-      description: "Propuesta de soluciones logísticas alineadas con el crecimiento del cliente.",
-      bullets: ["Estrategia", "Implementación", "Seguimiento"],
-    },
-  ],
-  serviceModes: [
-    {
-      key: "caja-seca",
-      title: "Caja Seca 53",
-      image: "/imgs/terrestre-dryvan.avif",
-      description:
-        "Ideal para el transporte de mercancía general que no requiere control de temperatura. Este tipo de remolque cerrado protege la carga de las condiciones climáticas y es una de las soluciones más utilizadas para envíos nacionales y transfronterizos.",
-    },
-    {
-      key: "plataforma",
-      title: "Plataforma",
-      image: "/imgs/terrestre-flatbed.avif",
-      description:
-        "Utilizada para transportar carga sobredimensionada, maquinaria o materiales que no pueden transportarse dentro de un remolque cerrado. Permite mayor flexibilidad para carga y descarga desde diferentes ángulos.",
-    },
-    {
-      key: "reefer",
-      title: "Caja Refrigerada",
-      image: "/imgs/terrestre-reefer.avif",
-      description:
-        "Remolques con control de temperatura diseñados para transportar productos perecederos o sensibles al clima, manteniendo condiciones térmicas estables durante todo el trayecto.",
-    },
-    {
-      key: "tanque",
-      title: "Tanque",
-      image: "/imgs/terrestre-tanque.avif",
-      description:
-        "Transporte especializado de líquidos, gases y materiales a granel mediante remolques cisterna que cumplen con las normativas de seguridad para productos químicos, combustibles y otros fluidos industriales.",
-    },
-    {
-      key: "caja-seca-40-full",
-      title: "Caja Seca de 40' Full",
-      image: "/imgs/terrestre-40full.avif",
-      description:
-        "Configuración de doble remolque (full) con cajas de 40 pies, diseñada para maximizar la capacidad de carga en operaciones de alto volumen y trayectos de larga distancia.",
-    },
-    {
-      key: "torton-rabon",
-      title: "Camión Torton y Rabón",
-      image: "/imgs/terrestre-torton.avif",
-      description:
-        "Unidades de carga media ideales para distribución urbana, entregas de última milla y rutas donde el acceso para remolques completos es limitado. Ofrecen versatilidad y agilidad operativa.",
-    },
-    {
-      key: "encortinado",
-      title: "Remolque Encortinado",
-      image: "/imgs/terrestre-encortinado.avif",
-      description:
-        "Remolque con cortinas laterales que facilita la carga y descarga lateral, ideal para mercancías paletizadas, materiales de construcción y operaciones que requieren acceso rápido desde los costados.",
-    },
-    {
-      key: "cama-baja",
-      title: "Cama Baja (Lowboy)",
-      image: "/imgs/terrestre-camabaja.avif",
-      description:
-        "Plataforma de piso bajo especializada para el transporte de maquinaria pesada, equipos industriales y carga de gran altura que excede las dimensiones estándar de un remolque convencional.",
-    },
-    {
-      key: "tolva-alimenticia",
-      title: "Tolva de Grado Alimenticio",
-      image: "/imgs/terrestre-tolva.avif",
-      description:
-        "Remolque tipo tolva certificado para el transporte de granos, harinas y productos alimenticios a granel, garantizando condiciones de higiene y cumplimiento de normativas sanitarias durante todo el trayecto.",
-    },
-  ],
-  intermodal: {
-    title: "Intermodal",
-    description:
-      "El transporte intermodal combina ferrocarril y transporte terrestre para optimizar costos y eficiencia en rutas de media y larga distancia, permitiendo mover grandes volúmenes de mercancía de forma más estable y eficiente.",
-  },
-  consultancy: {
-    intro:
-      "En BL Solutions ofrecemos servicios de consultoría logística para empresas que buscan optimizar sus operaciones de transporte y cadena de suministro.",
-    approach: [
-      "Entender. Comprendemos a profundidad la operación logística del cliente, sus flujos, restricciones, niveles de servicio y objetivos de negocio.",
-      "Analizar. Identificamos oportunidades de mejora en costos, tiempos, seguridad y sostenibilidad para priorizar acciones con impacto real.",
-      "Diseñar. Desarrollamos una solución logística a la medida que puede incluir rediseño operativo, almacenamiento, cumplimiento y ajustes de modalidad.",
-      "Operar. Implementamos y gestionamos el proyecto para convertir la estrategia en una operación funcional, medible y sostenible.",
-    ],
-    areas: [
-      "Análisis de operaciones logísticas",
-      "Cumplimiento CTPAT",
-      "Diseño de operaciones de almacenamiento",
-      "Optimización de cadenas de suministro",
-      "Transición a logística intermodal",
-      "Optimización de operaciones cross-border",
-    ],
-  },
-  proposal: {
-    summary:
-      "Operamos soluciones sencillas para transporte terrestre, intermodal y consultoría logística con un solo equipo coordinando todo.",
-    promise: "Entendemos la operación, definimos la estrategia y ejecutamos con seguimiento claro.",
-  },
-  workingMethod: {
-    philosophy:
-      "Primero entendemos la operación actual del cliente y después proponemos la solución más eficiente.",
-    process: [
-      "Analizamos rutas, volúmenes y procesos actuales",
-      "Definimos la estrategia logística adecuada",
-      "Coordinamos la ejecución operativa",
-      "Damos seguimiento puntual a cada movimiento",
-      "Ajustamos la operación cuando el cliente lo necesita",
-    ],
-  },
-  differentiator: {
-    concept:
-      "Nuestro equipo combina análisis operativo con ejecución diaria para que la estrategia también funcione en la realidad.",
-    pillars: [
-      "Operación nacional e internacional",
-      "Seguimiento claro",
-      "Análisis operativo",
-      "Ejecución eficiente",
-    ],
-  },
-  strategicModel: [
-    "Entender la operación actual antes de mover piezas",
-    "Comparar alternativas de ruta y modo de transporte",
-    "Proponer cambios que puedan ejecutarse",
-    "Ajustar la estrategia conforme cambia la operación",
-  ],
-  compliance: [
-    "Operación nacional e internacional",
-    "Análisis basado en la operación actual",
-    "Seguimiento por un mismo equipo",
-    "Ejecución alineada con la estrategia",
-  ],
-  value: {
-    concept:
-      "La mejor decisión logística no depende solo de tarifa. También depende de estabilidad, tiempos y capacidad operativa.",
-    solution:
-      "Ayudamos a tomar decisiones logísticas más claras y más útiles para la operación real.",
-  },
-  clientExperience: ["Claridad", "Análisis", "Seguimiento", "Ejecución"],
-  testimonial: {
-    before:
-      "Cuando una operación necesita bajar costos sin perder estabilidad, evaluamos la ruta completa antes de cambiar proveedores o equipos.",
-    solution:
-      "A partir del análisis operativo, identificamos cuándo conviene mantener transporte terrestre y cuándo una alternativa intermodal genera mejores resultados.",
-    result:
-      "El cliente toma decisiones logísticas con más claridad, mejor estructura operativa y una ruta más eficiente.",
-    client: "BL Solutions",
-  },
-  nextStep: {
-    action: "Revisemos tu operación y definamos la mejor solución logística.",
-    benefits: [
-      "Análisis práctico de la operación",
-      "Recomendaciones claras",
-      "Ejecución eficiente",
-    ],
-    conditions: "Sin complicaciones y con enfoque directo.",
-  },
-  contact: {
-    phones: [
+    contact: sharedContact,
+    serviceModes: [
       {
-        country: "Mexico",
-        numbers: ["+52 5582323839", "+52 5549183873"],
+        key: "caja-seca",
+        title: "Caja Seca 53",
+        image: "/imgs/terrestre-dryvan.avif",
+        description:
+          "Ideal para el transporte de mercancía general que no requiere control de temperatura. Este tipo de remolque cerrado protege la carga de las condiciones climáticas y es una de las soluciones más utilizadas para envíos nacionales y transfronterizos.",
       },
       {
-        country: "Estados Unidos",
-        numbers: ["+1 832 671 7796"],
+        key: "plataforma",
+        title: "Plataforma",
+        image: "/imgs/terrestre-flatbed.avif",
+        description:
+          "Utilizada para transportar carga sobredimensionada, maquinaria o materiales que no pueden transportarse dentro de un remolque cerrado. Permite mayor flexibilidad para carga y descarga desde diferentes ángulos.",
+      },
+      {
+        key: "reefer",
+        title: "Caja Refrigerada",
+        image: "/imgs/terrestre-reefer.avif",
+        description:
+          "Remolques con control de temperatura diseñados para transportar productos perecederos o sensibles al clima, manteniendo condiciones térmicas estables durante todo el trayecto.",
+      },
+      {
+        key: "tanque",
+        title: "Tanque",
+        image: "/imgs/terrestre-tanque.avif",
+        description:
+          "Transporte especializado de líquidos, gases y materiales a granel mediante remolques cisterna que cumplen con las normativas de seguridad para productos químicos, combustibles y otros fluidos industriales.",
+      },
+      {
+        key: "caja-seca-40-full",
+        title: "Caja Seca de 40' Full",
+        image: "/imgs/terrestre-40full.avif",
+        description:
+          "Configuración de doble remolque (full) con cajas de 40 pies, diseñada para maximizar la capacidad de carga en operaciones de alto volumen y trayectos de larga distancia.",
+      },
+      {
+        key: "torton-rabon",
+        title: "Camión Torton y Rabón",
+        image: "/imgs/terrestre-torton.avif",
+        description:
+          "Unidades de carga media ideales para distribución urbana, entregas de última milla y rutas donde el acceso para remolques completos es limitado. Ofrecen versatilidad y agilidad operativa.",
+      },
+      {
+        key: "encortinado",
+        title: "Remolque Encortinado",
+        image: "/imgs/terrestre-encortinado.avif",
+        description:
+          "Remolque con cortinas laterales que facilita la carga y descarga lateral, ideal para mercancías paletizadas, materiales de construcción y operaciones que requieren acceso rápido desde los costados.",
+      },
+      {
+        key: "cama-baja",
+        title: "Cama Baja (Lowboy)",
+        image: "/imgs/terrestre-camabaja.avif",
+        description:
+          "Plataforma de piso bajo especializada para el transporte de maquinaria pesada, equipos industriales y carga de gran altura que excede las dimensiones estándar de un remolque convencional.",
+      },
+      {
+        key: "tolva-alimenticia",
+        title: "Tolva de Grado Alimenticio",
+        image: "/imgs/terrestre-tolva.avif",
+        description:
+          "Remolque tipo tolva certificado para el transporte de granos, harinas y productos alimenticios a granel, garantizando condiciones de higiene y cumplimiento de normativas sanitarias durante todo el trayecto.",
       },
     ],
-    email: "operations@blsolutions.com.mx",
-    addressLines: [
-      "Av. Paseo de la Reforma 369, Col. Cuauhtémoc",
-      "06500 Ciudad de México",
-    ],
   },
-  coverage: {
-    nationalDescription:
-      "Apoyamos operaciones nacionales e internacionales con foco en rutas que requieren coordinación eficiente.",
-    corridorPoints: [
-      "Operación méxico-americana",
-      "Rutas nacionales e internacionales",
-      "Un solo equipo coordinando",
-    ],
-    crossings: [
-      "México - Estados Unidos",
-      "Rutas nacionales en México",
-      "Corredores de media y larga distancia",
+  "en-US": {
+    consultancy: {
+      intro:
+        "At BL Solutions, we provide logistics consulting services for companies that need to optimize transportation operations and supply chain performance.",
+      approach: [
+        "Understand. We study the client's logistics operation in depth, including flows, constraints, service levels, and business goals.",
+        "Analyze. We identify improvement opportunities in cost, transit time, security, and sustainability to prioritize actions with real impact.",
+        "Design. We develop a tailored logistics solution that can include operating model redesign, warehousing, compliance, and mode adjustments.",
+        "Operate. We implement and manage the project to turn strategy into a functional, measurable, and sustainable operation.",
+      ],
+      areas: [
+        "Logistics operations analysis",
+        "CTPAT compliance",
+        "Warehouse operation design",
+        "Supply chain optimization",
+        "Intermodal transition planning",
+        "Cross-border operations optimization",
+      ],
+    },
+    nextStep: {
+      action: "Let's review your operation and define the right logistics solution.",
+      benefits: [
+        "Practical operational analysis",
+        "Clear recommendations",
+        "Efficient execution",
+      ],
+      conditions: "Straightforward and execution-focused.",
+    },
+    contact: sharedContact,
+    serviceModes: [
+      {
+        key: "dry-van",
+        title: "53' Dry Van",
+        image: "/imgs/terrestre-dryvan.avif",
+        description:
+          "Ideal for general cargo that does not require temperature control. This enclosed trailer protects freight from weather conditions and is one of the most common solutions for domestic and cross-border shipping.",
+      },
+      {
+        key: "flatbed",
+        title: "Flatbed",
+        image: "/imgs/terrestre-flatbed.avif",
+        description:
+          "Used for oversized cargo, machinery, or materials that cannot move inside an enclosed trailer. It offers more flexibility for loading and unloading from multiple angles.",
+      },
+      {
+        key: "reefer",
+        title: "Reefer",
+        image: "/imgs/terrestre-reefer.avif",
+        description:
+          "Temperature-controlled trailers designed for perishables or climate-sensitive products, maintaining stable thermal conditions throughout the trip.",
+      },
+      {
+        key: "tank",
+        title: "Tank Trailer",
+        image: "/imgs/terrestre-tanque.avif",
+        description:
+          "Specialized transportation for liquids, gases, and bulk materials using tank trailers that meet safety requirements for chemicals, fuels, and other industrial fluids.",
+      },
+      {
+        key: "40-full",
+        title: "40' Double Trailer",
+        image: "/imgs/terrestre-40full.avif",
+        description:
+          "A double-trailer configuration designed to maximize freight capacity in high-volume operations and long-haul routes.",
+      },
+      {
+        key: "torton",
+        title: "Torton and Medium-Duty Truck",
+        image: "/imgs/terrestre-torton.avif",
+        description:
+          "Mid-size units ideal for urban distribution, last-mile deliveries, and routes where access for full trailers is limited. They provide versatility and operational agility.",
+      },
+      {
+        key: "curtain-side",
+        title: "Curtain Side Trailer",
+        image: "/imgs/terrestre-encortinado.avif",
+        description:
+          "A trailer with side curtains that simplifies side loading and unloading, ideal for palletized goods, construction materials, and operations that need fast access from the sides.",
+      },
+      {
+        key: "lowboy",
+        title: "Lowboy",
+        image: "/imgs/terrestre-camabaja.avif",
+        description:
+          "A low-deck platform specialized for heavy machinery, industrial equipment, and tall cargo that exceeds the standard dimensions of a conventional trailer.",
+      },
+      {
+        key: "food-grade-hopper",
+        title: "Food-Grade Hopper",
+        image: "/imgs/terrestre-tolva.avif",
+        description:
+          "A certified hopper trailer for grains, flour, and bulk food products, ensuring hygiene and sanitary compliance throughout the route.",
+      },
     ],
   },
 };
+
+export function getBlsContent(locale: Locale) {
+  return contentByLocale[locale];
+}

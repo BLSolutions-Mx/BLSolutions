@@ -1,47 +1,87 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiArchive, FiGitBranch, FiSend, FiTruck } from "react-icons/fi";
-import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
+import { buildLocalizedPageMeta } from "../lib/build-page-meta";
+import { getLocalizedPath, type Locale } from "../lib/i18n";
+
+const serviceCardsByLocale = {
+  "es-MX": [
+    {
+      title: "Terrestre",
+      href: "ground",
+      image: "/imgs/terrestre-dryvan.avif",
+      icon: FiTruck,
+    },
+    {
+      title: "Aéreo",
+      href: "air",
+      image: "/imgs/aereo.avif",
+      icon: FiSend,
+    },
+    {
+      title: "Intermodal",
+      href: "intermodal",
+      image: "/imgs/train-1.avif",
+      icon: FiGitBranch,
+    },
+    {
+      title: "Almacenamiento",
+      href: "warehousing",
+      image: "/imgs/almacen_service.avif",
+      icon: FiArchive,
+    },
+  ],
+  "en-US": [
+    {
+      title: "On The Road",
+      href: "ground",
+      image: "/imgs/terrestre-dryvan.avif",
+      icon: FiTruck,
+    },
+    {
+      title: "Air",
+      href: "air",
+      image: "/imgs/aereo.avif",
+      icon: FiSend,
+    },
+    {
+      title: "Intermodal",
+      href: "intermodal",
+      image: "/imgs/train-1.avif",
+      icon: FiGitBranch,
+    },
+    {
+      title: "Warehousing",
+      href: "warehousing",
+      image: "/imgs/almacen_service.avif",
+      icon: FiArchive,
+    },
+  ],
+} satisfies Record<Locale, Array<{ title: string; href: "ground" | "air" | "intermodal" | "warehousing"; image: string; icon: typeof FiTruck }>>;
+
+const copyByLocale = {
+  "es-MX": {
+    eyebrow: "Servicios logísticos",
+    title: "Elige el tipo de servicio que necesitas",
+  },
+  "en-US": {
+    eyebrow: "Logistics services",
+    title: "Choose the service model your operation needs",
+  },
+} satisfies Record<Locale, { eyebrow: string; title: string }>;
+
+type ServicesPageProps = {
+  locale: Locale;
+};
 
 export function meta() {
-  return buildSeoMeta({
-    title: "Servicios logísticos",
-    description:
-      "Explora las soluciones logísticas de BL Solutions en transporte terrestre, intermodal, aéreo y almacenamiento para operaciones nacionales e internacionales.",
-    path: "/servicios",
-    image: OG_IMAGE_PATHS.services,
-    keywords: ["servicios logísticos", "transporte terrestre", "intermodal", "almacenamiento"],
-  });
+  return buildLocalizedPageMeta("services", "es-MX");
 }
 
-const serviceCards = [
-  {
-    title: "Terrestre",
-    href: "/servicios/terrestre",
-    image: "/imgs/terrestre-dryvan.avif",
-    icon: FiTruck,
-  },
-  {
-    title: "Aéreo",
-    href: "/servicios/aereo",
-    image: "/imgs/aereo.avif",
-    icon: FiSend,
-  },
-  {
-    title: "Intermodal",
-    href: "/servicios/intermodal",
-    image: "/imgs/train-1.avif",
-    icon: FiGitBranch,
-  },
-  {
-    title: "Almacenamiento",
-    href: "/servicios/almacenamiento",
-    image: "/imgs/almacen_service.avif",
-    icon: FiArchive,
-  },
-] as const;
+export function ServicesPage({ locale }: ServicesPageProps) {
+  const copy = copyByLocale[locale];
+  const serviceCards = serviceCardsByLocale[locale];
 
-export default function ServiciosIndex() {
   return (
     <main className="min-h-screen text-slate-950">
       <section className="relative overflow-hidden bg-[#0B1120] px-6 pb-24 pt-32 md:pb-32 md:pt-40">
@@ -59,15 +99,10 @@ export default function ServiciosIndex() {
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-[#0079e3] backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-[#0079e3] shadow-[0_0_8px_#0079e3]" />
-              Servicios logísticos
+              {copy.eyebrow}
             </div>
             <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-[4.5rem]">
-              Elige el tipo de servicio que{" "}
-              <span className="relative whitespace-nowrap">
-                <span className="relative z-10 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                  necesitas
-                </span>
-              </span>
+              {copy.title}
             </h1>
           </motion.div>
         </div>
@@ -86,7 +121,7 @@ export default function ServiciosIndex() {
                   style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
                 >
                   <Link
-                    to={card.href}
+                    to={getLocalizedPath(card.href, locale)}
                     className="group relative flex min-h-[22rem] overflow-hidden rounded-[2rem] bg-[#202F4C] shadow-[0_24px_60px_rgba(32,47,76,0.18)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(32,47,76,0.24)]"
                   >
                     <img
@@ -121,4 +156,8 @@ export default function ServiciosIndex() {
       </section>
     </main>
   );
+}
+
+export default function ServiciosIndex() {
+  return <ServicesPage locale="es-MX" />;
 }

@@ -1,7 +1,13 @@
+import {
+  DEFAULT_LOCALE,
+  getAlternateOpenGraphLocale,
+  getOpenGraphLocale,
+  type Locale,
+} from "./i18n";
+
 const DEFAULT_SITE_URL = "https://blsolutions.com.mx";
 
 export const SITE_NAME = "BL Solutions";
-export const SITE_LOCALE = "es_MX";
 export const DEFAULT_OG_IMAGE_ALT =
   "BL Solutions - transporte, intermodal y consultoria logistica";
 
@@ -25,17 +31,20 @@ type SeoMetaDescriptor =
   | { title: string }
   | { name: string; content: string }
   | { property: string; content: string }
-  | { tagName: "link"; rel: string; href: string };
+  | { tagName: "link"; rel: string; href: string; hrefLang?: string };
 
 type SeoMetaInput = {
+  locale?: Locale;
   title: string;
   description: string;
   path?: string;
+  canonicalPath?: string;
   image?: string;
   imageAlt?: string;
   type?: SeoType;
   noindex?: boolean;
   keywords?: string[];
+  alternateLanguages?: Array<{ hrefLang: string; path: string }>;
   publishedTime?: string;
   modifiedTime?: string;
   section?: string;
@@ -61,22 +70,27 @@ export function toAbsoluteUrl(path = "/") {
 }
 
 export function buildSeoMeta({
+  locale = DEFAULT_LOCALE,
   title,
   description,
   path = "/",
+  canonicalPath,
   image = DEFAULT_OG_IMAGE_PATH,
   imageAlt = DEFAULT_OG_IMAGE_ALT,
   type = "website",
   noindex = false,
   keywords = [],
+  alternateLanguages = [],
   publishedTime,
   modifiedTime,
   section,
   authors = [],
 }: SeoMetaInput): SeoMetaDescriptor[] {
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-  const canonicalUrl = toAbsoluteUrl(path);
+  const canonicalUrl = toAbsoluteUrl(canonicalPath || path);
   const imageUrl = toAbsoluteUrl(image);
+  const openGraphLocale = getOpenGraphLocale(locale);
+  const alternateOpenGraphLocale = getAlternateOpenGraphLocale(locale);
   const imageType = imageUrl.endsWith(".png")
     ? "image/png"
     : imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg")
@@ -97,7 +111,17 @@ export function buildSeoMeta({
       ? [{ name: "keywords", content: keywords.join(", ") } satisfies SeoMetaDescriptor]
       : []),
     { tagName: "link", rel: "canonical", href: canonicalUrl },
-    { property: "og:locale", content: SITE_LOCALE },
+    ...alternateLanguages.map(
+      ({ hrefLang, path: alternatePath }) =>
+        ({
+          tagName: "link",
+          rel: "alternate",
+          href: toAbsoluteUrl(alternatePath),
+          hrefLang,
+        }) satisfies SeoMetaDescriptor,
+    ),
+    { property: "og:locale", content: openGraphLocale },
+    { property: "og:locale:alternate", content: alternateOpenGraphLocale },
     { property: "og:site_name", content: SITE_NAME },
     { property: "og:type", content: type },
     { property: "og:title", content: fullTitle },
@@ -133,7 +157,7 @@ export function buildSeoMeta({
   ];
 }
 
-export function buildOrganizationSchema() {
+export function buildOrganizationSchema(locale: Locale = DEFAULT_LOCALE) {
   const siteUrl = getSiteUrl();
 
   return {
@@ -145,6 +169,7 @@ export function buildOrganizationSchema() {
     logo: toAbsoluteUrl("/bls_logo.webp"),
     image: toAbsoluteUrl(DEFAULT_OG_IMAGE_PATH),
     email: "operations@blsolutions.com.mx",
+    inLanguage: locale,
     telephone: "+52 55 8232 3839",
     address: {
       "@type": "PostalAddress",
@@ -157,16 +182,16 @@ export function buildOrganizationSchema() {
   };
 }
 
-export function buildWebsiteSchema() {
+export function buildWebsiteSchema(locale: Locale = DEFAULT_LOCALE, path = "/") {
   const siteUrl = getSiteUrl();
 
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${siteUrl}/#website`,
-    url: siteUrl,
+    url: toAbsoluteUrl(path),
     name: SITE_NAME,
-    inLanguage: "es-MX",
+    inLanguage: locale,
     publisher: {
       "@id": `${siteUrl}/#organization`,
     },

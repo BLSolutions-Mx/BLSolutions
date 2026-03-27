@@ -1,8 +1,31 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiPhoneCall } from "react-icons/fi";
+import type { Locale } from "../../../lib/i18n";
+import { getLocalizedPath } from "../../../lib/i18n";
 
-export default function HeroSlider() {
+type HeroSliderProps = {
+  locale: Locale;
+};
+
+const heroCopy = {
+  "es-MX": {
+    alt: "Operaciones logísticas",
+    title: "Soluciones logísticas diseñadas para impulsar tu empresa",
+    services: "Ver servicios",
+    contact: "Contactar",
+  },
+  "en-US": {
+    alt: "Logistics operations",
+    title: "Delivering logistics solutions that move business forward",
+    services: "View services",
+    contact: "Contact us",
+  },
+} satisfies Record<Locale, { alt: string; title: string; services: string; contact: string }>;
+
+export default function HeroSlider({ locale }: HeroSliderProps) {
+  const copy = heroCopy[locale];
+
   return (
     <section
       id="hero"
@@ -11,7 +34,7 @@ export default function HeroSlider() {
       <div className="absolute inset-0 z-0">
         <img
           src="/imgs/hero-bg.avif"
-          alt="Operaciones logísticas"
+          alt={copy.alt}
           loading="eager"
           decoding="async"
           className="h-full w-full object-cover"
@@ -30,25 +53,25 @@ export default function HeroSlider() {
           >
             <div className="space-y-4 sm:space-y-5">
               <h1 className="max-w-4xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl lg:text-7xl">
-                Soluciones logísticas diseñadas para impulsar tu empresa
+                {copy.title}
               </h1>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
-                to="/servicios"
+                to={getLocalizedPath("services", locale)}
                 prefetch="intent"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#202F4C] transition-transform hover:-translate-y-0.5 sm:px-6"
               >
-                Ver servicios
+                {copy.services}
                 <FiArrowRight />
               </Link>
               <Link
-                to="/contacto"
+                to={getLocalizedPath("contact", locale)}
                 prefetch="intent"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/8 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white/14 sm:px-6"
               >
-                Contactar
+                {copy.contact}
                 <FiPhoneCall />
               </Link>
             </div>
