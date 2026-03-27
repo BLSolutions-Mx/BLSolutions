@@ -17,25 +17,25 @@ const serviceCards = [
   {
     title: "Terrestre",
     href: "/servicios/terrestre",
-    image: "/home-imgs/terrestre-dryvan.avif",
+    image: "/imgs/terrestre-dryvan.avif",
     icon: FiTruck,
   },
   {
     title: "Aéreo",
     href: "/servicios/aereo",
-    image: "/home-imgs/aereo.avif",
+    image: "/imgs/aereo.avif",
     icon: FiSend,
   },
   {
     title: "Intermodal",
     href: "/servicios/intermodal",
-    image: "/home-imgs/train-1.avif",
+    image: "/imgs/train-1.avif",
     icon: FiGitBranch,
   },
   {
     title: "Almacenamiento",
     href: "/servicios/almacenamiento",
-    image: "/home-imgs/almacen_service.avif",
+    image: "/imgs/almacen_service.avif",
     icon: FiArchive,
   },
 ] as const;

@@ -151,13 +151,13 @@ const identityCards = [
   {
     title: "Misión",
     copy:
-      "Brindar soluciones de movilidad y logística con excelencia, cercanía operativa y servicio integral para acompañar a cada cliente con claridad y confianza.",
+      "Diseñar y ejecutar soluciones logísticas inteligentes que optimicen costos, tiempos, seguridad y sostenibilidad en la cadena de suministro de nuestros clientes.",
     icon: FiCompass,
   },
   {
     title: "Visión",
     copy:
-      "Consolidarnos como una firma referente en México y EUA por nuestra capacidad de construir relaciones sólidas y apoyar operaciones complejas e innovadoras.",
+      "Ser la plataforma logística más eficiente de México, combinando ejecución operativa, análisis financiero y tecnología para escalar el comercio internacional.",
     icon: FiEye,
   },
 ] as const;
@@ -265,19 +265,11 @@ export default function Nosotros() {
             <div className="reveal-scale relative">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl lg:h-[800px] lg:aspect-auto">
                 <img
-                  src="/home-imgs/hero_terrestre.avif"
+                  src="/imgs/truck-2.avif"
                   alt="Equipo y operaciones de BL Solutions"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover object-right"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/80 via-[#0B1120]/20 to-transparent" />
-
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white md:p-12">
-                  <div className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md">
-                    <p className="text-lg font-medium leading-relaxed">
-                      "Nuestra prioridad es construir relaciones sólidas y apoyar operaciones complejas e innovadoras."
-                    </p>
-                  </div>
-                </div>
               </div>
 
               <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-blue-100 opacity-70 mix-blend-multiply blur-2xl animate-blob" />

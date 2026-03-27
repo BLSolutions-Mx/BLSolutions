@@ -10,7 +10,7 @@ export default function HeroSlider() {
     >
       <div className="absolute inset-0 z-0">
         <img
-          src="/home-imgs/hero-bg.avif"
+          src="/imgs/hero-bg.avif"
           alt="Operaciones logísticas"
           loading="eager"
           decoding="async"

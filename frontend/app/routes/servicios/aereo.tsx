@@ -6,7 +6,7 @@ const service = {
   title: "Transporte Aéreo",
   description:
     "Soluciones de transporte aéreo para mercancía con urgencia o alto valor. Coordinamos envíos nacionales e internacionales con seguimiento puntual y tiempos de tránsito optimizados.",
-  image: "/home-imgs/aereo.avif",
+  image: "/imgs/aereo.avif",
 };
 
 export function meta() {

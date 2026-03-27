@@ -150,21 +150,21 @@ export const blsContent: BlsContent = {
         {
           key: "caja-seca",
           title: "Caja Seca",
-          image: "/home-imgs/terrestre-dryvan.avif",
+          image: "/imgs/terrestre-dryvan.avif",
           description:
             "Ideal para el transporte de mercancía general que no requiere control de temperatura.",
         },
         {
           key: "plataforma",
           title: "Plataforma",
-          image: "/home-imgs/terrestre-flatbed.avif",
+          image: "/imgs/terrestre-flatbed.avif",
           description:
             "Flexibilidad para maquinaria, materiales y carga que no viaja en remolque cerrado.",
         },
         {
           key: "reefer",
           title: "Caja Refrigerada",
-          image: "/home-imgs/terrestre-reefer.avif",
+          image: "/imgs/terrestre-reefer.avif",
           description:
             "Control de temperatura estable para productos perecederos o sensibles al clima.",
         },
@@ -173,14 +173,14 @@ export const blsContent: BlsContent = {
     {
       key: "aereo",
       title: "Análisis logístico",
-      image: "/home-imgs/aereo.avif",
+      image: "/imgs/aereo.avif",
       description: "Evaluamos rutas, volúmenes y estructura operativa para proponer mejoras.",
       bullets: ["Rutas", "Volúmenes", "Estructura operativa"],
     },
     {
       key: "maritimo",
       title: "Intermodal",
-      image: "/home-imgs/maritimo.avif",
+      image: "/imgs/maritimo.avif",
       description:
         "Alternativa para media y larga distancia cuando conviene combinar ferrocarril y transporte terrestre.",
       bullets: ["Media distancia", "Larga distancia", "Control de costos"],
@@ -188,21 +188,21 @@ export const blsContent: BlsContent = {
     {
       key: "aduana",
       title: "Análisis de operaciones logísticas",
-      image: "/home-imgs/aduana_service.avif",
+      image: "/imgs/aduana_service.avif",
       description: "Revisión de rutas, procesos y estructura actual de transporte.",
       bullets: ["Revisión de rutas", "Procesos actuales", "Cadena logística"],
     },
     {
       key: "almacenamiento",
       title: "Optimización de costos de transporte",
-      image: "/home-imgs/almacen_service.avif",
+      image: "/imgs/almacen_service.avif",
       description: "Identificación de oportunidades para reducir costos operativos.",
       bullets: ["Consolidación", "Selección de proveedores", "Ajustes de ruta"],
     },
     {
       key: "coordinacion",
       title: "Diseño de estrategias logísticas",
-      image: "/home-imgs/about.avif",
+      image: "/imgs/about.avif",
       description: "Propuesta de soluciones logísticas alineadas con el crecimiento del cliente.",
       bullets: ["Estrategia", "Implementación", "Seguimiento"],
     },
@@ -210,24 +210,66 @@ export const blsContent: BlsContent = {
   serviceModes: [
     {
       key: "caja-seca",
-      title: "Caja Seca",
-      image: "/home-imgs/terrestre-dryvan.avif",
+      title: "Caja Seca 53",
+      image: "/imgs/terrestre-dryvan.avif",
       description:
         "Ideal para el transporte de mercancía general que no requiere control de temperatura. Este tipo de remolque cerrado protege la carga de las condiciones climáticas y es una de las soluciones más utilizadas para envíos nacionales y transfronterizos.",
     },
     {
       key: "plataforma",
       title: "Plataforma",
-      image: "/home-imgs/terrestre-flatbed.avif",
+      image: "/imgs/terrestre-flatbed.avif",
       description:
         "Utilizada para transportar carga sobredimensionada, maquinaria o materiales que no pueden transportarse dentro de un remolque cerrado. Permite mayor flexibilidad para carga y descarga desde diferentes ángulos.",
     },
     {
       key: "reefer",
       title: "Caja Refrigerada",
-      image: "/home-imgs/terrestre-reefer.avif",
+      image: "/imgs/terrestre-reefer.avif",
       description:
         "Remolques con control de temperatura diseñados para transportar productos perecederos o sensibles al clima, manteniendo condiciones térmicas estables durante todo el trayecto.",
+    },
+    {
+      key: "tanque",
+      title: "Tanque",
+      image: "",
+      description:
+        "Transporte especializado de líquidos, gases y materiales a granel mediante remolques cisterna que cumplen con las normativas de seguridad para productos químicos, combustibles y otros fluidos industriales.",
+    },
+    {
+      key: "caja-seca-40-full",
+      title: "Caja Seca de 40' Full",
+      image: "",
+      description:
+        "Remolque cerrado de 40 pies con capacidad completa, diseñado para maximizar el volumen de carga en operaciones de larga distancia y movimientos de alto volumen nacionales e internacionales.",
+    },
+    {
+      key: "torton-rabon",
+      title: "Camión Torton y Rabón",
+      image: "",
+      description:
+        "Unidades de carga media ideales para distribución urbana, entregas de última milla y rutas donde el acceso para remolques completos es limitado. Ofrecen versatilidad y agilidad operativa.",
+    },
+    {
+      key: "encortinado",
+      title: "Remolque Encortinado",
+      image: "",
+      description:
+        "Remolque con cortinas laterales que facilita la carga y descarga lateral, ideal para mercancías paletizadas, materiales de construcción y operaciones que requieren acceso rápido desde los costados.",
+    },
+    {
+      key: "cama-baja",
+      title: "Cama Baja (Lowboy)",
+      image: "",
+      description:
+        "Plataforma de piso bajo especializada para el transporte de maquinaria pesada, equipos industriales y carga de gran altura que excede las dimensiones estándar de un remolque convencional.",
+    },
+    {
+      key: "tolva-alimenticia",
+      title: "Tolva de Grado Alimenticio",
+      image: "",
+      description:
+        "Remolque tipo tolva certificado para el transporte de granos, harinas y productos alimenticios a granel, garantizando condiciones de higiene y cumplimiento de normativas sanitarias durante todo el trayecto.",
     },
   ],
   intermodal: {

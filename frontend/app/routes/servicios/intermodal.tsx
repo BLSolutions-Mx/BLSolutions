@@ -6,7 +6,7 @@ const modes = [
   {
     key: "maritimo",
     title: "Intermodal Marítimo",
-    image: "/home-imgs/maritimo.avif",
+    image: "/imgs/maritimo.avif",
     icon: FiAnchor,
     description:
       "Combinamos transporte marítimo y terrestre para optimizar costos en rutas de larga distancia con grandes volúmenes de carga. Coordinamos cada etapa para mantener tiempos y visibilidad durante todo el trayecto.",
@@ -14,7 +14,7 @@ const modes = [
   {
     key: "ferroviario",
     title: "Intermodal Ferroviario",
-    image: "/home-imgs/train-1.avif",
+    image: "/imgs/train-1.avif",
     icon: FiGitBranch,
     description:
       "Alternativa eficiente para media y larga distancia cuando conviene combinar ferrocarril y transporte terrestre. Permite mover grandes volúmenes con mayor estabilidad operativa y control de costos.",

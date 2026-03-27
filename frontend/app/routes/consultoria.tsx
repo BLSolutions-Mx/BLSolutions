@@ -88,7 +88,7 @@ export default function Consultoria() {
               <div className="relative mx-auto aspect-square w-full max-w-md">
                 <div className="absolute inset-0 overflow-hidden rounded-3xl border border-white/10">
                   <img
-                    src="/home-imgs/consultoria-hero.avif"
+                    src="/imgs/consultoria-hero.avif"
                     alt="Consultoría logística"
                     className="h-full w-full object-cover opacity-80"
                   />
