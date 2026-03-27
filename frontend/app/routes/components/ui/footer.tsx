@@ -3,7 +3,6 @@ import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { Link, useLocation } from "react-router";
 import { getLocalizedPath, getLocaleFromPath } from "../../../lib/i18n";
 import { getBlsContent } from "../home/blsContent";
-import { LanguageSwitch } from "./language-selector";
 
 type FooterLinkProps = {
   to: string;
