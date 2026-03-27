@@ -2,15 +2,15 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiArchive, FiGitBranch, FiSend, FiTruck } from "react-icons/fi";
 
+import { buildMeta } from "~/lib/seo";
+
 export function meta() {
-  return [
-    { title: "Servicios Logísticos | BL Solutions" },
-    {
-      name: "description",
-      content:
-        "Explora las soluciones logísticas de BL Solutions y elige el servicio que mejor se adapta a tu operación.",
-    },
-  ];
+  return buildMeta({
+    title: "Servicios Logísticos | BL Solutions",
+    description:
+      "Explora las soluciones logísticas de BL Solutions y elige el servicio que mejor se adapta a tu operación.",
+    path: "/servicios",
+  });
 }
 
 const serviceCards = [

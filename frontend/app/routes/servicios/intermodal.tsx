@@ -21,15 +21,15 @@ const modes = [
   },
 ];
 
+import { buildMeta } from "~/lib/seo";
+
 export function meta() {
-  return [
-    { title: "Intermodal | BL Solutions" },
-    {
-      name: "description",
-      content:
-        "Soluciones intermodales marítimas y ferroviarias para operaciones de media y larga distancia.",
-    },
-  ];
+  return buildMeta({
+    title: "Intermodal | BL Solutions",
+    description:
+      "Soluciones intermodales marítimas y ferroviarias para operaciones de media y larga distancia.",
+    path: "/servicios/intermodal",
+  });
 }
 
 export default function IntermodalPage() {

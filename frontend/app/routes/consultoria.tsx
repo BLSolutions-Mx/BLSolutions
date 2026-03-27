@@ -26,15 +26,15 @@ const areaDescriptions = [
   "Ajustamos operaciones cross-border para reducir fricción documental, operativa y de coordinación.",
 ];
 
+import { buildMeta } from "~/lib/seo";
+
 export function meta() {
-  return [
-    { title: "Consultoría | BL Solutions" },
-    {
-      name: "description",
-      content:
-        "Consultoría logística para optimizar rutas, costos de transporte, modos de operación y estrategias cross-border.",
-    },
-  ];
+  return buildMeta({
+    title: "Consultoría | BL Solutions",
+    description:
+      "Consultoría logística para optimizar rutas, costos de transporte, modos de operación y estrategias cross-border.",
+    path: "/consultoria",
+  });
 }
 
 export default function Consultoria() {

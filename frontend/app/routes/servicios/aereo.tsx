@@ -9,14 +9,14 @@ const service = {
   image: "/imgs/aereo.avif",
 };
 
+import { buildMeta } from "~/lib/seo";
+
 export function meta() {
-  return [
-    { title: `${service.title} | BL Solutions` },
-    {
-      name: "description",
-      content: service.description,
-    },
-  ];
+  return buildMeta({
+    title: `${service.title} | BL Solutions`,
+    description: service.description,
+    path: "/servicios/aereo",
+  });
 }
 
 export default function AereoPage() {

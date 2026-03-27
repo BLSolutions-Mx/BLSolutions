@@ -4,15 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { FiMail, FiMapPin } from "react-icons/fi";
 import { blsContent } from "./components/home/blsContent";
 
+import { buildMeta } from "~/lib/seo";
+
 export function meta() {
-  return [
-    { title: "Contacto | BL Solutions" },
-    {
-      name: "description",
-      content:
-        "Contacta a BL Solutions para revisar tu operación y definir la mejor solución en transporte, intermodal o consultoría.",
-    },
-  ];
+  return buildMeta({
+    title: "Contacto | BL Solutions",
+    description:
+      "Contacta a BL Solutions para revisar tu operación y definir la mejor solución en transporte, intermodal o consultoría.",
+    path: "/contacto",
+  });
 }
 
 type ContactFormData = {

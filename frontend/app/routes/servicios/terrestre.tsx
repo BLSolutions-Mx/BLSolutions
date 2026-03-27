@@ -5,15 +5,15 @@ import { blsContent } from "../components/home/blsContent";
 
 const serviceModes = blsContent.serviceModes;
 
+import { buildMeta } from "~/lib/seo";
+
 export function meta() {
-  return [
-    { title: "Terrestre | BL Solutions" },
-    {
-      name: "description",
-      content:
-        "Soluciones de transporte terrestre: caja seca, plataforma y caja refrigerada para operaciones nacionales e internacionales.",
-    },
-  ];
+  return buildMeta({
+    title: "Terrestre | BL Solutions",
+    description:
+      "Soluciones de transporte terrestre: caja seca, plataforma y caja refrigerada para operaciones nacionales e internacionales.",
+    path: "/servicios/terrestre",
+  });
 }
 
 export default function TerrestrePage() {

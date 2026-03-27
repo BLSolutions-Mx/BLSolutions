@@ -117,15 +117,15 @@ const partners: MarqueeLogo[] = [
   },
 ];
 
+import { buildMeta } from "~/lib/seo";
+
 export function meta() {
-  return [
-    { title: "Nosotros | BL Solutions" },
-    {
-      name: "description",
-      content:
-        "Conoce a BL Solutions: quiénes somos, nuestra misión, visión y los valores que guían nuestra forma de trabajar.",
-    },
-  ];
+  return buildMeta({
+    title: "Nosotros | BL Solutions",
+    description:
+      "Conoce a BL Solutions: quiénes somos, nuestra misión, visión y los valores que guían nuestra forma de trabajar.",
+    path: "/nosotros",
+  });
 }
 
 const values = [
