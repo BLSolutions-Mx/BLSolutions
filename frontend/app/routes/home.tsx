@@ -8,6 +8,7 @@ export function meta({}: Route.MetaArgs) {
     description:
       "BL Solutions ofrece transporte terrestre, intermodal y consultoría logística para operaciones nacionales e internacionales.",
     path: "/",
+    image: "/og/og-image.jpg",
   });
 }
 

@@ -34,6 +34,7 @@ export function meta() {
     description:
       "Consultoría logística para optimizar rutas, costos de transporte, modos de operación y estrategias cross-border.",
     path: "/consultoria",
+    image: "/og/og-consulting.jpg",
   });
 }
 

@@ -13,6 +13,7 @@ export function meta() {
     description:
       "Soluciones de transporte terrestre: caja seca, plataforma y caja refrigerada para operaciones nacionales e internacionales.",
     path: "/servicios/terrestre",
+    image: "/og/og-terrestre.jpg",
   });
 }
 

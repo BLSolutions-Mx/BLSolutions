@@ -1,7 +1,6 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
-  route("og.svg", "routes/og.tsx"),
   index("routes/home.tsx"),
   route("nosotros", "routes/nosotros.tsx"),
   route("servicios", "routes/servicios.tsx"),

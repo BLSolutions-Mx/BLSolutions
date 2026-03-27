@@ -10,6 +10,7 @@ export function meta() {
     description:
       "Explora las soluciones logísticas de BL Solutions y elige el servicio que mejor se adapta a tu operación.",
     path: "/servicios",
+    image: "/og/og-services.jpg",
   });
 }
 

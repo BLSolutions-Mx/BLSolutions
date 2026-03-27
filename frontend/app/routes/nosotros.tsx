@@ -125,6 +125,7 @@ export function meta() {
     description:
       "Conoce a BL Solutions: quiénes somos, nuestra misión, visión y los valores que guían nuestra forma de trabajar.",
     path: "/nosotros",
+    image: "/og/og-nosotros.jpg",
   });
 }
 

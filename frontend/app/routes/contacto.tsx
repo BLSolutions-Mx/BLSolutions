@@ -12,6 +12,7 @@ export function meta() {
     description:
       "Contacta a BL Solutions para revisar tu operación y definir la mejor solución en transporte, intermodal o consultoría.",
     path: "/contacto",
+    image: "/og/og-contacto.jpg",
   });
 }
 

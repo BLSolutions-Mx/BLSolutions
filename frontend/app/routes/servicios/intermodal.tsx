@@ -29,6 +29,7 @@ export function meta() {
     description:
       "Soluciones intermodales marítimas y ferroviarias para operaciones de media y larga distancia.",
     path: "/servicios/intermodal",
+    image: "/og/og-intermodal.jpg",
   });
 }
 

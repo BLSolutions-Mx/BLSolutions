@@ -16,6 +16,7 @@ export function meta() {
     title: `${service.title} | BL Solutions`,
     description: service.description,
     path: "/servicios/almacenamiento",
+    image: "/og/og-almacenamiento.jpg",
   });
 }
 
