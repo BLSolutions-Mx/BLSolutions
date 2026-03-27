@@ -92,17 +92,17 @@ export default function LanguageSelectorPopup() {
             transition={{ duration: 0.22, ease: "easeOut" }}
             className="w-full max-w-lg overflow-hidden rounded-[2rem] border border-white/10 bg-white shadow-[0_30px_90px_rgba(11,17,32,0.28)]"
           >
-            <div className="bg-[linear-gradient(135deg,#202F4C_0%,#015095_100%)] px-7 py-7 text-white">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/70">
-                Language
-              </p>
-              <h2 id={`${dialogId}-title`} className="mt-3 text-3xl font-bold tracking-[-0.04em]">
-                Choose your language
-              </h2>
-              <p id={`${dialogId}-description`} className="mt-3 max-w-md text-sm leading-7 text-white/78">
-                Selecciona el idioma en el que quieres navegar. Puedes cambiarlo después desde la
-                navegación.
-              </p>
+            <div className="bg-[linear-gradient(135deg,#202F4C_0%,#015095_100%)] px-7 py-6 text-white">
+              <div className="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                <h2 id={`${dialogId}-title`} className="text-xl font-bold tracking-[-0.02em]">
+                  Choose your language
+                </h2>
+              </div>
+              <p id={`${dialogId}-description`} className="sr-only">Select the language you want to browse the site in.</p>
             </div>
 
             <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-6">
