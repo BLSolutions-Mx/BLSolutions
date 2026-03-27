@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { Link } from "react-router";
+import { blsContent } from "../home/blsContent";
 
 type FooterLinkProps = {
   to: string;
@@ -32,8 +34,47 @@ const FlipFooter = () => {
               />
             </Link>
             <p className="max-w-2xl text-xl font-semibold leading-[1.25] tracking-[-0.02em] text-[#202F4C] md:text-[1.75rem]">
-              <span className="text-[#015095] font-bold">Consultoría y logística</span> 
+              <span className="text-[#015095] font-bold">Consultoría y logística</span>
             </p>
+            <div className="mt-6 max-w-xl space-y-4 text-sm leading-relaxed text-[#5E6878]">
+              <a
+                href={`mailto:${blsContent.contact.email}`}
+                className="flex items-start gap-3 transition-colors hover:text-[#202F4C]"
+              >
+                <FiMail className="mt-0.5 h-4 w-4 shrink-0 text-[#015095]" aria-hidden />
+                <span>{blsContent.contact.email}</span>
+              </a>
+              <p className="flex items-start gap-3">
+                <FiMapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#015095]" aria-hidden />
+                <span>
+                  {blsContent.contact.addressLines.map((line, i) => (
+                    <span key={line}>
+                      {i > 0 ? <br /> : null}
+                      {line}
+                    </span>
+                  ))}
+                </span>
+              </p>
+              <div className="flex items-start gap-3">
+                <FiPhone className="mt-0.5 h-4 w-4 shrink-0 text-[#015095]" aria-hidden />
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#202F4C]">
+                    Celular
+                  </span>
+                  {blsContent.contact.phones
+                    .find((p) => p.country === "Mexico")
+                    ?.numbers.map((num) => (
+                      <a
+                        key={num}
+                        href={`tel:${num.replace(/\s/g, "")}`}
+                        className="transition-colors hover:text-[#202F4C]"
+                      >
+                        {num}
+                      </a>
+                    ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-2">
@@ -60,7 +101,7 @@ const FlipFooter = () => {
         </div>
 
         <div className="border-t border-[rgba(94,104,120,0.14)] px-8 py-5 text-xs text-[#5E6878] md:px-10">
-          &copy; {new Date().getFullYear()} BL Solutions. Todos los derechos reservados. -
+          &copy; {new Date().getFullYear()} BLS Operadora I, S.A. de C.V. Todos los derechos reservados. -
           Desarrollado por{" "}
           <a
             href="https://www.blinkstudio.dev"

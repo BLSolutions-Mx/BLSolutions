@@ -28,17 +28,10 @@ export default function HeroSlider() {
             transition={{ duration: 0.6 }}
             className="space-y-5 pt-6 text-white sm:space-y-8 lg:pr-6 lg:pt-0"
           >
-            <div className="section-label border-white/20 bg-white/8 text-white">
-              Logística simple y eficiente
-            </div>
-
             <div className="space-y-4 sm:space-y-5">
               <h1 className="max-w-4xl text-4xl font-extrabold leading-[0.96] tracking-[-0.05em] sm:text-5xl md:text-6xl lg:text-7xl">
-              Soluciones logísticas diseñadas para impulsar tu empresa
+                Soluciones logísticas diseñadas para impulsar tu empresa
               </h1>
-              <p className="max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8 md:text-2xl md:leading-9">
-                Apoyamos operaciones nacionales e internacionales con soluciones logísticas claras y coordinadas.
-              </p>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">

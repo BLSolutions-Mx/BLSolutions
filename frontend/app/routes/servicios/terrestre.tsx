@@ -66,7 +66,7 @@ export default function TerrestrePage() {
                 style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
               >
                 {mode.image ? (
-                  <div className="relative mb-6 min-h-[200px] shrink-0 overflow-hidden rounded-[1.5rem]">
+                  <div className="relative mb-6 min-h-[240px] shrink-0 overflow-hidden rounded-[1.5rem]">
                     <img
                       src={mode.image}
                       alt={mode.title}
@@ -76,7 +76,7 @@ export default function TerrestrePage() {
                     />
                   </div>
                 ) : (
-                  <div className="relative mb-6 grid min-h-[200px] shrink-0 place-items-center overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
+                  <div className="relative mb-6 grid min-h-[240px] shrink-0 place-items-center overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
                     <div className="flex flex-col items-center gap-3 px-4 text-center">
                       <FiTruck className="text-3xl text-white/30" />
                       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/25">

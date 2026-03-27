@@ -337,7 +337,7 @@ export default function Nosotros() {
         </div>
       </section>
 
-      <section className="bg-slate-50 px-6 py-24 md:py-32">
+      <section className="bg-slate-50 px-6 py-6">
         <div className="section-shell">
           <div
             className="reveal-up relative overflow-hidden rounded-[3rem] bg-[#0B1120] p-10 text-white shadow-2xl md:p-16 lg:p-20"

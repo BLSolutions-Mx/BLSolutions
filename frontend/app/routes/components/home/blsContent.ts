@@ -241,7 +241,7 @@ export const blsContent: BlsContent = {
       title: "Caja Seca de 40' Full",
       image: "/imgs/terrestre-40full.avif",
       description:
-        "Remolque cerrado de 40 pies con capacidad completa, diseñado para maximizar el volumen de carga en operaciones de larga distancia y movimientos de alto volumen nacionales e internacionales.",
+        "Configuración de doble remolque (full) con cajas de 40 pies, diseñada para maximizar la capacidad de carga en operaciones de alto volumen y trayectos de larga distancia.",
     },
     {
       key: "torton-rabon",
@@ -371,9 +371,8 @@ export const blsContent: BlsContent = {
     ],
     email: "operations@blsolutions.com.mx",
     addressLines: [
-      "Paseo de la Reforma 369 - 5",
-      "06500",
-      "Ciudad de México, CDMX",
+      "Av. Paseo de la Reforma 369, Col. Cuauhtémoc",
+      "06500 Ciudad de México",
     ],
   },
   coverage: {
