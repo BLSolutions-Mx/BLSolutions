@@ -232,42 +232,42 @@ export const blsContent: BlsContent = {
     {
       key: "tanque",
       title: "Tanque",
-      image: "",
+      image: "/imgs/terrestre-tanque.avif",
       description:
         "Transporte especializado de líquidos, gases y materiales a granel mediante remolques cisterna que cumplen con las normativas de seguridad para productos químicos, combustibles y otros fluidos industriales.",
     },
     {
       key: "caja-seca-40-full",
       title: "Caja Seca de 40' Full",
-      image: "",
+      image: "/imgs/terrestre-40full.avif",
       description:
         "Remolque cerrado de 40 pies con capacidad completa, diseñado para maximizar el volumen de carga en operaciones de larga distancia y movimientos de alto volumen nacionales e internacionales.",
     },
     {
       key: "torton-rabon",
       title: "Camión Torton y Rabón",
-      image: "",
+      image: "/imgs/terrestre-torton.avif",
       description:
         "Unidades de carga media ideales para distribución urbana, entregas de última milla y rutas donde el acceso para remolques completos es limitado. Ofrecen versatilidad y agilidad operativa.",
     },
     {
       key: "encortinado",
       title: "Remolque Encortinado",
-      image: "",
+      image: "/imgs/terrestre-encortinado.avif",
       description:
         "Remolque con cortinas laterales que facilita la carga y descarga lateral, ideal para mercancías paletizadas, materiales de construcción y operaciones que requieren acceso rápido desde los costados.",
     },
     {
       key: "cama-baja",
       title: "Cama Baja (Lowboy)",
-      image: "",
+      image: "/imgs/terrestre-camabaja.avif",
       description:
         "Plataforma de piso bajo especializada para el transporte de maquinaria pesada, equipos industriales y carga de gran altura que excede las dimensiones estándar de un remolque convencional.",
     },
     {
       key: "tolva-alimenticia",
       title: "Tolva de Grado Alimenticio",
-      image: "",
+      image: "/imgs/terrestre-tolva.avif",
       description:
         "Remolque tipo tolva certificado para el transporte de granos, harinas y productos alimenticios a granel, garantizando condiciones de higiene y cumplimiento de normativas sanitarias durante todo el trayecto.",
     },
