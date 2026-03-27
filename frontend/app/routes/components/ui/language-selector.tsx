@@ -129,7 +129,7 @@ export default function LanguageSelectorPopup() {
                     : "border-slate-200 bg-white hover:border-[#015095]/35"
                 }`}
               >
-                <p className="text-xl font-semibold text-[#202F4C]">Inglés</p>
+                <p className="text-xl font-semibold text-[#202F4C]">English</p>
               </button>
             </div>
           </motion.div>
