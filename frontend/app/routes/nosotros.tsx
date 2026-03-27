@@ -10,6 +10,7 @@ import {
   FiShield,
   FiUsers,
 } from "react-icons/fi";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
 import { cn } from "./components/lib/utils";
 
 interface MarqueeLogo {
@@ -117,15 +118,14 @@ const partners: MarqueeLogo[] = [
   },
 ];
 
-import { buildMeta } from "~/lib/seo";
-
 export function meta() {
-  return buildMeta({
-    title: "Nosotros | BL Solutions",
+  return buildSeoMeta({
+    title: "Nosotros",
     description:
-      "Conoce a BL Solutions: quiénes somos, nuestra misión, visión y los valores que guían nuestra forma de trabajar.",
+      "Conoce a BL Solutions, nuestra experiencia en logística México-USA, nuestra visión operativa y los valores que guían cada proyecto.",
     path: "/nosotros",
-    image: "/og/og-nosotros.jpg",
+    image: OG_IMAGE_PATHS.nosotros,
+    keywords: ["nosotros BL Solutions", "empresa logística", "logística México USA"],
   });
 }
 

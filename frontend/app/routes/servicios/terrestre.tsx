@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowLeft, FiArrowRight, FiTruck } from "react-icons/fi";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../../lib/seo";
 import { blsContent } from "../components/home/blsContent";
 
 const serviceModes = blsContent.serviceModes;
 
-import { buildMeta } from "~/lib/seo";
-
 export function meta() {
-  return buildMeta({
-    title: "Terrestre | BL Solutions",
+  return buildSeoMeta({
+    title: "Transporte terrestre",
     description:
-      "Soluciones de transporte terrestre: caja seca, plataforma y caja refrigerada para operaciones nacionales e internacionales.",
+      "Soluciones de transporte terrestre con caja seca, plataforma, refrigerado y equipo especializado para operaciones nacionales e internacionales.",
     path: "/servicios/terrestre",
-    image: "/og/og-terrestre.jpg",
+    image: OG_IMAGE_PATHS.terrestre,
+    keywords: ["transporte terrestre", "caja seca", "plataforma", "caja refrigerada"],
   });
 }
 

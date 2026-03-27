@@ -1,14 +1,21 @@
 import type { Route } from "./+types/home";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
 import HeroSlider from "./components/home/heroslider";
-import { buildMeta } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
-  return buildMeta({
-    title: "BL Solutions | Logística sencilla para transporte y consultoría",
+  return buildSeoMeta({
+    title: "Logistica sencilla para transporte y consultoria",
     description:
-      "BL Solutions ofrece transporte terrestre, intermodal y consultoría logística para operaciones nacionales e internacionales.",
+      "BL Solutions ofrece transporte terrestre, intermodal y consultoria logistica para operaciones nacionales e internacionales entre Mexico y Estados Unidos.",
     path: "/",
-    image: "/og/og-image.jpg",
+    image: OG_IMAGE_PATHS.home,
+    keywords: [
+      "logistica Mexico Estados Unidos",
+      "transporte terrestre",
+      "intermodal",
+      "consultoria logistica",
+      "BL Solutions",
+    ],
   });
 }
 

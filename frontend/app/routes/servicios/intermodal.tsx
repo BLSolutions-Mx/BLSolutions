@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowLeft, FiArrowRight, FiAnchor, FiGitBranch } from "react-icons/fi";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../../lib/seo";
 
 const modes = [
   {
@@ -21,15 +22,14 @@ const modes = [
   },
 ];
 
-import { buildMeta } from "~/lib/seo";
-
 export function meta() {
-  return buildMeta({
-    title: "Intermodal | BL Solutions",
+  return buildSeoMeta({
+    title: "Intermodal",
     description:
-      "Soluciones intermodales marítimas y ferroviarias para operaciones de media y larga distancia.",
+      "Soluciones intermodales marítimas y ferroviarias para operaciones de media y larga distancia con foco en costo, estabilidad y visibilidad.",
     path: "/servicios/intermodal",
-    image: "/og/og-intermodal.jpg",
+    image: OG_IMAGE_PATHS.intermodal,
+    keywords: ["transporte intermodal", "intermodal marítimo", "intermodal ferroviario"],
   });
 }
 

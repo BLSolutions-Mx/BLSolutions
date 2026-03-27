@@ -12,6 +12,7 @@ import {
   FiShield,
   FiTrendingUp,
 } from "react-icons/fi";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
 import { blsContent } from "./components/home/blsContent";
 
 const approachIcons = [FiCompass, FiBarChart2, FiLayers, FiCheckSquare];
@@ -26,15 +27,18 @@ const areaDescriptions = [
   "Ajustamos operaciones cross-border para reducir fricción documental, operativa y de coordinación.",
 ];
 
-import { buildMeta } from "~/lib/seo";
-
 export function meta() {
-  return buildMeta({
-    title: "Consultoría | BL Solutions",
+  return buildSeoMeta({
+    title: "Consultoría logística",
     description:
-      "Consultoría logística para optimizar rutas, costos de transporte, modos de operación y estrategias cross-border.",
+      "Consultoría logística para optimizar rutas, costos de transporte, modos de operación y estrategias cross-border entre México y Estados Unidos.",
     path: "/consultoria",
-    image: "/og/og-consulting.jpg",
+    image: OG_IMAGE_PATHS.consultoria,
+    keywords: [
+      "consultoría logística",
+      "optimización de rutas",
+      "cross-border México USA",
+    ],
   });
 }
 

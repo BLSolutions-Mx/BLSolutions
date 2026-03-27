@@ -1,4 +1,5 @@
 import { FiArchive } from "react-icons/fi";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../../lib/seo";
 import ServiceDetailPage from "../components/services/serviceDetailPage";
 
 const service = {
@@ -9,14 +10,13 @@ const service = {
   image: "/imgs/almacen_service.avif",
 };
 
-import { buildMeta } from "~/lib/seo";
-
 export function meta() {
-  return buildMeta({
-    title: `${service.title} | BL Solutions`,
+  return buildSeoMeta({
+    title: service.title,
     description: service.description,
     path: "/servicios/almacenamiento",
-    image: "/og/og-almacenamiento.jpg",
+    image: OG_IMAGE_PATHS.almacenamiento,
+    keywords: ["almacenamiento logístico", "control de inventario", "logística"],
   });
 }
 

@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight, FiArchive, FiGitBranch, FiSend, FiTruck } from "react-icons/fi";
-
-import { buildMeta } from "~/lib/seo";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
 
 export function meta() {
-  return buildMeta({
-    title: "Servicios Logísticos | BL Solutions",
+  return buildSeoMeta({
+    title: "Servicios logísticos",
     description:
-      "Explora las soluciones logísticas de BL Solutions y elige el servicio que mejor se adapta a tu operación.",
+      "Explora las soluciones logísticas de BL Solutions en transporte terrestre, intermodal, aéreo y almacenamiento para operaciones nacionales e internacionales.",
     path: "/servicios",
-    image: "/og/og-services.jpg",
+    image: OG_IMAGE_PATHS.services,
+    keywords: ["servicios logísticos", "transporte terrestre", "intermodal", "almacenamiento"],
   });
 }
 

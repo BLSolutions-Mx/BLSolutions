@@ -2,17 +2,17 @@ import type { ChangeEvent, FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FiMail, FiMapPin } from "react-icons/fi";
+import { buildSeoMeta, OG_IMAGE_PATHS } from "../lib/seo";
 import { blsContent } from "./components/home/blsContent";
 
-import { buildMeta } from "~/lib/seo";
-
 export function meta() {
-  return buildMeta({
-    title: "Contacto | BL Solutions",
+  return buildSeoMeta({
+    title: "Contacto",
     description:
-      "Contacta a BL Solutions para revisar tu operación y definir la mejor solución en transporte, intermodal o consultoría.",
+      "Contacta a BL Solutions para revisar tu operación y definir la mejor solución en transporte, intermodal o consultoría logística.",
     path: "/contacto",
-    image: "/og/og-contacto.jpg",
+    image: OG_IMAGE_PATHS.contacto,
+    keywords: ["contacto BL Solutions", "cotización logística", "transporte México USA"],
   });
 }
 

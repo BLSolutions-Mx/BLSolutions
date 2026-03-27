@@ -8,6 +8,7 @@ import {
 import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
+import { buildOrganizationSchema, buildWebsiteSchema } from "./lib/seo";
 import { useGlobalLenis } from "./routes/components/hooks/useGlobalLenis";
 import useScrollToTop from "./routes/components/hooks/useScrollToTop";
 import Footer from "./routes/components/ui/footer";
@@ -28,40 +29,25 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "BL Solutions",
-  url: "https://blsolutions.com.mx",
-  logo: "https://blsolutions.com.mx/bls_logo.webp",
-  description:
-    "BL Solutions es una firma especializada en operaciones logísticas México-Estados Unidos para empresas B2B e industriales.",
-  telephone: "+52-55-8232-3839",
-  email: "Operations@blsolutions.com.mx",
-  areaServed: ["MX", "US"],
-  sameAs: [],
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+52-55-8232-3839",
-    contactType: "customer service",
-    availableLanguage: "Spanish",
-  },
-};
-
 export function Layout({ children }: { children: React.ReactNode }) {
+  const organizationSchema = buildOrganizationSchema();
+  const websiteSchema = buildWebsiteSchema();
+
   return (
-    <html lang="es">
+    <html lang="es-MX">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#015095" />
-        <meta name="format-detection" content="telephone=no" />
+        <Meta />
+        <Links />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        <Meta />
-        <Links />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
       </head>
       <body>
         <PerformanceMode />
