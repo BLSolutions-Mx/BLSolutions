@@ -219,6 +219,17 @@ const FlipNav = () => {
   };
 
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handler = () => {
@@ -474,7 +485,7 @@ const NavMenu = ({
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.98, y: -10 }}
       transition={{ duration: 0.26, ease: "easeOut" }}
-      className="section-shell mt-4 w-full max-w-[calc(100vw-1.5rem)] rounded-[1.75rem] border border-[rgba(94,104,120,0.14)] bg-white p-3 shadow-[0_20px_48px_rgba(32,47,76,0.16)] sm:max-w-[calc(100vw-2rem)] lg:hidden"
+      className="section-shell mt-4 w-full max-w-[calc(100vw-1.5rem)] rounded-[1.75rem] border border-[rgba(94,104,120,0.14)] bg-white p-3 shadow-[0_20px_48px_rgba(32,47,76,0.16)] sm:max-w-[calc(100vw-2rem)] lg:hidden overflow-y-auto max-h-[calc(100vh-6rem)]"
     >
       <div className="mb-3 flex justify-end">
         <LanguageSwitch locale={locale} />
