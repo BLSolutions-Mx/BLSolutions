@@ -43,10 +43,10 @@ const initialFormData: ContactFormData = {
 };
 
 const fieldClassName =
-  "w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 text-slate-900 transition-colors focus:border-[#015095] focus:outline-none focus:ring-2 focus:ring-[#015095]";
+  "w-full rounded-2xl border border-slate-200 bg-[#f8fbfd] p-4 text-slate-900 transition-colors focus:border-[#015095] focus:outline-none focus:ring-2 focus:ring-[#015095] [color-scheme:light]";
 
 const selectWrapperClassName =
-  "relative rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#f8fbfd_0%,#eef5fb_100%)] transition-colors";
+  "relative rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#f8fbfd_0%,#eef5fb_100%)] transition-colors [color-scheme:light]";
 
 const CONTACT_REQUIRED_FIELDS: Array<keyof ContactFormData> = [
   "name",
@@ -1021,7 +1021,7 @@ export function ContactPage({ locale }: ContactPageProps) {
               </div>
             </div>
 
-            <div className="min-w-0 rounded-[2rem] bg-white p-5 sm:p-6 md:p-8">
+            <div className="min-w-0 rounded-[2rem] bg-white p-5 sm:p-6 md:p-8 [color-scheme:light]">
               <div className="mb-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#015095]">
                   {content.formEyebrow}
