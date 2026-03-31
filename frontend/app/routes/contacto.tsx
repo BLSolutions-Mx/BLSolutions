@@ -373,9 +373,7 @@ function buildContactEmailHtml(
     )
     .join("");
 
-  const summaryMarkup = summaryCards
-    .map(
-      ([label, value]) => `
+  const summaryCardHtml = ([label, value]: string[]) => `
         <td style="width:50%;padding:6px;vertical-align:top;">
           <table style="width:100%;border-collapse:separate;border-spacing:0;background:#f8fbfd;border:1px solid #dbe4ee;border-radius:14px;">
             <tr>
@@ -389,9 +387,10 @@ function buildContactEmailHtml(
               </td>
             </tr>
           </table>
-        </td>`,
-    )
-    .join("");
+        </td>`;
+  const summaryMarkup = `
+    <tr>${summaryCardHtml(summaryCards[0])}${summaryCardHtml(summaryCards[1])}</tr>
+    <tr>${summaryCardHtml(summaryCards[2])}${summaryCardHtml(summaryCards[3])}</tr>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -402,7 +401,7 @@ function buildContactEmailHtml(
           <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:linear-gradient(135deg,#0b1120 0%,#15345b 100%);border-radius:24px;overflow:hidden;">
             <tr>
               <td style="padding:28px 28px 24px;color:#ffffff;">
-                <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#7dd3fc;">BLS Contact</p>
+                <p style="margin:20px 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#7dd3fc;">BLS Contact</p>
                 <h1 style="margin:0 0 12px;font-size:30px;line-height:1.1;color:#ffffff;">${escapeHtml(content.formTitle)}</h1>
                 <p style="margin:0;max-width:520px;font-size:15px;line-height:1.7;color:#d7e7f5;">
                   ${escapeHtml(content.formDescription)}
@@ -418,8 +417,8 @@ function buildContactEmailHtml(
             <tr>
               <td style="padding:24px 22px 18px;">
                 <div style="margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#015095;">Resumen rápido</div>
-                <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;"> 
-                  <tr>${summaryMarkup}</tr>
+                <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;">
+                  ${summaryMarkup}
                 </table>
               </td>
             </tr>
@@ -492,9 +491,7 @@ function buildReadableContactEmailHtml(
     [content.payloadLabels.additionalDetails, payload.additionalDetails || fallbackText],
   ];
 
-  const summaryMarkup = summaryCards
-    .map(
-      ([label, value]) => `
+  const summaryCardHtml2 = ([label, value]: string[]) => `
         <td style="width:50%;padding:6px;vertical-align:top;">
           <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#f8fbfd;border:1px solid #dbe4ee;border-radius:14px;">
             <tr>
@@ -508,9 +505,10 @@ function buildReadableContactEmailHtml(
               </td>
             </tr>
           </table>
-        </td>`,
-    )
-    .join("");
+        </td>`;
+  const summaryMarkup = `
+    <tr>${summaryCardHtml2(summaryCards[0])}${summaryCardHtml2(summaryCards[1])}</tr>
+    <tr>${summaryCardHtml2(summaryCards[2])}${summaryCardHtml2(summaryCards[3])}</tr>`;
 
   const rowMarkup = rows
     .map(
@@ -540,7 +538,7 @@ function buildReadableContactEmailHtml(
             </tr>
             <tr>
               <td style="padding:0 30px 30px;background:#f3f8fc;border-top:1px solid #e4edf5;">
-                <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#2f6f9f;">BLS Contact</p>
+                <p style="margin:20px 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#2f6f9f;">BLS Contact</p>
                 <h1 style="margin:0 0 12px;font-size:30px;line-height:1.2;font-weight:700;color:#243b53;">${escapeHtml(
                   content.formTitle,
                 )}</h1>
@@ -561,7 +559,7 @@ function buildReadableContactEmailHtml(
                   quickSummaryLabel,
                 )}</div>
                 <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;">
-                  <tr>${summaryMarkup}</tr>
+                  ${summaryMarkup}
                 </table>
               </td>
             </tr>
