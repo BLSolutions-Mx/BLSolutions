@@ -472,7 +472,7 @@ function buildReadableContactEmailHtml(
   const footerLabel = isEnglish
     ? "Sent from the BLS website contact form."
     : "Enviado desde el formulario de contacto del sitio de BLS.";
-  const logoUrl = toAbsoluteUrl("/bls_logo.webp");
+  const logoUrl = toAbsoluteUrl("/bls_logo.png");
 
   const summaryCards = [
     [content.payloadLabels.origin, payload.origin],
