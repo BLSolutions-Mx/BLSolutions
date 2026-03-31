@@ -256,6 +256,30 @@ function normalizeEnvValue(value: string | undefined) {
   return value.trim().replace(/^['"]|['"]$/g, "");
 }
 
+function maskEmail(value: string) {
+  const [localPart = "", domainPart = ""] = value.split("@");
+
+  if (!domainPart) {
+    return value ? "[invalid-email]" : "[empty]";
+  }
+
+  const visibleLocalPart = localPart.slice(0, 2);
+  return `${visibleLocalPart || "*"}***@${domainPart}`;
+}
+
+function summarizePayload(payload: ContactFormData) {
+  return {
+    nameLength: payload.name.length,
+    email: maskEmail(payload.email),
+    origin: payload.origin,
+    destination: payload.destination,
+    merchandiseType: payload.merchandiseType,
+    weight: payload.weight,
+    unitType: payload.unitType,
+    hasAdditionalDetails: Boolean(payload.additionalDetails),
+  };
+}
+
 function isResendErrorWithMessage(
   error: unknown,
 ): error is { name?: string; message?: string } {
@@ -436,6 +460,7 @@ function buildContactEmailHtml(
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const content = getLocaleContent(formData.get("locale"));
+  const requestUrl = new URL(request.url);
 
   const payload: ContactFormData = {
     name: getFormValue(formData, "name"),
@@ -450,6 +475,12 @@ export async function action({ request }: Route.ActionArgs) {
 
   const hasMissingFields = CONTACT_REQUIRED_FIELDS.some((field) => !payload[field]);
   if (hasMissingFields) {
+    console.warn("Contact form validation failed", {
+      pathname: requestUrl.pathname,
+      locale: formData.get("locale"),
+      payload: summarizePayload(payload),
+    });
+
     return Response.json(
       { success: false, message: content.validationError },
       { status: 400 },
@@ -460,7 +491,30 @@ export async function action({ request }: Route.ActionArgs) {
   const from = normalizeEnvValue(process.env.RESEND_FROM_EMAIL);
   const destinationEmail = normalizeEnvValue(process.env.CONTACT_TO_EMAIL);
 
+  console.info("Contact form submission received", {
+    pathname: requestUrl.pathname,
+    locale: formData.get("locale"),
+    payload: summarizePayload(payload),
+    env: {
+      hasResendApiKey: Boolean(apiKey),
+      hasFromEmail: Boolean(from),
+      hasDestinationEmail: Boolean(destinationEmail),
+      fromDomain: from.includes("@") ? from.split("@").at(-1) : "[missing]",
+      destinationEmail: maskEmail(destinationEmail),
+    },
+  });
+
   if (!apiKey || !from || !destinationEmail) {
+    console.error("Contact form configuration missing", {
+      pathname: requestUrl.pathname,
+      locale: formData.get("locale"),
+      env: {
+        hasResendApiKey: Boolean(apiKey),
+        hasFromEmail: Boolean(from),
+        hasDestinationEmail: Boolean(destinationEmail),
+      },
+    });
+
     return Response.json(
       { success: false, message: content.serviceUnavailableMessage },
       { status: 503 },
@@ -485,8 +539,13 @@ export async function action({ request }: Route.ActionArgs) {
 
     if (error) {
       console.error("Resend contact form error:", {
+        pathname: requestUrl.pathname,
+        locale: formData.get("locale"),
         name: error.name,
         message: error.message,
+        payload: summarizePayload(payload),
+        from,
+        destinationEmail: maskEmail(destinationEmail),
       });
 
       return Response.json(
@@ -497,8 +556,22 @@ export async function action({ request }: Route.ActionArgs) {
         { status: 502 },
       );
     }
+
+    console.info("Contact form email sent", {
+      pathname: requestUrl.pathname,
+      locale: formData.get("locale"),
+      to: maskEmail(destinationEmail),
+      replyTo: maskEmail(payload.email),
+    });
   } catch (error) {
     console.error("Unexpected Resend contact form error:", error);
+    console.error("Contact form send failure context", {
+      pathname: requestUrl.pathname,
+      locale: formData.get("locale"),
+      payload: summarizePayload(payload),
+      from,
+      destinationEmail: maskEmail(destinationEmail),
+    });
 
     return Response.json(
       {
