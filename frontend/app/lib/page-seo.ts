@@ -14,7 +14,7 @@ const defaultEnglishAlt = "BL Solutions - transportation, intermodal logistics a
 const pageSeoContent: Record<LocalizedRouteKey, Record<Locale, PageSeoContent>> = {
   home: {
     "es-MX": {
-      title: "Logistica sencilla para transporte y consultoria",
+      title: "Soluciones logísticas diseñadas para impulsar tu empresa",
       description:
         "BL Solutions ofrece transporte terrestre, intermodal y consultoria logistica para operaciones nacionales e internacionales entre Mexico y Estados Unidos.",
       keywords: [
