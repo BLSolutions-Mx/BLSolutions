@@ -1,7 +1,10 @@
 import type { ChangeEvent, FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useFetcher } from "react-router";
 import { FiMail, FiMapPin } from "react-icons/fi";
+import { Resend } from "resend";
+import type { Route } from "./+types/contacto";
 import { buildLocalizedPageMeta } from "../lib/build-page-meta";
 import type { Locale } from "../lib/i18n";
 import { getBlsContent } from "./components/home/blsContent";
@@ -18,8 +21,8 @@ type ContactFormData = {
 };
 
 type ContactResponse = {
-  success?: boolean;
-  message?: string;
+  success: boolean;
+  message: string;
 };
 
 type DropdownOption = {
@@ -43,6 +46,16 @@ const fieldClassName =
 
 const selectWrapperClassName =
   "relative rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#f8fbfd_0%,#eef5fb_100%)] transition-colors";
+
+const CONTACT_REQUIRED_FIELDS: Array<keyof ContactFormData> = [
+  "name",
+  "email",
+  "origin",
+  "destination",
+  "merchandiseType",
+  "weight",
+  "unitType",
+];
 
 const contentByLocale = {
   "es-MX": {
@@ -89,6 +102,8 @@ const contentByLocale = {
     successMessage: "Mensaje enviado con éxito.",
     errorMessage: "Hubo un error al enviar el mensaje.",
     networkError: "No se pudo conectar con el servidor. Intenta más tarde.",
+    serviceUnavailableMessage:
+      "El formulario ya está preparado para Resend, pero faltan las credenciales del servidor.",
     merchandiseOptions: [
       { value: "Carga general", label: "Carga general" },
       { value: "Acero o metal", label: "Acero o metal" },
@@ -159,6 +174,8 @@ const contentByLocale = {
     successMessage: "Message sent successfully.",
     errorMessage: "There was an error sending the message.",
     networkError: "The server could not be reached. Try again later.",
+    serviceUnavailableMessage:
+      "The form is wired for Resend, but the server credentials are still missing.",
     merchandiseOptions: [
       { value: "General cargo", label: "General cargo" },
       { value: "Steel or metal", label: "Steel or metal" },
@@ -208,6 +225,7 @@ const contentByLocale = {
     successMessage: string;
     errorMessage: string;
     networkError: string;
+    serviceUnavailableMessage: string;
     merchandiseOptions: DropdownOption[];
     unitOptions: DropdownOption[];
     payloadLabels: {
@@ -220,6 +238,223 @@ const contentByLocale = {
     };
   }
 >;
+
+function getLocaleContent(locale: FormDataEntryValue | null) {
+  return locale === "en-US" ? contentByLocale["en-US"] : contentByLocale["es-MX"];
+}
+
+function getFormValue(formData: FormData, field: keyof ContactFormData) {
+  const value = formData.get(field);
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function buildContactMessage(
+  content: (typeof contentByLocale)[Locale],
+  payload: ContactFormData,
+) {
+  return [
+    `${content.labels.name}: ${payload.name}`,
+    `${content.labels.email}: ${payload.email}`,
+    `${content.payloadLabels.origin}: ${payload.origin}`,
+    `${content.payloadLabels.destination}: ${payload.destination}`,
+    `${content.payloadLabels.merchandiseType}: ${payload.merchandiseType}`,
+    `${content.payloadLabels.weight}: ${payload.weight}`,
+    `${content.payloadLabels.unitType}: ${payload.unitType}`,
+    `${content.payloadLabels.additionalDetails}: ${payload.additionalDetails || "N/A"}`,
+  ].join("\n");
+}
+
+function buildContactEmailHtml(
+  content: (typeof contentByLocale)[Locale],
+  payload: ContactFormData,
+) {
+  const summaryCards = [
+    [content.payloadLabels.origin, payload.origin],
+    [content.payloadLabels.destination, payload.destination],
+    [content.payloadLabels.unitType, payload.unitType],
+    [content.payloadLabels.weight, `${payload.weight} kg`],
+  ];
+
+  const rows = [
+    [content.labels.name, payload.name],
+    [content.labels.email, payload.email],
+    [content.payloadLabels.origin, payload.origin],
+    [content.payloadLabels.destination, payload.destination],
+    [content.payloadLabels.merchandiseType, payload.merchandiseType],
+    [content.payloadLabels.weight, payload.weight],
+    [content.payloadLabels.unitType, payload.unitType],
+    [content.payloadLabels.additionalDetails, payload.additionalDetails || "N/A"],
+  ];
+
+  const rowMarkup = rows
+    .map(
+      ([label, value]) =>
+        `<tr>
+          <td style="padding:14px 16px;border-top:1px solid #dbe4ee;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5b6472;background:#f8fbfd;">${escapeHtml(
+            label,
+          )}</td>
+          <td style="padding:14px 16px;border-top:1px solid #dbe4ee;font-size:15px;line-height:1.6;color:#0f172a;background:#ffffff;">${escapeHtml(value)}</td>
+        </tr>`,
+    )
+    .join("");
+
+  const summaryMarkup = summaryCards
+    .map(
+      ([label, value]) => `
+        <td style="width:50%;padding:6px;vertical-align:top;">
+          <table style="width:100%;border-collapse:separate;border-spacing:0;background:#f8fbfd;border:1px solid #dbe4ee;border-radius:14px;">
+            <tr>
+              <td style="padding:14px 16px;">
+                <div style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#6b7280;">${escapeHtml(
+                  label,
+                )}</div>
+                <div style="margin:0;font-size:16px;font-weight:700;line-height:1.4;color:#202f4c;">${escapeHtml(
+                  value,
+                )}</div>
+              </td>
+            </tr>
+          </table>
+        </td>`,
+    )
+    .join("");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+  <body style="margin:0;padding:24px;background:#e8f0f7;font-family:Arial,sans-serif;color:#0f172a;">
+    <table role="presentation" style="width:100%;max-width:720px;margin:0 auto;border-collapse:separate;border-spacing:0;">
+      <tr>
+        <td style="padding:0 0 18px;">
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:linear-gradient(135deg,#0b1120 0%,#15345b 100%);border-radius:24px;overflow:hidden;">
+            <tr>
+              <td style="padding:28px 28px 24px;color:#ffffff;">
+                <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#7dd3fc;">BLS Contact</p>
+                <h1 style="margin:0 0 12px;font-size:30px;line-height:1.1;color:#ffffff;">${escapeHtml(content.formTitle)}</h1>
+                <p style="margin:0;max-width:520px;font-size:15px;line-height:1.7;color:#d7e7f5;">
+                  ${escapeHtml(content.formDescription)}
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0 0 18px;">
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #d7e3ee;border-radius:24px;overflow:hidden;box-shadow:0 18px 50px rgba(15,23,42,0.08);">
+            <tr>
+              <td style="padding:24px 22px 18px;">
+                <div style="margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#015095;">Resumen rápido</div>
+                <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;"> 
+                  <tr>${summaryMarkup}</tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 22px 24px;">
+                <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;border:1px solid #dbe4ee;border-radius:18px;overflow:hidden;">
+                  <tr>
+                    <td colspan="2" style="padding:16px 18px;background:#202f4c;font-size:13px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#ffffff;">
+                      Detalle de la solicitud
+                    </td>
+                  </tr>
+                  ${rowMarkup}
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#f8fbfd;border:1px solid #d7e3ee;border-radius:18px;">
+            <tr>
+              <td style="padding:16px 18px;font-size:13px;line-height:1.7;color:#526071;">
+                Responde directamente a este correo para contactar a <strong style="color:#202f4c;">${escapeHtml(
+                  payload.name,
+                )}</strong> en <a href="mailto:${escapeHtml(payload.email)}" style="color:#015095;text-decoration:none;">${escapeHtml(
+                  payload.email,
+                )}</a>.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  const formData = await request.formData();
+  const content = getLocaleContent(formData.get("locale"));
+
+  const payload: ContactFormData = {
+    name: getFormValue(formData, "name"),
+    email: getFormValue(formData, "email"),
+    origin: getFormValue(formData, "origin"),
+    destination: getFormValue(formData, "destination"),
+    merchandiseType: getFormValue(formData, "merchandiseType"),
+    weight: getFormValue(formData, "weight"),
+    unitType: getFormValue(formData, "unitType"),
+    additionalDetails: getFormValue(formData, "additionalDetails"),
+  };
+
+  const hasMissingFields = CONTACT_REQUIRED_FIELDS.some((field) => !payload[field]);
+  if (hasMissingFields) {
+    return Response.json(
+      { success: false, message: content.validationError },
+      { status: 400 },
+    );
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL;
+  const destinationEmail = process.env.CONTACT_TO_EMAIL;
+
+  if (!apiKey || !from || !destinationEmail) {
+    return Response.json(
+      { success: false, message: content.serviceUnavailableMessage },
+      { status: 503 },
+    );
+  }
+
+  const resend = new Resend(apiKey);
+  const subject =
+    formData.get("locale") === "en-US"
+      ? `New contact request from ${payload.name}`
+      : `Nueva solicitud de contacto de ${payload.name}`;
+
+  const { error } = await resend.emails.send({
+    from,
+    to: [destinationEmail],
+    subject,
+    html: buildContactEmailHtml(content, payload),
+    text: buildContactMessage(content, payload),
+    replyTo: payload.email,
+  });
+
+  if (error) {
+    console.error("Resend contact form error:", error);
+
+    return Response.json(
+      { success: false, message: content.errorMessage },
+      { status: 500 },
+    );
+  }
+
+  return Response.json({
+    success: true,
+    message: content.successMessage,
+  });
+}
 
 type StyledDropdownProps = {
   id: keyof Pick<ContactFormData, "merchandiseType" | "unitType">;
@@ -356,14 +591,27 @@ export function meta() {
 }
 
 export function ContactPage({ locale }: ContactPageProps) {
+  const fetcher = useFetcher<ContactResponse>();
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success: boolean | null; message: string }>({
     success: null,
     message: "",
   });
   const content = contentByLocale[locale];
   const sharedContent = getBlsContent(locale);
+  const isSubmitting = fetcher.state !== "idle";
+
+  useEffect(() => {
+    if (!fetcher.data) {
+      return;
+    }
+
+    setSubmitStatus(fetcher.data);
+
+    if (fetcher.data.success) {
+      setFormData(initialFormData);
+    }
+  }, [fetcher.data]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -377,53 +625,14 @@ export function ContactPage({ locale }: ContactPageProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     if (!formData.merchandiseType || !formData.unitType) {
+      event.preventDefault();
       setSubmitStatus({ success: false, message: content.validationError });
       return;
     }
 
-    setIsSubmitting(true);
     setSubmitStatus({ success: null, message: "" });
-
-    try {
-      const message = [
-        `${content.payloadLabels.origin}: ${formData.origin}`,
-        `${content.payloadLabels.destination}: ${formData.destination}`,
-        `${content.payloadLabels.merchandiseType}: ${formData.merchandiseType}`,
-        `${content.payloadLabels.weight}: ${formData.weight}`,
-        `${content.payloadLabels.unitType}: ${formData.unitType}`,
-        `${content.payloadLabels.additionalDetails}: ${formData.additionalDetails || "N/A"}`,
-      ].join("\n");
-
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, message }),
-      });
-
-      const result = (await response.json()) as ContactResponse;
-
-      if (response.ok && result.success) {
-        setSubmitStatus({
-          success: true,
-          message: result.message || content.successMessage,
-        });
-        setFormData(initialFormData);
-      } else {
-        setSubmitStatus({
-          success: false,
-          message: result.message || content.errorMessage,
-        });
-      }
-    } catch (error) {
-      console.error("Submission error:", error);
-      setSubmitStatus({ success: false, message: content.networkError });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
@@ -541,7 +750,8 @@ export function ContactPage({ locale }: ContactPageProps) {
                 <p className="mt-3 text-sm leading-7 text-[#5E6878]">{content.formDescription}</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="min-w-0 space-y-4 text-gray-900">
+              <fetcher.Form method="post" onSubmit={handleSubmit} className="min-w-0 space-y-4 text-gray-900">
+                <input type="hidden" name="locale" value={locale} />
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
                     <label htmlFor="name" className="mb-2 block font-medium">
@@ -616,6 +826,7 @@ export function ContactPage({ locale }: ContactPageProps) {
                     activeLabel={content.active}
                     onSelect={handleDropdownSelect}
                   />
+                  <input type="hidden" name="merchandiseType" value={formData.merchandiseType} />
                   <div>
                     <label htmlFor="unitType" className="mb-2 block font-medium">
                       {content.labels.unitType}
@@ -685,7 +896,7 @@ export function ContactPage({ locale }: ContactPageProps) {
                 >
                   {isSubmitting ? content.submitting : content.submit}
                 </motion.button>
-              </form>
+              </fetcher.Form>
             </div>
           </div>
         </div>
@@ -697,3 +908,14 @@ export function ContactPage({ locale }: ContactPageProps) {
 export default function Contacto() {
   return <ContactPage locale="es-MX" />;
 }
+
+/*
+Pendiente para activar Resend en produccion:
+1. Crear la API key en Resend y guardarla como RESEND_API_KEY.
+2. Verificar el dominio de envio en Resend, tal como indican los prerrequisitos oficiales de Node.js.
+3. Definir RESEND_FROM_EMAIL con una direccion del dominio verificado, por ejemplo:
+   BLS Contacto <contacto@tu-dominio.com>
+4. Definir CONTACT_TO_EMAIL con el correo interno que debe recibir las solicitudes.
+5. Reiniciar el servidor despues de cargar esas variables de entorno.
+6. Probar el formulario en /contacto y /en/contact para confirmar entrega y reply-to.
+*/
