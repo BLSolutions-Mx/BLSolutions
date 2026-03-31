@@ -15,10 +15,10 @@ const copyByLocale = {
   },
   "en-US": {
     eyebrow: "Logistics services",
-    title: "On The Road",
+    title: "Over The Road",
     backLabel: "Back to services",
     contactLabel: "Contact us",
-    sectionLabel: "On The Road",
+    sectionLabel: "Over The Road",
   },
 } satisfies Record<
   Locale,

@@ -104,9 +104,6 @@ const FlipFooter = () => {
                 <FooterLink to={getLocalizedPath("home", locale)}>
                   {locale === "en-US" ? "Home" : "Inicio"}
                 </FooterLink>
-                <FooterLink to={getLocalizedPath("services", locale)}>
-                  {locale === "en-US" ? "Logistics services" : "Servicios logísticos"}
-                </FooterLink>
                 <FooterLink to={getLocalizedPath("consulting", locale)}>
                   {locale === "en-US" ? "Consulting" : "Consultoría"}
                 </FooterLink>
@@ -124,7 +121,7 @@ const FlipFooter = () => {
               </p>
               <div className="flex flex-col gap-3">
                 <FooterLink to={getLocalizedPath("ground", locale)}>
-                  {locale === "en-US" ? "On The Road" : "Terrestre"}
+                  {locale === "en-US" ? "Over The Road" : "Terrestre"}
                 </FooterLink>
                 <FooterLink to={getLocalizedPath("air", locale)}>
                   {locale === "en-US" ? "Air" : "Aéreo"}

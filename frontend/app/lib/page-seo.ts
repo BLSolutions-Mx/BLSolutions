@@ -106,10 +106,10 @@ const pageSeoContent: Record<LocalizedRouteKey, Record<Locale, PageSeoContent>> 
       imageAlt: DEFAULT_OG_IMAGE_ALT,
     },
     "en-US": {
-      title: "On The Road transportation",
+      title: "Over The Road transportation",
       description:
         "Ground transportation solutions with dry van, flatbed, reefer, and specialized equipment for domestic and international operations.",
-      keywords: ["on the road transportation", "dry van", "flatbed", "reefer"],
+      keywords: ["over the road transportation", "dry van", "flatbed", "reefer"],
       image: OG_IMAGE_PATHS.terrestre,
       imageAlt: defaultEnglishAlt,
     },

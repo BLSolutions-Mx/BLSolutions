@@ -33,7 +33,7 @@ const serviceCardsByLocale = {
   ],
   "en-US": [
     {
-      title: "On The Road",
+      title: "Over The Road",
       href: "ground",
       image: "/imgs/terrestre-dryvan.avif",
       icon: FiTruck,

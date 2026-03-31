@@ -78,7 +78,7 @@ const copyByLocale = {
     closeMenu: "Close menu",
     openMenu: "Open menu",
     viewAllServices: "View all services",
-    ground: "On The Road",
+    ground: "Over The Road",
     air: "Air",
     intermodal: "Intermodal",
     warehousing: "Warehousing",
