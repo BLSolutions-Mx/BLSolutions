@@ -299,6 +299,7 @@ const FlipNav = () => {
   return (
     <nav
       ref={navRef}
+      data-site-nav
       className={`fixed inset-x-0 top-0 z-50 px-3 py-4 transition-transform duration-300 sm:px-4 md:px-6 ${
         isHidden ? "-translate-y-full" : "translate-y-0"
       }`}
@@ -387,7 +388,7 @@ const FlipNav = () => {
         <div className="hidden items-center justify-self-end gap-3 lg:flex">
           <LanguageSwitch locale={locale} />
           <Link
-            to={getLocalizedPath("contact", locale)}
+            to={`${getLocalizedPath("contact", locale)}#form`}
             prefetch="intent"
             onClick={closeNavOverlays}
             className="inline-flex items-center gap-2 rounded-full bg-[#202F4C] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#015095] hover:shadow-lg"
@@ -561,7 +562,7 @@ const NavMenu = ({
           transition={{ delay: 0.08, duration: 0.2, ease: "easeOut" }}
         >
           <Link
-            to={getLocalizedPath("contact", locale)}
+            to={`${getLocalizedPath("contact", locale)}#form`}
             prefetch="intent"
             onClick={closeMobileMenu}
             className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#202F4C] px-4 py-4 text-[13px] font-bold uppercase tracking-[0.2em] text-white shadow-md"

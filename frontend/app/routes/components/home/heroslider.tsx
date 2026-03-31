@@ -67,7 +67,7 @@ export default function HeroSlider({ locale }: HeroSliderProps) {
                 <FiArrowRight />
               </Link>
               <Link
-                to={getLocalizedPath("contact", locale)}
+                to={`${getLocalizedPath("contact", locale)}#form`}
                 prefetch="intent"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/8 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white/14 sm:px-6"
               >

@@ -76,7 +76,7 @@ const contentByLocale = {
       origin: "Ejemplo: Monterrey, NL",
       destination: "Ejemplo: Laredo, TX",
       merchandiseType: "Selecciona una categoría",
-      unitType: "Selecciona una unidad",
+      unitType: "Ejemplo: 53 Dry Van",
       weight: "Ejemplo: 18000",
       additionalDetails: "Opcional: frecuencia, ventanas de entrega, requisitos especiales o comentarios.",
     },
@@ -146,7 +146,7 @@ const contentByLocale = {
       origin: "Example: Monterrey, NL",
       destination: "Example: Laredo, TX",
       merchandiseType: "Select a category",
-      unitType: "Select equipment",
+      unitType: "Example: 53 Dry Van",
       weight: "Example: 18000",
       additionalDetails: "Optional: frequency, delivery windows, special requirements, or comments.",
     },
@@ -370,7 +370,10 @@ export function ContactPage({ locale }: ContactPageProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleDropdownSelect = (name: "merchandiseType" | "unitType", value: string) => {
+  const handleDropdownSelect = (
+    name: "merchandiseType" | "unitType",
+    value: string,
+  ) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -495,7 +498,7 @@ export function ContactPage({ locale }: ContactPageProps) {
         </div>
       </section>
 
-      <section className="px-2 py-20 md:py-24">
+      <section id="form" className="px-2 py-20 md:py-24">
         <div className="section-shell">
           <div className="glass-panel mx-auto grid w-full max-w-6xl gap-6 p-4 sm:p-5 md:grid-cols-2 md:p-6 lg:gap-8">
             <div className="relative min-w-0 overflow-hidden rounded-[2rem] bg-[#0B1120] p-6 text-white sm:p-7 md:p-8">
@@ -613,15 +616,21 @@ export function ContactPage({ locale }: ContactPageProps) {
                     activeLabel={content.active}
                     onSelect={handleDropdownSelect}
                   />
-                  <StyledDropdown
-                    id="unitType"
-                    label={content.labels.unitType}
-                    placeholder={content.placeholders.unitType}
-                    value={formData.unitType}
-                    options={content.unitOptions}
-                    activeLabel={content.active}
-                    onSelect={handleDropdownSelect}
-                  />
+                  <div>
+                    <label htmlFor="unitType" className="mb-2 block font-medium">
+                      {content.labels.unitType}
+                    </label>
+                    <input
+                      type="text"
+                      id="unitType"
+                      name="unitType"
+                      placeholder={content.placeholders.unitType}
+                      value={formData.unitType}
+                      onChange={handleChange}
+                      required
+                      className={fieldClassName}
+                    />
+                  </div>
                 </div>
                 <div>
                   <label htmlFor="weight" className="mb-2 block font-medium">

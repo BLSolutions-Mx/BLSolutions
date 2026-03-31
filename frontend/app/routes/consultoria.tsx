@@ -127,7 +127,7 @@ export function ConsultingPage({ locale }: ConsultingPageProps) {
 
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
-                  to={getLocalizedPath("contact", locale)}
+                  to={`${getLocalizedPath("contact", locale)}#form`}
                   className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold uppercase tracking-wider text-[#0B1120] transition-all hover:bg-blue-50 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                 >
                   {copy.cta}
@@ -145,7 +145,7 @@ export function ConsultingPage({ locale }: ConsultingPageProps) {
               <div className="relative mx-auto aspect-square w-full max-w-md">
                 <div className="absolute inset-0 overflow-hidden rounded-3xl border border-white/10">
                   <img
-                    src="/imgs/consultoria-hero.avif"
+                    src="/imgs/hero-consultoria.avif"
                     alt={copy.imageAlt}
                     className="h-full w-full object-cover opacity-80"
                   />
@@ -250,7 +250,7 @@ export function ConsultingPage({ locale }: ConsultingPageProps) {
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-slate-300">{copy.closingDescription}</p>
               <Link
-                to={getLocalizedPath("contact", locale)}
+                to={`${getLocalizedPath("contact", locale)}#form`}
                 className="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold uppercase tracking-wider text-[#0B1120] transition-transform hover:-translate-y-1 hover:shadow-lg"
               >
                 {copy.closingCta}

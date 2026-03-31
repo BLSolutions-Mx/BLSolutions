@@ -76,60 +76,67 @@ export default function LanguageSelectorPopup() {
     <AnimatePresence>
       {isOpen ? (
         <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={`${dialogId}-title`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[70] flex items-center justify-center bg-[#0B1120]/55 px-4 backdrop-blur-sm"
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="fixed inset-0 z-[70] flex flex-col items-center justify-center"
+          style={{
+            background:
+              "radial-gradient(ellipse at 30% 20%, rgba(1,80,149,0.55) 0%, transparent 55%), radial-gradient(ellipse at 75% 80%, rgba(32,47,76,0.7) 0%, transparent 55%), linear-gradient(135deg, #0d1b2e 0%, #0a3060 40%, #015095 70%, #1a3f6b 100%)",
+          }}
         >
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={`${dialogId}-title`}
-            aria-describedby={`${dialogId}-description`}
-            initial={{ opacity: 0, y: 18, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            className="w-full max-w-lg overflow-hidden rounded-[2rem] border border-white/10 bg-white shadow-[0_30px_90px_rgba(11,17,32,0.28)]"
-          >
-            <div className="bg-[linear-gradient(135deg,#202F4C_0%,#015095_100%)] px-7 py-6 text-white">
-              <div className="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                </svg>
-                <h2 id={`${dialogId}-title`} className="text-xl font-bold tracking-[-0.02em]">
-                  Choose your language
-                </h2>
-              </div>
-              <p id={`${dialogId}-description`} className="sr-only">Select the language you want to browse the site in.</p>
-            </div>
+          {/* subtle noise/grain overlay */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")" }}
+          />
 
-            <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.1 }}
+            className="relative flex flex-col items-center gap-10 px-6 text-center"
+          >
+            {/* Logo */}
+            <img
+              src="/bls_logo.webp"
+              alt="BLS - Best Logistics Solutions"
+              className="h-16 w-auto object-contain brightness-0 invert md:h-20"
+            />
+
+            {/* Divider */}
+            <div className="h-px w-24 bg-white/25" />
+
+            {/* Entrar / Enter label */}
+            <p
+              id={`${dialogId}-title`}
+              className="text-sm font-semibold uppercase tracking-[0.35em] text-white/60"
+            >
+            </p>
+
+            {/* Language buttons */}
+            <div className="flex gap-4">
               <button
                 type="button"
                 onClick={() => handleChooseLocale(DEFAULT_LOCALE)}
                 autoFocus={preferredLocale === DEFAULT_LOCALE}
-                className={`rounded-[1.6rem] border p-5 text-left transition-all ${
-                  preferredLocale === DEFAULT_LOCALE
-                    ? "border-[#015095] bg-[#eef5fb] shadow-[0_18px_40px_rgba(1,80,149,0.10)]"
-                    : "border-slate-200 bg-white hover:border-[#015095]/35"
-                }`}
+                className="group relative overflow-hidden rounded-full border border-white/20 bg-white/10 px-10 py-4 text-base font-semibold tracking-[0.12em] text-white uppercase backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/20"
               >
-                <p className="text-xl font-semibold text-[#202F4C]">Español</p>
+                Entrar
               </button>
 
               <button
                 type="button"
                 onClick={() => handleChooseLocale(ENGLISH_LOCALE)}
                 autoFocus={preferredLocale === ENGLISH_LOCALE}
-                className={`rounded-[1.6rem] border p-5 text-left transition-all ${
-                  preferredLocale === ENGLISH_LOCALE
-                    ? "border-[#015095] bg-[#eef5fb] shadow-[0_18px_40px_rgba(1,80,149,0.10)]"
-                    : "border-slate-200 bg-white hover:border-[#015095]/35"
-                }`}
+                className="group relative overflow-hidden rounded-full border border-white/20 bg-white/10 px-10 py-4 text-base font-semibold tracking-[0.12em] text-white uppercase backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/20"
               >
-                <p className="text-xl font-semibold text-[#202F4C]">English</p>
+                Enter
               </button>
             </div>
           </motion.div>

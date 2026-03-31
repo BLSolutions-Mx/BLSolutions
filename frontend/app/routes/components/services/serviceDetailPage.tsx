@@ -87,7 +87,7 @@ export default function ServiceDetailPage({
                 <h2 className="mt-3 text-3xl font-semibold text-[#202F4C] md:text-4xl">{title}</h2>
                 <p className="mt-4 text-base leading-8 text-[#5E6878]">{description}</p>
                 <Link
-                  to={getLocalizedPath("contact", locale)}
+                  to={`${getLocalizedPath("contact", locale)}#form`}
                   className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                 >
                   {contactLabel}

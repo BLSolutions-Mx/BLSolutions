@@ -102,7 +102,7 @@ export function GroundPage({ locale }: GroundPageProps) {
                 <h2 className="mt-2 text-2xl font-semibold text-[#202F4C]">{mode.title}</h2>
                 <p className="mt-3 flex-1 text-base leading-8 text-[#5E6878]">{mode.description}</p>
                 <Link
-                  to={getLocalizedPath("contact", locale)}
+                  to={`${getLocalizedPath("contact", locale)}#form`}
                   className="mt-6 inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-[#202F4C] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5 hover:bg-[#015095]"
                 >
                   {copy.contactLabel}
