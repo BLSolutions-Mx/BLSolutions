@@ -7,6 +7,7 @@ import { Resend } from "resend";
 import type { Route } from "./+types/contacto";
 import { buildLocalizedPageMeta } from "../lib/build-page-meta";
 import type { Locale } from "../lib/i18n";
+import { toAbsoluteUrl } from "../lib/seo";
 import { getBlsContent } from "./components/home/blsContent";
 
 type ContactFormData = {
@@ -457,6 +458,153 @@ function buildContactEmailHtml(
 </html>`;
 }
 
+function buildReadableContactEmailHtml(
+  content: (typeof contentByLocale)[Locale],
+  payload: ContactFormData,
+) {
+  const isEnglish = content === contentByLocale["en-US"];
+  const fallbackText = isEnglish ? "Not provided" : "No especificado";
+  const quickSummaryLabel = isEnglish ? "Quick summary" : "Resumen rapido";
+  const requestDetailsLabel = isEnglish ? "Request details" : "Detalle de la solicitud";
+  const replyLabel = isEnglish
+    ? "Reply directly to this email to contact"
+    : "Responde directamente a este correo para contactar a";
+  const footerLabel = isEnglish
+    ? "Sent from the BLS website contact form."
+    : "Enviado desde el formulario de contacto del sitio de BLS.";
+  const logoUrl = toAbsoluteUrl("/bls_logo.webp");
+
+  const summaryCards = [
+    [content.payloadLabels.origin, payload.origin],
+    [content.payloadLabels.destination, payload.destination],
+    [content.payloadLabels.unitType, payload.unitType],
+    [content.payloadLabels.weight, `${payload.weight} kg`],
+  ];
+
+  const rows = [
+    [content.labels.name, payload.name],
+    [content.labels.email, payload.email],
+    [content.payloadLabels.origin, payload.origin],
+    [content.payloadLabels.destination, payload.destination],
+    [content.payloadLabels.merchandiseType, payload.merchandiseType],
+    [content.payloadLabels.weight, `${payload.weight} kg`],
+    [content.payloadLabels.unitType, payload.unitType],
+    [content.payloadLabels.additionalDetails, payload.additionalDetails || fallbackText],
+  ];
+
+  const summaryMarkup = summaryCards
+    .map(
+      ([label, value]) => `
+        <td style="width:50%;padding:6px;vertical-align:top;">
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#f8fbfd;border:1px solid #dbe4ee;border-radius:14px;">
+            <tr>
+              <td style="padding:14px 16px;">
+                <div style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#64748b;">${escapeHtml(
+                  label,
+                )}</div>
+                <div style="margin:0;font-size:16px;font-weight:700;line-height:1.45;color:#1e293b;">${escapeHtml(
+                  value,
+                )}</div>
+              </td>
+            </tr>
+          </table>
+        </td>`,
+    )
+    .join("");
+
+  const rowMarkup = rows
+    .map(
+      ([label, value]) =>
+        `<tr>
+          <td style="padding:14px 16px;border-top:1px solid #dbe4ee;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#475569;background:#f8fbfd;">${escapeHtml(
+            label,
+          )}</td>
+          <td style="padding:14px 16px;border-top:1px solid #dbe4ee;font-size:15px;line-height:1.65;color:#0f172a;background:#ffffff;">${escapeHtml(
+            value,
+          )}</td>
+        </tr>`,
+    )
+    .join("");
+
+  return `<!DOCTYPE html>
+<html lang="${isEnglish ? "en" : "es"}">
+  <body style="margin:0;padding:24px;background:#f4f9fc;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
+    <table role="presentation" style="width:100%;max-width:720px;margin:0 auto;border-collapse:separate;border-spacing:0;">
+      <tr>
+        <td style="padding:0 0 18px;">
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #d9e8f4;border-radius:24px;overflow:hidden;">
+            <tr>
+              <td style="padding:26px 30px 8px;">
+                <img src="${escapeHtml(logoUrl)}" alt="BLS" width="160" style="display:block;width:160px;max-width:100%;height:auto;border:0;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 30px 30px;background:linear-gradient(180deg,#ffffff 0%,#eef7fd 100%);">
+                <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#015095;">BLS Contact</p>
+                <h1 style="margin:0 0 12px;font-size:30px;line-height:1.2;font-weight:700;color:#16324f;">${escapeHtml(
+                  content.formTitle,
+                )}</h1>
+                <p style="margin:0;max-width:560px;font-size:15px;line-height:1.7;color:#496278;">
+                  ${escapeHtml(content.formDescription)}
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0 0 18px;">
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #d7e3ee;border-radius:24px;overflow:hidden;">
+            <tr>
+              <td style="padding:24px 22px 18px;">
+                <div style="margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#015095;">${escapeHtml(
+                  quickSummaryLabel,
+                )}</div>
+                <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;">
+                  <tr>${summaryMarkup}</tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 22px 24px;">
+                <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;border:1px solid #dbe4ee;border-radius:18px;overflow:hidden;">
+                  <tr>
+                    <td colspan="2" style="padding:16px 18px;background:#eaf4fb;font-size:13px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#12345b;">
+                      ${escapeHtml(requestDetailsLabel)}
+                    </td>
+                  </tr>
+                  ${rowMarkup}
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #d7e3ee;border-radius:18px;">
+            <tr>
+              <td style="padding:18px 20px 10px;font-size:14px;line-height:1.7;color:#334155;">
+                ${escapeHtml(replyLabel)} <strong style="color:#0f172a;">${escapeHtml(
+                  payload.name,
+                )}</strong> en <a href="mailto:${escapeHtml(payload.email)}" style="color:#015095;text-decoration:none;font-weight:700;">${escapeHtml(
+                  payload.email,
+                )}</a>.
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 20px 18px;font-size:12px;line-height:1.6;color:#64748b;">
+                ${escapeHtml(footerLabel)}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const content = getLocaleContent(formData.get("locale"));
@@ -532,7 +680,7 @@ export async function action({ request }: Route.ActionArgs) {
       from,
       to: [destinationEmail],
       subject,
-      html: buildContactEmailHtml(content, payload),
+      html: buildReadableContactEmailHtml(content, payload),
       text: buildContactMessage(content, payload),
       replyTo: payload.email,
     });
