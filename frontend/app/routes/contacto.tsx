@@ -248,6 +248,47 @@ function getFormValue(formData: FormData, field: keyof ContactFormData) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function normalizeEnvValue(value: string | undefined) {
+  if (!value) {
+    return "";
+  }
+
+  return value.trim().replace(/^['"]|['"]$/g, "");
+}
+
+function isResendErrorWithMessage(
+  error: unknown,
+): error is { name?: string; message?: string } {
+  return typeof error === "object" && error !== null;
+}
+
+function getResendFailureMessage(
+  content: (typeof contentByLocale)[Locale],
+  error: unknown,
+) {
+  if (!isResendErrorWithMessage(error)) {
+    return content.errorMessage;
+  }
+
+  const name = error.name?.toLowerCase() ?? "";
+  const message = error.message?.toLowerCase() ?? "";
+
+  if (
+    name.includes("validation") ||
+    message.includes("domain is not verified") ||
+    message.includes("change the `from` address") ||
+    message.includes("testing emails to your own email address")
+  ) {
+    return content.serviceUnavailableMessage;
+  }
+
+  if (name.includes("rate_limit") || name.includes("quota")) {
+    return content.networkError;
+  }
+
+  return content.errorMessage;
+}
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -415,9 +456,9 @@ export async function action({ request }: Route.ActionArgs) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
-  const destinationEmail = process.env.CONTACT_TO_EMAIL;
+  const apiKey = normalizeEnvValue(process.env.RESEND_API_KEY ?? process.env.RESEND_API);
+  const from = normalizeEnvValue(process.env.RESEND_FROM_EMAIL);
+  const destinationEmail = normalizeEnvValue(process.env.CONTACT_TO_EMAIL);
 
   if (!apiKey || !from || !destinationEmail) {
     return Response.json(
@@ -432,21 +473,39 @@ export async function action({ request }: Route.ActionArgs) {
       ? `New contact request from ${payload.name}`
       : `Nueva solicitud de contacto de ${payload.name}`;
 
-  const { error } = await resend.emails.send({
-    from,
-    to: [destinationEmail],
-    subject,
-    html: buildContactEmailHtml(content, payload),
-    text: buildContactMessage(content, payload),
-    replyTo: payload.email,
-  });
+  try {
+    const { error } = await resend.emails.send({
+      from,
+      to: [destinationEmail],
+      subject,
+      html: buildContactEmailHtml(content, payload),
+      text: buildContactMessage(content, payload),
+      replyTo: payload.email,
+    });
 
-  if (error) {
-    console.error("Resend contact form error:", error);
+    if (error) {
+      console.error("Resend contact form error:", {
+        name: error.name,
+        message: error.message,
+      });
+
+      return Response.json(
+        {
+          success: false,
+          message: getResendFailureMessage(content, error),
+        },
+        { status: 502 },
+      );
+    }
+  } catch (error) {
+    console.error("Unexpected Resend contact form error:", error);
 
     return Response.json(
-      { success: false, message: content.errorMessage },
-      { status: 500 },
+      {
+        success: false,
+        message: getResendFailureMessage(content, error),
+      },
+      { status: 502 },
     );
   }
 
