@@ -528,23 +528,23 @@ function buildReadableContactEmailHtml(
 
   return `<!DOCTYPE html>
 <html lang="${isEnglish ? "en" : "es"}">
-  <body style="margin:0;padding:24px;background:#f4f9fc;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
+  <body style="margin:0;padding:24px;background:#f7fafc;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
     <table role="presentation" style="width:100%;max-width:720px;margin:0 auto;border-collapse:separate;border-spacing:0;">
       <tr>
         <td style="padding:0 0 18px;">
-          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #d9e8f4;border-radius:24px;overflow:hidden;">
+          <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #dbe7f1;border-radius:24px;overflow:hidden;">
             <tr>
-              <td style="padding:26px 30px 8px;">
+              <td style="padding:26px 30px 14px;background:#ffffff;">
                 <img src="${escapeHtml(logoUrl)}" alt="BLS" width="160" style="display:block;width:160px;max-width:100%;height:auto;border:0;" />
               </td>
             </tr>
             <tr>
-              <td style="padding:0 30px 30px;background:linear-gradient(180deg,#ffffff 0%,#eef7fd 100%);">
-                <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#015095;">BLS Contact</p>
-                <h1 style="margin:0 0 12px;font-size:30px;line-height:1.2;font-weight:700;color:#16324f;">${escapeHtml(
+              <td style="padding:0 30px 30px;background:#f3f8fc;border-top:1px solid #e4edf5;">
+                <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#2f6f9f;">BLS Contact</p>
+                <h1 style="margin:0 0 12px;font-size:30px;line-height:1.2;font-weight:700;color:#243b53;">${escapeHtml(
                   content.formTitle,
                 )}</h1>
-                <p style="margin:0;max-width:560px;font-size:15px;line-height:1.7;color:#496278;">
+                <p style="margin:0;max-width:560px;font-size:15px;line-height:1.7;color:#52667a;">
                   ${escapeHtml(content.formDescription)}
                 </p>
               </td>
@@ -557,7 +557,7 @@ function buildReadableContactEmailHtml(
           <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #d7e3ee;border-radius:24px;overflow:hidden;">
             <tr>
               <td style="padding:24px 22px 18px;">
-                <div style="margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#015095;">${escapeHtml(
+                <div style="margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#2f6f9f;">${escapeHtml(
                   quickSummaryLabel,
                 )}</div>
                 <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;">
@@ -569,7 +569,7 @@ function buildReadableContactEmailHtml(
               <td style="padding:0 22px 24px;">
                 <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;border:1px solid #dbe4ee;border-radius:18px;overflow:hidden;">
                   <tr>
-                    <td colspan="2" style="padding:16px 18px;background:#eaf4fb;font-size:13px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#12345b;">
+                    <td colspan="2" style="padding:16px 18px;background:#f1f6fa;font-size:13px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#35506b;">
                       ${escapeHtml(requestDetailsLabel)}
                     </td>
                   </tr>
@@ -584,10 +584,10 @@ function buildReadableContactEmailHtml(
         <td>
           <table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #d7e3ee;border-radius:18px;">
             <tr>
-              <td style="padding:18px 20px 10px;font-size:14px;line-height:1.7;color:#334155;">
-                ${escapeHtml(replyLabel)} <strong style="color:#0f172a;">${escapeHtml(
+              <td style="padding:18px 20px 10px;font-size:14px;line-height:1.7;color:#52667a;">
+                ${escapeHtml(replyLabel)} <strong style="color:#243b53;">${escapeHtml(
                   payload.name,
-                )}</strong> en <a href="mailto:${escapeHtml(payload.email)}" style="color:#015095;text-decoration:none;font-weight:700;">${escapeHtml(
+                )}</strong> en <a href="mailto:${escapeHtml(payload.email)}" style="color:#2f6f9f;text-decoration:none;font-weight:700;">${escapeHtml(
                   payload.email,
                 )}</a>.
               </td>
